@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_menu">
+        <item>ประวัติ</item>
+        <item>โซน</item>
+        <item>สถานที่ท่องเที่ยว</item>
+        <item>แผนที่</item>
+        <item>เครือข่าย</item>
+        <item>บริการ</item>
+        <item>ลานจอดรถ</item>
+        <item>ที่พัก</item>
+        <item>ติดต่อเรา</item>
+        <item>Dashboard</item>
+    </string-array>
+    <string-array name="zone_menu">
+        <item>โซน 1</item>
+        <item>โซน 2</item>
+        <item>โซน 3</item>
+        <item>โซน 4</item>
+        <item>โซน 5</item>
+        <item>โซน 6</item>
+        <item>โซน 7</item>
+        <item>โซน 8</item>
+    </string-array>
+    <string-array name="zone_shop">
+        <item>ร้านที่ 1</item>
+        <item>ร้านที่ 2</item>
+        <item>ร้านที่ 3</item>
+        <item>ร้านที่ 4</item>
+        <item>ร้านที่ 5</item>
+        <item>ร้านที่ 6</item>
+        <item>ร้านที่ 7</item>
+        <item>ร้านที่ 8</item>
+        <item>ร้านที่ 9</item>
+        <item>ร้านที่ 10</item>
+        <item>ร้านที่ 11</item>
+        <item>ร้านที่ 12</item>
+    </string-array>
+    <string-array name="zone1_shop">
+        <item>ร้านจำหน่ายเหรียญกษาปณ์ที่ระลึก, ธนบัตรเก่า</item>
+        <item>ร้านของฝากน้ำองุ่นแคร์</item>
+        <item>ร้านแกงมัสมั่น-น้ำพริกมะขามป้าเขียว</item>
+        <item>ร้านเกดปลาเผา(สาขา2)</item>
+        <item>ร้านมะพร้าวอ่อนบ้านแล้ว(สวนลุงสุชาติ)</item>
+        <item>ร้านผักปลอดภัยจากสารพิษทวีวัฒนากลุ่มวิสาหกิจชุมชนและเครือข่ายโครงการหลวง</item>
+        <item>ร้านเสื้อแบรนด์ outlet จากญี่ปุ่น(โซนป้านี)</item>
+        <item>ร้านป๊อบร้อยล้าน</item>
+        <item>ร้านไอติมโบราณลุงชวน</item>
+        <item>ร้านขนมไทยแม่พลอย</item>
+        <item>ร้านมนสา น้ำมัลเบอร์รี่(สวนมัลเบอร์รี่ลุงโส)</item>
+        <item>ร้านสุปราณี ปลาสลิด</item>
+        <item>ร้านกอบเงิน น้ำมะพร้าวปั่นนมสด</item>
+        <item>ร้านเสื้อแฮนด์เมดปักลายผ้า ตลาดน้ำคลองลัดมะยม</item>
+        <item>ร้านชุดว่ายน้ำเฮียเซี๊ย</item>
+        <item>ร้านขนมเบื้องญวนแม่แต๋ว</item>
+        <item>ร้านเมี่ยงคำย่าติ๋ว</item>
+        <item>ร้านข้าวโพด</item>
+        <item>ร้านขนมจีนแม่ณี</item>
+        <item>ร้านสับปะรด(สวนผึ้ง)</item>
+        <item>ร้านที่ 12</item>
+        <item>ร้านที่ 12</item>
+        <item>ร้านที่ 12</item>
+        <item>ร้านที่ 12</item>
+        <item>ร้านที่ 12</item>
+        <item>ร้านที่ 12</item>
+        <item>ร้านที่ 12</item>
+        <item>ร้านที่ 12</item>
+    </string-array>
+    <string-array name="zone2_shop">
+        <item>ร้านขนมจีนป้าไฉน(เจ้าเก่าตลาดน้ำคลองลัดมะยม)</item>
+        <item>ร้านป้าจิ๋ม</item>
+        <item>ร้านขนมเบื้องญวนอาหารโบราณ</item>
+        <item>ร้านป้าติ้กหล่น หล่นปลา หล่นปู หล่นเต้าเจี้ยว</item>
+        <item>ร้านขนมจีบครูติ๋ม</item>
+        <item>ร้านเรื่องหมูหมู</item>
+        <item>ร้านคุณปุ๊ต้นไม้สวยนานาชนิด สวนดอกไม้ย่อม ตุ๊กตาเรซิ่น</item>
+        <item>ร้านน้ำพั้นคุณตุ๊ก</item>
+        <item>ร้านแคบหมูน้ำฝน</item>
+        <item>ร้านก๋วยเตี๋ยวกะลา</item>
+        <item>ร้านต้อง</item>
+    </string-array>
+
+    <string-array name="title_comment">
+        <item>Jason Mraz</item>
+        <item>Katy Perry</item>
+        <item>Taylor Swift</item>
+        <item>Bruno Mars</item>
+        <item>Justin Bieber</item>
+    </string-array>
+
+    <string-array name="detail_comment">
+        <item>อาหารอร่อยและราคาไม่แฟง</item>
+        <item>บรรยากาศดีมาก</item>
+        <item>บริการดีมาก และอาหารมีคุณภาพ</item>
+        <item>อาหารแพงไปหน่อยครับ .......................................................................................................................................</item>
+        <item>บริการดี อาหารอร่อย </item>
+    </string-array>
+
+    <string-array name="travel">
+        <item>สวนกล้วยไม้ลุงนิยม</item>
+        <item>สวนแก้วมังกร</item>
+        <item>ศูนย์การเรียนรู้การเพิ่มประสิทธิภาพการผลิตสินค้าเกษตร</item>
+        <item>ศูนย์การเรียนรู้เห็ดแบบครบวงจร</item>
+    </string-array>
+
+
+</resources>
