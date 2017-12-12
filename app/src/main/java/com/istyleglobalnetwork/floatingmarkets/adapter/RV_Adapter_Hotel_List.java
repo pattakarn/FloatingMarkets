@@ -18,16 +18,18 @@ import com.istyleglobalnetwork.floatingmarkets.R;
 public class RV_Adapter_Hotel_List extends BaseAdapter {
 
     Context mContext;
-    String[] listShop;
+    String[] nameHotel;
+    int[] imageHotel;
 
-    public RV_Adapter_Hotel_List(Context context, String[] listShop) {
+    public RV_Adapter_Hotel_List(Context context, String[] nameHotel, int[] imageHotel) {
         this.mContext = context;
-        this.listShop = listShop;
+        this.nameHotel = nameHotel;
+        this.imageHotel = imageHotel;
     }
 
     @Override
     public int getCount() {
-        return listShop.length;
+        return nameHotel.length;
     }
 
     @Override
@@ -56,17 +58,15 @@ public class RV_Adapter_Hotel_List extends BaseAdapter {
         TextView tvPrice = (TextView) view.findViewById(R.id.tv_price);
         TextView tvRating = (TextView) view.findViewById(R.id.tv_rating);
 
-        tvTitle.setText(listShop[position]);
+        tvTitle.setText(nameHotel[position]);
+        imageView.setImageResource(imageHotel[position]);
         if (position == 0){
-            imageView.setImageResource(R.drawable.ice1);
             tvLocation.setText("ตลิ่งชัน");
             tvPrice.setText("500 บาท");
         } else if (position == 1){
-            imageView.setImageResource(R.drawable.ice2);
             tvLocation.setText("ปิ่นเกล้า");
             tvPrice.setText("350 บาท");
         } else if (position == 2){
-            imageView.setImageResource(R.drawable.ice3);
             tvLocation.setText("พุทธมณฑลสาย 1");
             tvPrice.setText("1000 บาท");
         }

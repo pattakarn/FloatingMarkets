@@ -18,23 +18,17 @@
         android:layout_height="36dp"
         android:background="@android:color/darker_gray"
         android:gravity="center"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:text="ติดต่อเรา"
+        android:text="บริการ"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
+    <ListView
+        android:id="@+id/lv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="website : www.istyleglobalnetwork.com, www.istyle.in.th
-        \nphone :
-        \nline :
-        \nfacebook"/>
+        android:layout_height="match_parent">
 
-
+    </ListView>
 
 
 </LinearLayout>

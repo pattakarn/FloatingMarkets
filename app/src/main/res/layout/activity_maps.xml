@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.istyleglobalnetwork.floatingmarkets.HomeZoneActivity">
+    tools:context="com.istyleglobalnetwork.floatingmarkets.MapsActivity" >
 
     <com.istyleglobalnetwork.floatingmarkets.HeaderViewGroup
         android:layout_width="match_parent"
@@ -19,7 +19,6 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.istyleglobalnetwork.floatingmarkets.MapsActivity" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

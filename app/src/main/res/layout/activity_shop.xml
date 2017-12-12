@@ -38,58 +38,58 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical"-->
-                <!--android:padding="4dp"-->
-                <!--android:weightSum="2">-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="4dp"
+                android:weightSum="2">
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="120dp"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:weightSum="2">-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <!--<ImageView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginRight="2dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:src="@drawable/talad3" />-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/talad3" />
 
-                    <!--<ImageView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="2dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:src="@drawable/talad1" />-->
-                <!--</LinearLayout>-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/talad1" />
+                </LinearLayout>
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="120dp"-->
-                    <!--android:layout_marginBottom="4dp"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:weightSum="2">-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <!--<ImageView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginRight="2dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:src="@drawable/talad2" />-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/talad2" />
 
-                    <!--<ImageView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="2dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:src="@drawable/talad4" />-->
-                <!--</LinearLayout>-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/talad4" />
+                </LinearLayout>
 
-            <!--</LinearLayout>-->
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

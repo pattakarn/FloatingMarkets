@@ -15,21 +15,21 @@ import com.istyleglobalnetwork.floatingmarkets.R;
  * Created by Sung on 20/11/2017 AD.
  */
 
-public class RV_Adapter_List_Travel extends BaseAdapter {
+public class RV_Adapter_List_Network extends BaseAdapter {
 
     Context mContext;
-    String[] listTravel;
-    int[] imageTravel;
+    String[] listNetwork;
+    int[] imageNetwork;
 
-    public RV_Adapter_List_Travel(Context context, String[] listTravel, int[] imageTravel) {
+    public RV_Adapter_List_Network(Context context, String[] listNetwork, int[] imageNetwork) {
         this.mContext = context;
-        this.listTravel = listTravel;
-        this.imageTravel = imageTravel;
+        this.listNetwork = listNetwork;
+        this.imageNetwork = imageNetwork;
     }
 
     @Override
     public int getCount() {
-        return listTravel.length;
+        return listNetwork.length;
     }
 
     @Override
@@ -56,8 +56,9 @@ public class RV_Adapter_List_Travel extends BaseAdapter {
         ImageView iv = (ImageView) view.findViewById(R.id.iv);
         TextView tv = (TextView) view.findViewById(R.id.tv);
 
-        tv.setText(listTravel[position]);
-        iv.setImageResource(imageTravel[position]);
+        tv.setText(listNetwork[position]);
+        iv.setImageResource(imageNetwork[position]);
+
 
 //        ll.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    tools:context="com.istyleglobalnetwork.floatingmarkets.ProductItemActivity">
 
     <com.istyleglobalnetwork.floatingmarkets.HeaderViewGroup
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         />
 
     <TextView
-        android:id="@+id/tv"
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="36dp"
+        android:layout_below="@+id/header"
         android:background="@android:color/darker_gray"
         android:gravity="center"
         android:paddingTop="4dp"
@@ -25,16 +26,10 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="website : www.istyleglobalnetwork.com, www.istyle.in.th
-        \nphone :
-        \nline :
-        \nfacebook"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_title"></android.support.v7.widget.RecyclerView>
 
-
-
-
-</LinearLayout>
+</RelativeLayout>

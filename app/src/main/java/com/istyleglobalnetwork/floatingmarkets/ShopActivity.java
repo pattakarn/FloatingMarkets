@@ -48,7 +48,7 @@ public class ShopActivity extends AppCompatActivity {
         ivProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ShopActivity.this, ProductActivity.class);
+                Intent intent = new Intent(ShopActivity.this, ProductListActivity.class);
                 intent.putExtra("NameShop", nameShop);
                 startActivity(intent);
             }

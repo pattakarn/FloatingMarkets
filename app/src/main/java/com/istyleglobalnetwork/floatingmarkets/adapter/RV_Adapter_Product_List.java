@@ -15,19 +15,21 @@ import com.istyleglobalnetwork.floatingmarkets.R;
  * Created by Sung on 20/11/2017 AD.
  */
 
-public class RV_Adapter_Product extends BaseAdapter {
+public class RV_Adapter_Product_List extends BaseAdapter {
 
     Context mContext;
-    String[] listShop;
+    String[] listItem;
+    int[] imageItem;
 
-    public RV_Adapter_Product(Context context, String[] listShop) {
+    public RV_Adapter_Product_List(Context context, String[] listItem, int[] imageItem) {
         this.mContext = context;
-        this.listShop = listShop;
+        this.listItem = listItem;
+        this.imageItem = imageItem;
     }
 
     @Override
     public int getCount() {
-        return listShop.length;
+        return listItem.length;
     }
 
     @Override
@@ -56,20 +58,20 @@ public class RV_Adapter_Product extends BaseAdapter {
         TextView tv_price = (TextView) view.findViewById(R.id.tv_price);
         TextView tv_rating = (TextView) view.findViewById(R.id.tv_rating);
 
-        tv_title.setText(listShop[position]);
+        tv_title.setText(listItem[position]);
+        imageView.setImageResource(imageItem[position]);
         if (position == 0){
-            imageView.setImageResource(R.drawable.ice1);
             tv_detail.setText("ไอศรีมรสรวมมิตร ใส่ถ้วย");
             tv_price.setText("20 บาท");
         } else if (position == 1){
-            imageView.setImageResource(R.drawable.ice2);
             tv_detail.setText("ไอศรีมรสรวมมิตร ใส่ถขนมปัง");
             tv_price.setText("15 บาท");
         } else if (position == 2){
-            imageView.setImageResource(R.drawable.ice3);
             tv_detail.setText("ไอศรีมรสรวมมิตร ใส่ถลูกมะพร้าว");
             tv_price.setText("30 บาท");
         }
+
+
 
 
 

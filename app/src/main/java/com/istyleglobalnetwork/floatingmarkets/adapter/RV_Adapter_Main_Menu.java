@@ -16,7 +16,9 @@ import com.istyleglobalnetwork.floatingmarkets.HomeZoneActivity;
 import com.istyleglobalnetwork.floatingmarkets.HotelListActivity;
 import com.istyleglobalnetwork.floatingmarkets.InformationActivity;
 import com.istyleglobalnetwork.floatingmarkets.MapsActivity;
+import com.istyleglobalnetwork.floatingmarkets.NetworkListActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.ServiceListActivity;
 import com.istyleglobalnetwork.floatingmarkets.TravelActivity;
 
 /**
@@ -112,6 +114,18 @@ public class RV_Adapter_Main_Menu extends BaseAdapter {
                         mContext.startActivity(intent);
                     } else if (position == 3){
                         Intent intent = new Intent(mContext, MapsActivity.class);
+//                EditText editText = (EditText) findViewById(R.id.editText);
+//                String message = editText.getText().toString();
+//                intent.putExtra(EXTRA_MESSAGE, message);
+                        mContext.startActivity(intent);
+                    } else if (position == 4){
+                        Intent intent = new Intent(mContext, NetworkListActivity.class);
+//                EditText editText = (EditText) findViewById(R.id.editText);
+//                String message = editText.getText().toString();
+//                intent.putExtra(EXTRA_MESSAGE, message);
+                        mContext.startActivity(intent);
+                    } else if (position == 5){
+                        Intent intent = new Intent(mContext, ServiceListActivity.class);
 //                EditText editText = (EditText) findViewById(R.id.editText);
 //                String message = editText.getText().toString();
 //                intent.putExtra(EXTRA_MESSAGE, message);
