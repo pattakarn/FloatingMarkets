@@ -45,6 +45,7 @@
             android:name=".CarParkActivity"
             android:label="@string/title_activity_car_park" />
         <activity android:name=".TravelActivity" />
+        <activity android:name=".HotelListActivity" />
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".RatingActivity" />
         <activity android:name=".ProductActivity"></activity>
