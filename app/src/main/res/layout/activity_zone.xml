@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.istyleglobalnetwork.floatingmarkets.ZoneActivity">
 
-    <com.istyleglobalnetwork.floatingmarkets.HeaderViewGroup
+    <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
         android:layout_width="match_parent"
         android:layout_height="110dp"
         />

@@ -1,10 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.istyleglobalnetwork.floatingmarkets.HomeZoneActivity">
 
-</ListView>
+    <!--<ListView-->
+        <!--android:id="@+id/lv"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/tv_title"-->
+        <!--android:layout_marginBottom="64dp">-->
+
+    <!--</ListView>-->
+    <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_below="@+id/header"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="ร้านค้า"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginBottom="60dp"></android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/shape_button"
+        android:text="WRITE A REVIEW"
+        android:layout_alignParentBottom="true"
+        android:textColor="@android:color/holo_blue_light"/>
+
+
+</RelativeLayout>

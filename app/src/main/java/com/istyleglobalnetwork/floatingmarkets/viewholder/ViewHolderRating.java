@@ -2,6 +2,7 @@ package com.istyleglobalnetwork.floatingmarkets.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -24,6 +25,8 @@ public class ViewHolderRating extends RecyclerView.ViewHolder {
 
     private RatingBar ratingBar;
 
+    private Button btnRating;
+
     public ViewHolderRating(View itemView) {
         super(itemView);
         tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -36,6 +39,8 @@ public class ViewHolderRating extends RecyclerView.ViewHolder {
         tv1star = (TextView) itemView.findViewById(R.id.tv_1star);
 
         ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
+
+        btnRating = (Button) itemView.findViewById(R.id.btn_rating);
     }
 
     public TextView getTitle() {
@@ -108,5 +113,21 @@ public class ViewHolderRating extends RecyclerView.ViewHolder {
 
     public void setRatingBar(RatingBar ratingBar) {
         this.ratingBar = ratingBar;
+    }
+
+    public TextView getTvTitle() {
+        return tvTitle;
+    }
+
+    public void setTvTitle(TextView tvTitle) {
+        this.tvTitle = tvTitle;
+    }
+
+    public Button getBtnRating() {
+        return btnRating;
+    }
+
+    public void setBtnRating(Button btnRating) {
+        this.btnRating = btnRating;
     }
 }

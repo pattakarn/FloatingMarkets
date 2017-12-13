@@ -1,0 +1,181 @@
+package com.istyleglobalnetwork.floatingmarkets.adapter;
+
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
+import com.istyleglobalnetwork.floatingmarkets.ProductItemActivity;
+import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.data.DataImageShop;
+import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderAward;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageShop;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderProduct;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRoom;
+
+import java.util.List;
+
+/**
+ * Created by Sung on 12/12/2017 AD.
+ */
+
+public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private List<Object> items;
+    LayoutInflater inflater;
+
+    private final int TITLE = 0, IMAGE = 1;
+
+    public RV_Adapter_Shop_Item(List<Object> items, LayoutInflater inflater) {
+        this.items = items;
+        this.inflater = inflater;
+    }
+
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        RecyclerView.ViewHolder viewHolder;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        switch (viewType) {
+            case 0:
+                View v1 = inflater.inflate(R.layout.card_image_shop, parent, false);
+                viewHolder = new ViewHolderImageShop(v1);
+                break;
+            case 1:
+                View v2 = inflater.inflate(R.layout.card_award, parent, false);
+                viewHolder = new ViewHolderAward(v2);
+                break;
+            case 2:
+                View v3 = inflater.inflate(R.layout.card_contact, parent, false);
+                viewHolder = new ViewHolderContact(v3);
+                break;
+            case 3:
+                View v5 = inflater.inflate(R.layout.card_rating, parent, false);
+                viewHolder = new ViewHolderRating(v5);
+                break;
+            default:
+//                View v = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+//                viewHolder = new RecyclerViewSimpleTextViewHolder(v);
+                View v6 = inflater.inflate(R.layout.card_product_new, parent, false);
+                viewHolder = new ViewHolderProduct(v6);
+                break;
+        }
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case 0:
+                ViewHolderImageShop vh1 = (ViewHolderImageShop) holder;
+                configureViewHolderImageShop(vh1, position);
+                break;
+            case 1:
+                ViewHolderAward vh2 = (ViewHolderAward) holder;
+                configureViewHolderAward(vh2, position);
+                break;
+            case 2:
+                ViewHolderContact vh3 = (ViewHolderContact) holder;
+                configureViewHolderContact(vh3, position);
+                break;
+            case 3:
+                ViewHolderRating vh5 = (ViewHolderRating) holder;
+                configureViewHolderRating(vh5, position);
+                break;
+            default:
+//                RecyclerViewSimpleTextViewHolder vh = (RecyclerViewSimpleTextViewHolder) viewHolder;
+//                configureDefaultViewHolder(vh, position);
+                ViewHolderProduct vh6 = (ViewHolderProduct) holder;
+                configureViewHolderProduct(vh6, position);
+                break;
+        }
+    }
+
+    private void configureViewHolderContact(ViewHolderContact vh1, int position) {
+
+//        User user = (User) items.get(position);
+//        if (user != null) {
+        vh1.getTvLink().setText("http://www.diamondsweethotel.com");
+        vh1.getTvPhone().setText("02 455 2031");
+        vh1.getTvEmail().setText("diamond_sweet41@hotmail.com");
+//        vh1.getDetail().setText(items.get(position).toString());
+//        }
+    }
+
+    private void configureViewHolderRating(ViewHolderRating vh1, final int position) {
+        vh1.getBtnRating().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(inflater.getContext(), CommentActivity.class);
+                intent.putExtra("Name", items.get(position).toString());
+                inflater.getContext().startActivity(intent);
+            }
+        });
+//        User user = (User) items.get(position);
+//        if (user != null) {
+//        vh1.getDetail().setText(items.get(position).toString());
+//        }
+    }
+
+    private void configureViewHolderRoom(ViewHolderRoom vh1, int position) {
+
+//        User user = (User) items.get(position);
+//        if (user != null) {
+        vh1.getTvName().setText(items.get(position).toString());
+//        vh1.getDetail().setText(items.get(position).toString());
+//        }
+    }
+
+    private void configureViewHolderAward(ViewHolderAward vh2, int position) {
+        vh2.getTvAward().setText("รางวัลที่ 1\nรางวัลที่ 2\nรางวัลที่ 3");
+//        vh2.getImage().setImageResource(R.drawable.talad3);
+    }
+
+    private void configureViewHolderImageShop(ViewHolderImageShop vh2, int position) {
+
+        DataImageShop data = (DataImageShop) items.get(position);
+        vh2.getTvName().setText(data.getNameShop());
+//        vh2.getImage().setImageResource(R.drawable.talad3);
+    }
+
+    private void configureViewHolderProduct(ViewHolderProduct vh2, int position) {
+
+        final DataProductItem data = (DataProductItem) items.get(position);
+        vh2.getIvProduct().setImageResource(data.getImage());
+        vh2.getTvName().setText(data.getNameProduct());
+        vh2.getCv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(inflater.getContext(), ProductItemActivity.class);
+                intent.putExtra("NameShop", data.getNameShop());
+                intent.putExtra("NameItem", data.getNameProduct());
+                intent.putExtra("ImageItem", data.getImage());
+                inflater.getContext().startActivity(intent);
+            }
+        });
+//        vh2.getImage().setImageResource(R.drawable.talad3);
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return this.items.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+//        if (items.get(position) instanceof Text) {
+//            return TITLE;
+//        } else if (items.get(position) instanceof String) {
+//            return IMAGE;
+//        }
+        return position;
+    }
+
+}

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.CarParkActivity;
 import com.istyleglobalnetwork.floatingmarkets.ContactUsActivity;
+import com.istyleglobalnetwork.floatingmarkets.DashboardActivity;
 import com.istyleglobalnetwork.floatingmarkets.HomeZoneActivity;
 import com.istyleglobalnetwork.floatingmarkets.HotelListActivity;
 import com.istyleglobalnetwork.floatingmarkets.InformationActivity;
@@ -144,6 +145,12 @@ public class RV_Adapter_Main_Menu extends BaseAdapter {
                         mContext.startActivity(intent);
                     } else if (position == 8){
                         Intent intent = new Intent(mContext, ContactUsActivity.class);
+//                EditText editText = (EditText) findViewById(R.id.editText);
+//                String message = editText.getText().toString();
+//                intent.putExtra(EXTRA_MESSAGE, message);
+                        mContext.startActivity(intent);
+                    } else if (position == 9){
+                        Intent intent = new Intent(mContext, DashboardActivity.class);
 //                EditText editText = (EditText) findViewById(R.id.editText);
 //                String message = editText.getText().toString();
 //                intent.putExtra(EXTRA_MESSAGE, message);

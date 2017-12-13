@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Product_Item;
+import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
 
 import java.util.ArrayList;
 
@@ -34,12 +35,13 @@ public class ProductItemActivity extends AppCompatActivity {
         initInstances();
         tvTitle.setText(nameItem);
 
+        DataProductItem productItem = new DataProductItem(nameShop, imageItem, nameItem);
 
         ArrayList<Object> data = new ArrayList<Object>();
-        data.add(imageItem);
+        data.add(productItem);
         data.add(nameShop);
         data.add("ไอศรีมที่เป็น Signature ของตลาดน้ำคลองลัดมะยม ใครที่มาตลาดน้ำแล้วไม่ได้กิน ถือว่าพลาดมากครับ");
-        data.add("3");
+        data.add(nameItem);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);

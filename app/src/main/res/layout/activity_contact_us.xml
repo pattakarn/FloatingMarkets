@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <com.istyleglobalnetwork.floatingmarkets.HeaderViewGroup
+    <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
         android:layout_width="match_parent"
         android:layout_height="110dp"
         />
@@ -25,16 +25,10 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
+    <com.istyleglobalnetwork.floatingmarkets.viewgroup.ContactViewGroup
+        android:id="@+id/group_contact"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="website : www.istyleglobalnetwork.com, www.istyle.in.th
-        \nphone :
-        \nline :
-        \nfacebook"/>
-
-
+        android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ContactViewGroup>
 
 
 </LinearLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.istyleglobalnetwork.floatingmarkets.ProductItemActivity">
 
-    <com.istyleglobalnetwork.floatingmarkets.HeaderViewGroup
+    <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="110dp"
@@ -31,14 +31,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_title"
-        android:layout_marginBottom="48dp"
-        android:background="@android:color/darker_gray"></android.support.v7.widget.RecyclerView>
+        android:layout_marginBottom="48dp"></android.support.v7.widget.RecyclerView>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/holo_blue_light"
-        android:text="Buy" />
-
+        android:background="@drawable/shape_button_buy"
+        android:text="Buy"
+        android:textColor="@android:color/white"
+        android:layout_margin="4dp"/>
 </RelativeLayout>

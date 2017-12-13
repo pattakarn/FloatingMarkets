@@ -1,12 +1,15 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImage;
+import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderText1;
 
@@ -19,6 +22,7 @@ import java.util.List;
 public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Object> items;
+    LayoutInflater inflater;
 
     private final int TITLE = 0, IMAGE = 1;
 
@@ -29,12 +33,12 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        this.inflater = LayoutInflater.from(parent.getContext());
 
         switch (viewType) {
             case 0:
-                View v2 = inflater.inflate(R.layout.card_image, parent, false);
-                viewHolder = new ViewHolderImage(v2);
+                View v2 = inflater.inflate(R.layout.card_image_product, parent, false);
+                viewHolder = new ViewHolderImageProduct(v2);
                 break;
             case 1:
                 View v1 = inflater.inflate(R.layout.card_text1, parent, false);
@@ -61,8 +65,8 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case 0:
-                ViewHolderImage vh2 = (ViewHolderImage) holder;
-                configureViewHolderImage(vh2, position);
+                ViewHolderImageProduct vh2 = (ViewHolderImageProduct) holder;
+                configureViewHolderImageProduct(vh2, position);
                 break;
             case 1:
                 ViewHolderText1 vh1 = (ViewHolderText1) holder;
@@ -74,7 +78,7 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
                 break;
             case 3:
                 ViewHolderRating vh4 = (ViewHolderRating) holder;
-                configureViewHolderRating(vh4);
+                configureViewHolderRating(vh4, position);
                 break;
 
             default:
@@ -100,12 +104,21 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
 //        }
     }
 
-    private void configureViewHolderImage(ViewHolderImage vh2, int position) {
-        vh2.getImage().setImageResource((Integer) items.get(position));
+    private void configureViewHolderImageProduct(ViewHolderImageProduct vh2, int position) {
+        DataProductItem data = (DataProductItem) items.get(position);
+        vh2.getTvName().setText(data.getNameProduct());
     }
 
-    private void configureViewHolderRating(ViewHolderRating vh2) {
+    private void configureViewHolderRating(ViewHolderRating vh2, final int position) {
 //        vh2.getImage().setImageResource(R.drawable.talad3);
+        vh2.getBtnRating().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(inflater.getContext(), CommentActivity.class);
+                intent.putExtra("Name", items.get(position).toString());
+                inflater.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

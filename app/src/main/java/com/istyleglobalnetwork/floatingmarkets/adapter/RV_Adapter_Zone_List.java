@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.ShopActivity;
+import com.istyleglobalnetwork.floatingmarkets.ShopItemActivity;
 
 /**
  * Created by Sung on 20/11/2017 AD.
@@ -61,7 +61,7 @@ public class RV_Adapter_Zone_List extends BaseAdapter {
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ShopActivity.class);
+                Intent intent = new Intent(mContext, ShopItemActivity.class);
                 intent.putExtra("NameShop", listShop[position]);
                 mContext.startActivity(intent);
             }

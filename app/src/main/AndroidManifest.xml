@@ -62,7 +62,12 @@
         <activity android:name=".ProductItemActivity" />
         <activity android:name=".HotelItemActivity" />
         <activity android:name=".ServiceListActivity" />
-        <activity android:name=".NetworkListActivity"></activity>
+        <activity android:name=".NetworkListActivity" />
+        <activity android:name=".ShopItemActivity" />
+        <activity
+            android:name=".DashboardActivity"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

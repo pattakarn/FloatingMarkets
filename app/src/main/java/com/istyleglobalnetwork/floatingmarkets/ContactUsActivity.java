@@ -1,9 +1,13 @@
 package com.istyleglobalnetwork.floatingmarkets;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.istyleglobalnetwork.floatingmarkets.viewgroup.ContactViewGroup;
 
 public class ContactUsActivity extends AppCompatActivity {
+
+    ContactViewGroup gContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -12,6 +16,17 @@ public class ContactUsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        initInstances();
+
+        gContact.getTvLink().setText("www.istyleglobalnetwork.com\nwww.istyle.in.th");
+        gContact.getTvEmail().setText("istyleglobalnetwork@gmail.com");
+    }
+
+    private void initInstances() {
+        // init instance with rootView.findViewById here
+        gContact = (ContactViewGroup) findViewById(R.id.group_contact);
+
     }
 
     @Override

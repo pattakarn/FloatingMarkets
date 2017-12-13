@@ -24,15 +24,15 @@ public class RatingActivity extends AppCompatActivity {
         TextView tv_title = (TextView) findViewById(R.id.tv_title);
         TextView tv_title_rating = (TextView) findViewById(R.id.tv_title_rating);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        final TextView tv_result = (TextView) findViewById(R.id.tv_result);
+//        final TextView tv_result = (TextView) findViewById(R.id.tv_result);
         Button btn_submit = (Button) findViewById(R.id.btn_submit);
 
-        tv_title.setText(nameShop + "\nRating : 4.5");
+        tv_title.setText(nameShop);
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                tv_result.setText("Result : " + v);
+//                tv_result.setText("Result : " + v);
             }
         });
     }

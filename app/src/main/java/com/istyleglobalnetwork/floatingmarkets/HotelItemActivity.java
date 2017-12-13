@@ -1,14 +1,13 @@
 package com.istyleglobalnetwork.floatingmarkets;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Hotel_Item;
+import com.istyleglobalnetwork.floatingmarkets.data.DataImageHotel;
 
 import java.util.ArrayList;
 
@@ -28,9 +27,6 @@ public class HotelItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        LayoutInflater inflater = getLayoutInflater();
-        FragmentManager fm = getFragmentManager();
-
 
         Bundle bundle = getIntent().getExtras();
         nameHotel = bundle.getString("NameHotel", "");
@@ -39,11 +35,15 @@ public class HotelItemActivity extends AppCompatActivity {
         initInstances();
         tvTitle.setText(nameHotel);
 
+        DataImageHotel dataImageHotel = new DataImageHotel(imageHotel, nameHotel, "4");
+
 
 
         ArrayList<Object> data = new ArrayList<Object>();
-        data.add(imageHotel);
-        data.add("1");
+        data.add(dataImageHotel);
+        data.add("contact");
+        data.add("location");
+        data.add(nameHotel);
         data.add("Twin - Non - Smoking");
         data.add("Standard Double Room");
         data.add("Standard Twin Room");
@@ -53,7 +53,7 @@ public class HotelItemActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
-        RV_Adapter_Hotel_Item adapterList = new RV_Adapter_Hotel_Item(data, inflater);
+        RV_Adapter_Hotel_Item adapterList = new RV_Adapter_Hotel_Item(data);
         rv.setAdapter(adapterList);
     }
 

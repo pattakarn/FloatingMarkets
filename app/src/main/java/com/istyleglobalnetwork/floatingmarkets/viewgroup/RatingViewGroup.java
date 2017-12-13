@@ -1,49 +1,56 @@
-package com.istyleglobalnetwork.floatingmarkets;
+package com.istyleglobalnetwork.floatingmarkets.viewgroup;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.istyleglobalnetwork.floatingmarkets.R;
 
 /**
  * Created by Sung on 12/12/2017 AD.
  */
 
-public class HeaderViewGroup extends LinearLayout {
+public class RatingViewGroup extends LinearLayout {
 
-    public HeaderViewGroup(@NonNull Context context) {
+    Button btn;
+
+    public RatingViewGroup(@NonNull Context context) {
         super(context);
         initInflate();
         initInstance();
     }
 
-    public HeaderViewGroup(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public RatingViewGroup(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initInflate();
         initInstance();
     }
 
-    public HeaderViewGroup(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public RatingViewGroup(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initInflate();
         initInstance();
     }
 
-    public HeaderViewGroup(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public RatingViewGroup(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initInflate();
         initInstance();
     }
 
     public void initInflate(){
-        inflate(getContext(),R.layout.header_floating_market,this);
+        inflate(getContext(), R.layout.card_rating,this);
     }
 
     public void initInstance(){
 //        tvTitle = (TextView) findViewById(R.id.tv_title);
+        btn = (Button) findViewById(R.id.btn_rating);
+        btn.setVisibility(View.INVISIBLE);
+
     }
 
     public void setTitle(String text){
