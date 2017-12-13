@@ -2,11 +2,19 @@ package com.istyleglobalnetwork.floatingmarkets;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
-import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_List_Network;
+import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Travel;
+import com.istyleglobalnetwork.floatingmarkets.data.DataTravelItem;
+
+import java.util.ArrayList;
 
 public class NetworkListActivity extends AppCompatActivity {
+
+    RecyclerView rv;
+    TextView tv_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,13 +24,27 @@ public class NetworkListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        int[] imageNetwork = {R.drawable.network1, R.drawable.network2, R.drawable.network3, R.drawable.network4};
-        String[] listNetwork = {"ศูนย์ภูมิรักษ์ธรรมชาติ", "โรงเรียนโพธิสารพิทยากร", "กลุ่มเพราะเห็ด", "สวนผักออแกร์นิค"};
+        initInstances();
 
-        RV_Adapter_List_Network adapter = new RV_Adapter_List_Network(this, listNetwork, imageNetwork);
+        ArrayList<Object> data = new ArrayList<Object>();
+        data.add(new DataTravelItem(R.drawable.network1, "ศูนย์ภูมิรักษ์ธรรมชาติ"));
+        data.add(new DataTravelItem(R.drawable.network2, "โรงเรียนโพธิสารพิทยากร"));
+        data.add(new DataTravelItem(R.drawable.network3, "กลุ่มเพราะเห็ด"));
+        data.add(new DataTravelItem(R.drawable.network4, "สวนผักออแกร์นิค"));
 
-        ListView listView = (ListView)findViewById(R.id.lv);
-        listView.setAdapter(adapter);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rv.setLayoutManager(llm);
+        RV_Adapter_Travel adapterList = new RV_Adapter_Travel(data);
+        rv.setAdapter(adapterList);
+    }
+
+    private void initInstances() {
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        rv = (RecyclerView) findViewById(R.id.rv);
+//        iv_company = (ImageView) rootView.findViewById(R.id.iv_company);
+//        iv_company.setOnClickListener(this);
+
     }
 
     @Override

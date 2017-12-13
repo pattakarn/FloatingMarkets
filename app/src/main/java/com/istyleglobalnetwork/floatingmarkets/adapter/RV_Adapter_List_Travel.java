@@ -1,15 +1,17 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.TravelItemActivity;
 
 /**
  * Created by Sung on 20/11/2017 AD.
@@ -51,7 +53,7 @@ public class RV_Adapter_List_Travel extends BaseAdapter {
             view = mInflater.inflate(R.layout.card_travel, viewGroup, false);
         }
 
-        LinearLayout ll = (LinearLayout) view.findViewById(R.id.ll);
+        RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.rl);
 
         ImageView iv = (ImageView) view.findViewById(R.id.iv);
         TextView tv = (TextView) view.findViewById(R.id.tv);
@@ -67,6 +69,15 @@ public class RV_Adapter_List_Travel extends BaseAdapter {
 //                mContext.startActivity(intent);
 //            }
 //        });
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, TravelItemActivity.class);
+                intent.putExtra("NameItem", listTravel[position]);
+                intent.putExtra("ImageItem", imageTravel[position]);
+                mContext.startActivity(intent);
+            }
+        });
 
 
         return view;

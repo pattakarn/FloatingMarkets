@@ -28,7 +28,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:src="@drawable/icon_award"
-            android:layout_margin="4dp"/>
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/tv_award"
