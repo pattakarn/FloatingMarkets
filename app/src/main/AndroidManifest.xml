@@ -21,17 +21,10 @@
         android:icon="@mipmap/ic_floating_market"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".HomeZoneActivity" />
-        <activity android:name=".ZoneActivity" />
-        <activity android:name=".ShopActivity" />
+        <activity android:name=".ShopListActivity" />
         <activity android:name=".CommentActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -54,21 +47,30 @@
         <activity
             android:name=".CarParkActivity"
             android:label="@string/title_activity_car_park" />
-        <activity android:name=".TravelActivity" />
-        <activity android:name=".HotelListActivity" />
+        <activity android:name=".activity.travel.TravelActivity" />
+        <activity android:name=".activity.hotel.HotelListActivity" />
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".RatingActivity" />
-        <activity android:name=".ProductListActivity" />
-        <activity android:name=".ProductItemActivity" />
-        <activity android:name=".HotelItemActivity" />
-        <activity android:name=".ServiceListActivity" />
-        <activity android:name=".NetworkListActivity" />
-        <activity android:name=".ShopItemActivity" />
+        <activity android:name=".activity.product.ProductItemActivity" />
+        <activity android:name=".activity.hotel.HotelItemActivity" />
+        <activity android:name=".activity.service.ServiceListActivity" />
+        <activity android:name=".activity.network.NetworkListActivity" />
+        <activity android:name=".activity.shop.ShopItemActivity" />
         <activity
             android:name=".DashboardActivity"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TravelItemActivity"></activity>
+        <activity android:name=".activity.travel.TravelItemActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.service.ServiceItemActivity" />
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.istyleglobalnetwork.floatingmarkets.HotelItemActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.hotel.HotelItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.data.DataHotelItem;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderHotel;

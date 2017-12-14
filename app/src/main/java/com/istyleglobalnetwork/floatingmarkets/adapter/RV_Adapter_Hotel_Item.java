@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
+import com.istyleglobalnetwork.floatingmarkets.MapsActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.data.DataImageHotel;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
@@ -50,7 +50,7 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
                 break;
             case 2:
                 View v4 = inflater.inflate(R.layout.card_location, parent, false);
-                viewHolder = new ViewHolderLocation(v4, inflater);
+                viewHolder = new ViewHolderLocation(v4);
                 break;
             case 3:
                 View v5 = inflater.inflate(R.layout.card_rating, parent, false);
@@ -143,8 +143,8 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
         vh2.getIbMap().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(inflater.getContext(), "Hello Google Map", Toast.LENGTH_SHORT);
-                toast.show();
+                Intent intent = new Intent(inflater.getContext(), MapsActivity.class);
+                inflater.getContext().startActivity(intent);
             }
         });
 

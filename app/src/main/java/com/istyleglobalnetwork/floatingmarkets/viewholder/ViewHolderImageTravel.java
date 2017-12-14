@@ -21,7 +21,7 @@ public class ViewHolderImageTravel extends RecyclerView.ViewHolder {
         super(itemView);
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
 
-        int[] image = { R.drawable.ice1, R.drawable.ice2, R.drawable.ice3};
+        int[] image = { R.drawable.tra_item_1, R.drawable.tra_item_2, R.drawable.tra_item_3, R.drawable.tra_item_4};
 
         PagerAdapterImage adapter = new PagerAdapterImage(((AppCompatActivity) itemView.getContext()).getSupportFragmentManager(), image);
         ViewPager pager = (ViewPager) itemView.findViewById(R.id.pager);

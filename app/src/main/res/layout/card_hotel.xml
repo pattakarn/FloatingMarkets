@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="8dp"
-                        android:text="size"
+                        android:text="rating"
                         android:textSize="16sp" />
 
 

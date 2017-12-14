@@ -1,6 +1,9 @@
 package com.istyleglobalnetwork.floatingmarkets;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +30,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -63,6 +67,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //
 //        LatLng center = new LatLng(13.761868, 100.415591);
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 12));
+
+
+
 
         LatLng market = new LatLng(13.761868, 100.415591);
 //        mMap.setMyLocationEnabled(true);
@@ -103,6 +110,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return infoWindow;
             }
         });
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            return ;
+        }
+        mMap.setMyLocationEnabled(true);
+
 
 
     }
@@ -112,6 +125,5 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         onBackPressed();
         return super.onSupportNavigateUp();
     }
-
 
 }

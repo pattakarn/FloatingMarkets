@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
-import com.istyleglobalnetwork.floatingmarkets.ProductItemActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.product.ProductItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.data.DataImageShop;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
@@ -62,7 +62,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
             default:
 //                View v = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
 //                viewHolder = new RecyclerViewSimpleTextViewHolder(v);
-                View v6 = inflater.inflate(R.layout.card_product_new, parent, false);
+                View v6 = inflater.inflate(R.layout.card_product, parent, false);
                 viewHolder = new ViewHolderProduct(v6);
                 break;
         }

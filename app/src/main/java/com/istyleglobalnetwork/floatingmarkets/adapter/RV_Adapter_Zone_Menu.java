@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.ZoneActivity;
+import com.istyleglobalnetwork.floatingmarkets.ShopListActivity;
 
 /**
  * Created by Sung on 1/17/2017 AD.
@@ -102,7 +102,7 @@ public class RV_Adapter_Zone_Menu extends BaseAdapter {
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(mContext, ZoneActivity.class);
+                    Intent intent = new Intent(mContext, ShopListActivity.class);
                     intent.putExtra("NumberZone", "" + (position + 1));
                     mContext.startActivity(intent);
                 }

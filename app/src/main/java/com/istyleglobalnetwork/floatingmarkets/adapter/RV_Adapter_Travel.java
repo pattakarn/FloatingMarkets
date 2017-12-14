@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.TravelItemActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.travel.TravelItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.data.DataTravelItem;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderTravel;
 

@@ -1,7 +1,6 @@
 package com.istyleglobalnetwork.floatingmarkets.viewholder;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
@@ -19,14 +18,11 @@ public class ViewHolderLocation extends RecyclerView.ViewHolder {
     private RatingBar ratingBar;
     private ImageButton ibMap;
 
-    LayoutInflater inflater;
-
-    public ViewHolderLocation(View itemView, LayoutInflater inflater) {
+    public ViewHolderLocation(final View itemView) {
         super(itemView);
         tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
         ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
         ibMap = (ImageButton) itemView.findViewById(R.id.ib_map);
-        this.inflater = inflater;
     }
 
     public TextView getTvLocation() {
