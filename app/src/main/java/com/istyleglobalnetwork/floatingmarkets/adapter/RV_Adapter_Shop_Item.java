@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
-import com.istyleglobalnetwork.floatingmarkets.activity.product.ProductItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.activity.product.ProductItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.data.DataImageShop;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderAward;
@@ -16,7 +16,7 @@ import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageShop;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRoom;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderTime;
 
 import java.util.List;
 
@@ -52,10 +52,14 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
                 viewHolder = new ViewHolderAward(v2);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_contact, parent, false);
-                viewHolder = new ViewHolderContact(v3);
+                View v3 = inflater.inflate(R.layout.card_time, parent, false);
+                viewHolder = new ViewHolderTime(v3);
                 break;
             case 3:
+                View v4 = inflater.inflate(R.layout.card_contact, parent, false);
+                viewHolder = new ViewHolderContact(v4);
+                break;
+            case 4:
                 View v5 = inflater.inflate(R.layout.card_rating, parent, false);
                 viewHolder = new ViewHolderRating(v5);
                 break;
@@ -81,10 +85,14 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
                 configureViewHolderAward(vh2, position);
                 break;
             case 2:
-                ViewHolderContact vh3 = (ViewHolderContact) holder;
-                configureViewHolderContact(vh3, position);
+                ViewHolderTime vh3 = (ViewHolderTime) holder;
+                configureViewHolderTime(vh3, position);
                 break;
             case 3:
+                ViewHolderContact vh4 = (ViewHolderContact) holder;
+                configureViewHolderContact(vh4, position);
+                break;
+            case 4:
                 ViewHolderRating vh5 = (ViewHolderRating) holder;
                 configureViewHolderRating(vh5, position);
                 break;
@@ -123,17 +131,14 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
 //        }
     }
 
-    private void configureViewHolderRoom(ViewHolderRoom vh1, int position) {
-
-//        User user = (User) items.get(position);
-//        if (user != null) {
-        vh1.getTvName().setText(items.get(position).toString());
-//        vh1.getDetail().setText(items.get(position).toString());
-//        }
-    }
-
     private void configureViewHolderAward(ViewHolderAward vh2, int position) {
         vh2.getTvAward().setText("รางวัลที่ 1\nรางวัลที่ 2\nรางวัลที่ 3");
+//        vh2.getImage().setImageResource(R.drawable.talad3);
+    }
+
+    private void configureViewHolderTime(ViewHolderTime vh2, int position) {
+        vh2.getTvDate().setText("วันจันทร์\nวันอังคาร\nวันพุธ\nวันพฤหัสบดี\nวันศุกร์\nวันเสาร์\nวันอาทิตย์");
+        vh2.getTvTime().setText("ปิด\nปิด\n9:00 - 18:00\n9:00 - 18:00\n9:00 - 22:00\n9:00 - 22:00\n9:00 - 22:00");
 //        vh2.getImage().setImageResource(R.drawable.talad3);
     }
 

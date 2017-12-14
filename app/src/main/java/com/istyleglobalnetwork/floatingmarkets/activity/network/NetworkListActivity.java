@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Travel;
+import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Network;
 import com.istyleglobalnetwork.floatingmarkets.data.DataTravelItem;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class NetworkListActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
-        RV_Adapter_Travel adapterList = new RV_Adapter_Travel(data);
+        RV_Adapter_Network adapterList = new RV_Adapter_Network(data);
         rv.setAdapter(adapterList);
     }
 

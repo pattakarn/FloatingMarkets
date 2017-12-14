@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
 import com.istyleglobalnetwork.floatingmarkets.MapsActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.data.DataServiceItem;
+import com.istyleglobalnetwork.floatingmarkets.data.DataNetworkItem;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageService;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageNetwork;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderLocation;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderText1;
@@ -22,14 +22,14 @@ import java.util.List;
  * Created by Sung on 12/12/2017 AD.
  */
 
-public class RV_Adapter_Service_Item extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RV_Adapter_Network_Item extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Object> items;
     LayoutInflater inflater;
 
     private final int TITLE = 0, IMAGE = 1;
 
-    public RV_Adapter_Service_Item(List<Object> items) {
+    public RV_Adapter_Network_Item(List<Object> items) {
         this.items = items;
     }
 
@@ -40,8 +40,8 @@ public class RV_Adapter_Service_Item extends RecyclerView.Adapter<RecyclerView.V
 
         switch (viewType) {
             case 0:
-                View v1 = inflater.inflate(R.layout.card_image_service, parent, false);
-                viewHolder = new ViewHolderImageService(v1);
+                View v1 = inflater.inflate(R.layout.card_image_network, parent, false);
+                viewHolder = new ViewHolderImageNetwork(v1);
                 break;
             case 1:
                 View v2 = inflater.inflate(R.layout.card_location, parent, false);
@@ -73,8 +73,8 @@ public class RV_Adapter_Service_Item extends RecyclerView.Adapter<RecyclerView.V
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case 0:
-                ViewHolderImageService vh1 = (ViewHolderImageService) holder;
-                configureViewHolderImageService(vh1, position);
+                ViewHolderImageNetwork vh1 = (ViewHolderImageNetwork) holder;
+                configureViewHolderImageNetwork(vh1, position);
                 break;
             case 1:
                 ViewHolderLocation vh2 = (ViewHolderLocation) holder;
@@ -118,8 +118,8 @@ public class RV_Adapter_Service_Item extends RecyclerView.Adapter<RecyclerView.V
 //        }
     }
 
-    private void configureViewHolderImageService(ViewHolderImageService vh2, int position) {
-        DataServiceItem data = (DataServiceItem) items.get(position);
+    private void configureViewHolderImageNetwork(ViewHolderImageNetwork vh2, int position) {
+        DataNetworkItem data = (DataNetworkItem) items.get(position);
         vh2.setPagerImage(data.getImageItem());
         vh2.getTvName().setText(data.getNameItem());
     }

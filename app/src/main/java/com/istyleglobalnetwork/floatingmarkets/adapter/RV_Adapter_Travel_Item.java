@@ -15,6 +15,7 @@ import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageTravel;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderLocation;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderText1;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderTime;
 
 import java.util.List;
 
@@ -44,20 +45,24 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
                 viewHolder = new ViewHolderImageTravel(v1);
                 break;
             case 1:
-                View v2 = inflater.inflate(R.layout.card_contact, parent, false);
-                viewHolder = new ViewHolderContact(v2);
+                View v2 = inflater.inflate(R.layout.card_location, parent, false);
+                viewHolder = new ViewHolderLocation(v2);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_location, parent, false);
-                viewHolder = new ViewHolderLocation(v3);
+                View v3 = inflater.inflate(R.layout.card_time, parent, false);
+                viewHolder = new ViewHolderTime(v3);
                 break;
             case 3:
-                View v4 = inflater.inflate(R.layout.card_rating, parent, false);
-                viewHolder = new ViewHolderRating(v4);
+                View v4 = inflater.inflate(R.layout.card_contact, parent, false);
+                viewHolder = new ViewHolderContact(v4);
                 break;
             case 4:
-                View v5 = inflater.inflate(R.layout.card_text2, parent, false);
-                viewHolder = new ViewHolderText1(v5);
+                View v5 = inflater.inflate(R.layout.card_rating, parent, false);
+                viewHolder = new ViewHolderRating(v5);
+                break;
+            case 5:
+                View v6 = inflater.inflate(R.layout.card_text2, parent, false);
+                viewHolder = new ViewHolderText1(v6);
                 break;
 
             default:
@@ -77,20 +82,24 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
                 configureViewHolderImageTravel(vh1, position);
                 break;
             case 1:
-                ViewHolderContact vh2 = (ViewHolderContact) holder;
-                configureViewHolderContact(vh2, position);
+                ViewHolderLocation vh2 = (ViewHolderLocation) holder;
+                configureViewHolderLocation(vh2);
                 break;
             case 2:
-                ViewHolderLocation vh3 = (ViewHolderLocation) holder;
-                configureViewHolderLocation(vh3);
+                ViewHolderTime vh3 = (ViewHolderTime) holder;
+                configureViewHolderTime(vh3, position);
                 break;
             case 3:
-                ViewHolderRating vh4 = (ViewHolderRating) holder;
-                configureViewHolderRating(vh4, position);
+                ViewHolderContact vh4 = (ViewHolderContact) holder;
+                configureViewHolderContact(vh4, position);
                 break;
             case 4:
-                ViewHolderText1 vh5 = (ViewHolderText1) holder;
-                configureViewHolderText2(vh5, position);
+                ViewHolderRating vh5 = (ViewHolderRating) holder;
+                configureViewHolderRating(vh5, position);
+                break;
+            case 5:
+                ViewHolderText1 vh6 = (ViewHolderText1) holder;
+                configureViewHolderText2(vh6, position);
                 break;
             default:
 //                RecyclerViewSimpleTextViewHolder vh = (RecyclerViewSimpleTextViewHolder) viewHolder;
@@ -147,6 +156,12 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
             }
         });
 
+    }
+
+    private void configureViewHolderTime(ViewHolderTime vh2, int position) {
+        vh2.getTvDate().setText("วันจันทร์\nวันอังคาร\nวันพุธ\nวันพฤหัสบดี\nวันศุกร์\nวันเสาร์\nวันอาทิตย์");
+        vh2.getTvTime().setText("ปิด\nปิด\n9:00 - 18:00\n9:00 - 18:00\n9:00 - 22:00\n9:00 - 22:00\n9:00 - 22:00");
+//        vh2.getImage().setImageResource(R.drawable.talad3);
     }
 
     @Override

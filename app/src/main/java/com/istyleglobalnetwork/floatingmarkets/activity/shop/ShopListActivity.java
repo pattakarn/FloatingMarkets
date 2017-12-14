@@ -1,4 +1,4 @@
-package com.istyleglobalnetwork.floatingmarkets;
+package com.istyleglobalnetwork.floatingmarkets.activity.shop;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Shop;
 import com.istyleglobalnetwork.floatingmarkets.data.DataShopItem;
 

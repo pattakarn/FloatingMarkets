@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.ShopListActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.shop.ShopListActivity;
 
 /**
  * Created by Sung on 1/17/2017 AD.

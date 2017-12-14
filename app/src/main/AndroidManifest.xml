@@ -24,7 +24,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".HomeZoneActivity" />
-        <activity android:name=".ShopListActivity" />
+        <activity android:name=".activity.shop.ShopListActivity" />
         <activity android:name=".CommentActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -71,6 +71,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.service.ServiceItemActivity" />
+        <activity android:name=".activity.network.NetworkItemActivity"></activity>
     </application>
 
 </manifest>

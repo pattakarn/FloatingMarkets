@@ -47,6 +47,7 @@ public class ShopItemActivity extends AppCompatActivity {
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(dataImageShop);
         data.add("Award");
+        data.add("Time");
         data.add("contact");
         data.add(nameShop);
         data.add(new DataProductItem(nameShop, R.drawable.ice1, "ไอติมโบรานใส่ถ้วย"));

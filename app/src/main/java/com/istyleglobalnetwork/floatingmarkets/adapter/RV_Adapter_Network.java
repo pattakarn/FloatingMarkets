@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.activity.shop.ShopListActivity;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderZone;
+import com.istyleglobalnetwork.floatingmarkets.activity.network.NetworkItemActivity;
+import com.istyleglobalnetwork.floatingmarkets.data.DataTravelItem;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderTravel;
 
 import java.util.List;
 
@@ -16,14 +17,14 @@ import java.util.List;
  * Created by Sung on 12/12/2017 AD.
  */
 
-public class RV_Adapter_Zone extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RV_Adapter_Network extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Object> items;
     LayoutInflater inflater;
 
     private final int TITLE = 0, IMAGE = 1;
 
-    public RV_Adapter_Zone(List<Object> items) {
+    public RV_Adapter_Network(List<Object> items) {
         this.items = items;
     }
 
@@ -32,27 +33,30 @@ public class RV_Adapter_Zone extends RecyclerView.Adapter<RecyclerView.ViewHolde
         RecyclerView.ViewHolder viewHolder;
         this.inflater = LayoutInflater.from(parent.getContext());
 
-        View v = inflater.inflate(R.layout.card_grid_zone, parent, false);
-        viewHolder = new ViewHolderZone(v);
+        View v = inflater.inflate(R.layout.card_travel, parent, false);
+        viewHolder = new ViewHolderTravel(v);
 
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHolderZone vh = (ViewHolderZone) holder;
-        configureViewHolderZone(vh, position);
+        ViewHolderTravel vh = (ViewHolderTravel) holder;
+        configureViewHolderTravel(vh, position);
     }
 
-    private void configureViewHolderZone(ViewHolderZone vh1, final int position) {
+    private void configureViewHolderTravel(ViewHolderTravel vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        vh1.getIv().setImageResource((Integer) items.get(position));
+        final DataTravelItem data = (DataTravelItem) items.get(position);
+        vh1.getIv().setImageResource(data.getImageItem());
+        vh1.getTv().setText(data.getNameItem());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(inflater.getContext(), ShopListActivity.class);
-                intent.putExtra("NumberZone", "" + (position + 1));
+                Intent intent = new Intent(inflater.getContext(), NetworkItemActivity.class);
+                intent.putExtra("NameTravel", data.getNameItem());
+                intent.putExtra("ImageTravel", data.getImageItem());
                 inflater.getContext().startActivity(intent);
 //        }
             }

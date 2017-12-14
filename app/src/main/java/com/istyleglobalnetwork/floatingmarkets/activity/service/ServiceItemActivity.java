@@ -59,8 +59,8 @@ public class ServiceItemActivity extends AppCompatActivity {
 
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(travelItem);
-        data.add("contact");
         data.add("location");
+        data.add("contact");
         data.add("rating");
         data.add("สวนพฤษศาสตร์ของประเทศสิงคโปร์(Singapore Botanic Garden)เป็นสวนสาธารณะขนาดใหญ่ที่เก่าแก่ มีอายุมากกว่า 150 ปีแล้วและเป็นสวนที่ได้รับการขึ้นทะเบียนเป็นมรดกโลกจากยูเนสโก(UNESCO World Heritage)ด้วย เป็นสวนที่ได้รับการออกแบบและบริหารจัดการเป็นอย่างดี จนได้รับรางวัลมากมายเช่น Best Garden in Asia จากเว็บ TripAdvisor ติดกันมาตั้งแต่ปี 2012 และอื่นๆอีกหลายรางวัล ภายในแบ่งออกเป็นโซนต่างๆที่น่าสนใจมากมายแต่ที่เป็นไฮไลท์สำคัญของสวนแห่งนี้คือ สวนกล้วยไม้แห่งชาติ(National Orchid Garden) เป็นทั้งสถานที่เรียนรู้ และพักผ่อนหย่อนใจของชาวสิงคโปร์และชาวต่างชาติ\n" +
                 "\n" +
