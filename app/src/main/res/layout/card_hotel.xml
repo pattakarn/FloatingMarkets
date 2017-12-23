@@ -48,12 +48,14 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/room1" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="2">
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    >
 
                     <TextView
                         android:id="@+id/tv_name"
@@ -62,26 +64,39 @@
                         android:text="Name"
                         android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/tv_location"
+                    <RatingBar
+                        android:id="@+id/rb"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_name"
-                        android:text="size"
-                        android:textSize="16sp" />
+                        android:numStars="5"
+                        android:rating="4"
+                        android:layout_marginTop="4dp"/>
 
-                    <TextView
-                        android:id="@+id/tv_rating"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="8dp"
-                        android:text="rating"
-                        android:textSize="16sp" />
+                        android:orientation="horizontal"
+                        android:paddingRight="64dp"
+                        android:layout_marginTop="4dp">
 
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="4dp"
+                            android:src="@drawable/icon_location" />
 
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Thonburi" />
 
-                </RelativeLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
 
 
             </LinearLayout>

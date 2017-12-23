@@ -86,15 +86,18 @@
                         android:id="@+id/tv_shipping"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/tv_rating"
+                        android:layout_above="@+id/rb"
                         android:text="Free Shipping" />
 
-                    <TextView
-                        android:id="@+id/tv_rating"
+                    <RatingBar
+                        android:id="@+id/rb"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:text="Rating" />
+                        android:numStars="5"
+                        android:rating="4"
+                        android:layout_marginBottom="4dp"
+                        android:layout_alignParentBottom="true"/>
 
 
                 </RelativeLayout>

@@ -1,9 +1,6 @@
 package com.istyleglobalnetwork.floatingmarkets;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,18 +31,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -69,10 +58,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 12));
 
 
-
-
         LatLng market = new LatLng(13.761868, 100.415591);
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
 //        mMap.setMyLocationEnabled(true);
+//        Log.d("Latitude", "++++++++++++++++++++ " + mMap.getMyLocation().getLatitude() + " " + mMap.getMyLocation().getLongitude());
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(market, 13));
 
         mMap.addMarker(new MarkerOptions()
@@ -110,15 +109,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return infoWindow;
             }
         });
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            return ;
-        }
-        mMap.setMyLocationEnabled(true);
-
-
 
     }
+
+//    @Override
+//    public void onLocationChanged(Location location) {
+//
+//        if (location == null) { return; }
+//
+//        //** Get Latitude & Longitude
+//        Double Latitude = location.getLatitude();
+//        Double Longitude= location.getLongitude();
+//
+//        Log.d("test Map", "++++++++++++ " + Latitude + " " + Longitude);
+//    }
+//
+//    @Override
+//    public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//    }
+//
+//    @Override
+//    public void onProviderEnabled(String provider) {
+//
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(String provider) {
+//
+//    }
+
 
     @Override
     public boolean onSupportNavigateUp() {

@@ -50,14 +50,16 @@ public class RV_Adapter_Main extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //        vh1.getIv().setImageResource((Integer) items.get(position));
         final DataMainMenu data = (DataMainMenu) items.get(position);
         vh1.getTv().setText(data.getNameItem());
-        vh1.getCv().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(inflater.getContext(), data.getcItem());
-                inflater.getContext().startActivity(intent);
+        if (data.getcItem() != null) {
+            vh1.getCv().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(inflater.getContext(), data.getcItem());
+                    inflater.getContext().startActivity(intent);
 //        }
-            }
-        });
+                }
+            });
+        }
 
     }
 

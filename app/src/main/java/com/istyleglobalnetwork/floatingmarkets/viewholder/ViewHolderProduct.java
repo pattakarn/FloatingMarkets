@@ -4,6 +4,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -19,8 +20,9 @@ public class ViewHolderProduct extends RecyclerView.ViewHolder {
     private TextView tvName;
     private TextView tvDetail;
     private TextView tvShipping;
-    private TextView tvRating;
     private TextView tvPrice;
+
+    private RatingBar rb;
 
 
     public ViewHolderProduct(View itemView) {
@@ -30,8 +32,9 @@ public class ViewHolderProduct extends RecyclerView.ViewHolder {
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
         tvDetail = (TextView) itemView.findViewById(R.id.tv_detail);
         tvShipping = (TextView) itemView.findViewById(R.id.tv_shipping);
-        tvRating = (TextView) itemView.findViewById(R.id.tv_rating);
         tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
+
+        rb = (RatingBar) itemView.findViewById(R.id.rb);
     }
 
     public CardView getCv() {
@@ -74,19 +77,19 @@ public class ViewHolderProduct extends RecyclerView.ViewHolder {
         this.tvShipping = tvShipping;
     }
 
-    public TextView getTvRating() {
-        return tvRating;
-    }
-
-    public void setTvRating(TextView tvRating) {
-        this.tvRating = tvRating;
-    }
-
     public TextView getTvPrice() {
         return tvPrice;
     }
 
     public void setTvPrice(TextView tvPrice) {
         this.tvPrice = tvPrice;
+    }
+
+    public RatingBar getRb() {
+        return rb;
+    }
+
+    public void setRb(RatingBar rb) {
+        this.rb = rb;
     }
 }

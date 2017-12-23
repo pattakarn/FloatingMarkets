@@ -4,6 +4,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -18,7 +19,8 @@ public class ViewHolderHotel extends RecyclerView.ViewHolder {
     private ImageView ivHotel;
     private TextView tvName;
     private TextView tvLocation;
-    private TextView tvRating;
+
+    private RatingBar rb;
 
     public ViewHolderHotel(View itemView) {
         super(itemView);
@@ -26,7 +28,7 @@ public class ViewHolderHotel extends RecyclerView.ViewHolder {
         this.ivHotel = (ImageView) itemView.findViewById(R.id.iv_hotel);
         this.tvName = (TextView) itemView.findViewById(R.id.tv_name);
         this.tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
-        this.tvRating = (TextView) itemView.findViewById(R.id.tv_rating);
+        this.rb = (RatingBar) itemView.findViewById(R.id.rb);
     }
 
     public CardView getCv() {
@@ -61,11 +63,11 @@ public class ViewHolderHotel extends RecyclerView.ViewHolder {
         this.tvLocation = tvLocation;
     }
 
-    public TextView getTvRating() {
-        return tvRating;
+    public RatingBar getRb() {
+        return rb;
     }
 
-    public void setTvRating(TextView tvRating) {
-        this.tvRating = tvRating;
+    public void setRb(RatingBar rb) {
+        this.rb = rb;
     }
 }
