@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         data.add(new DataMainMenu(CarParkActivity.class, "ลานจอดรถ"));
         data.add(new DataMainMenu(HotelListActivity.class, "ที่พัก"));
         data.add(new DataMainMenu(ContactUsActivity.class, "ติดต่อเรา"));
-        data.add(new DataMainMenu(null, "Dashboard"));
+        data.add(new DataMainMenu(ManageMainActivity.class, "Dashboard"));
 
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         glm.setOrientation(LinearLayoutManager.VERTICAL);

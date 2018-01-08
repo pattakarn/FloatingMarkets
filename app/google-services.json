@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "8640332612",
+    "firebase_url": "https://floating-market.firebaseio.com",
+    "project_id": "floating-market",
+    "storage_bucket": "floating-market.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8640332612:android:0b22938596f1d2ac",
+        "android_client_info": {
+          "package_name": "com.istyleglobalnetwork.floatingmarkets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8640332612-h59mvqhg8ht7j2q8a33fgnanhbusun6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCma14KmFbufmFOZBx873yNQ0GcA-V98Ls"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

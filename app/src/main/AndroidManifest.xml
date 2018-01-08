@@ -71,6 +71,13 @@
         <activity android:name=".activity.service.ServiceItemActivity" />
         <activity android:name=".activity.network.NetworkItemActivity" />
         <activity android:name=".CartListActivity" />
+        <activity android:name=".ManageMainActivity" />
+        <activity android:name=".ManageMarketActivity" />
+        <activity android:name=".EditMarketActivity" />
+        <activity android:name=".ManageZoneActivity" />
+        <activity android:name=".EditZoneActivity" />
+        <activity android:name=".ManageShopActivity" />
+        <activity android:name=".EditShopActivity"></activity>
     </application>
 
 </manifest>

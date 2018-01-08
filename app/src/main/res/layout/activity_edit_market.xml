@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.istyleglobalnetwork.floatingmarkets.EditMarketActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_below="@+id/header"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="แก้ไขตลาด"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginBottom="52dp">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Market Name"
+                android:textSize="16sp"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorAccent"
+                app:met_singleLineEllipsis="true"
+                android:layout_margin="8dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shape_button_buy"
+            android:text="SAVE"
+            android:textColor="@android:color/white"
+            android:layout_margin="4dp"/>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
