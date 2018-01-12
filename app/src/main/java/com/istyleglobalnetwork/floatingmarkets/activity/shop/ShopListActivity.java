@@ -9,53 +9,83 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbShop;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Shop;
-import com.istyleglobalnetwork.floatingmarkets.data.DataShopItem;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShopListActivity extends AppCompatActivity {
 
     RecyclerView rv;
     TextView tv_title;
 
+    WrapFdbZone itemZone = null;
+
+    DatabaseReference mRootRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
 
-        Bundle bundle = getIntent().getExtras();
-        String numberZone = bundle.getString("NumberZone", "");
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initInstances();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
 
-        tv_title.setText("โซน " + numberZone);
+        Bundle bundle = getIntent().getExtras();
 
-        String listShop[];
-        if (numberZone.equals("1")) {
-            listShop = getResources().getStringArray(R.array.zone1_shop);
-        } else if (numberZone.equals("2")) {
-            listShop = getResources().getStringArray(R.array.zone2_shop);
-        } else {
-            listShop = getResources().getStringArray(R.array.zone_shop);
+        if (bundle != null) {
+
+            itemZone = Parcels.unwrap(bundle.getParcelable("itemZone"));
+            if (itemZone != null) {
+                tv_title.setText(itemZone.getData().getNameZone());
+            }
+
         }
 
-        ArrayList<Object> data = new ArrayList<Object>();
-
-        for (int i=0; i< listShop.length; i++){
-            data.add(new DataShopItem(R.drawable.floating_market_logo, listShop[i]));
-        }
-
+//
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
-        RV_Adapter_Shop adapterList = new RV_Adapter_Shop(data);
-        rv.setAdapter(adapterList);
+
+        setListItem();
+    }
+
+    private void setListItem() {
+        String zone = itemZone.getKey();
+        mRootRef.child("zone-shop").child(zone).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Object> data = new ArrayList<Object>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbShop value = postSnapshot.getValue(FdbShop.class);
+                    data.add(new WrapFdbShop(key, value));
+                }
+
+                RV_Adapter_Shop adapterList = new RV_Adapter_Shop(data);
+                rv.setAdapter(adapterList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initInstances() {

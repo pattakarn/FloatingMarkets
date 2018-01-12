@@ -1,27 +1,22 @@
 package com.istyleglobalnetwork.floatingmarkets.data;
 
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
+
 /**
  * Created by Sung on 13/12/2017 AD.
  */
 
 public class DataProductItem {
 
+    private WrapFdbShop itemShop;
+    private WrapFdbProduct itemProduct;
     private int image;
-    private String nameProduct;
-    private String nameShop;
 
-    public DataProductItem(String nameShop, int image, String nameProduct) {
-        this.nameShop = nameShop;
+    public DataProductItem(WrapFdbShop itemShop, WrapFdbProduct itemProduct, int image) {
+        this.itemShop = itemShop;
+        this.itemProduct = itemProduct;
         this.image = image;
-        this.nameProduct = nameProduct;
-    }
-
-    public String getNameShop() {
-        return nameShop;
-    }
-
-    public void setNameShop(String nameShop) {
-        this.nameShop = nameShop;
     }
 
     public int getImage() {
@@ -32,11 +27,19 @@ public class DataProductItem {
         this.image = image;
     }
 
-    public String getNameProduct() {
-        return nameProduct;
+    public WrapFdbShop getItemShop() {
+        return itemShop;
     }
 
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
+    public void setItemShop(WrapFdbShop itemShop) {
+        this.itemShop = itemShop;
+    }
+
+    public WrapFdbProduct getItemProduct() {
+        return itemProduct;
+    }
+
+    public void setItemProduct(WrapFdbProduct itemProduct) {
+        this.itemProduct = itemProduct;
     }
 }

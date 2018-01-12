@@ -106,7 +106,7 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
 
     private void configureViewHolderImageProduct(ViewHolderImageProduct vh2, int position) {
         DataProductItem data = (DataProductItem) items.get(position);
-        vh2.getTvName().setText(data.getNameProduct());
+        vh2.getTvName().setText(data.getItemProduct().getData().getNameProduct());
     }
 
     private void configureViewHolderRating(ViewHolderRating vh2, final int position) {

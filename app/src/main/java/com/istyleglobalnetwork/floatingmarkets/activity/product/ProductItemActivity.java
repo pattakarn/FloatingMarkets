@@ -12,9 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Product_Item;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -22,10 +26,11 @@ public class ProductItemActivity extends AppCompatActivity {
 
     TextView tvTitle;
     RecyclerView rv;
-    String nameShop;
-    String nameItem;
     Button btnBuy;
     int imageItem;
+
+    WrapFdbShop itemShop = null;
+    WrapFdbProduct itemProduct = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +40,28 @@ public class ProductItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        initInstances();
+
         Bundle bundle = getIntent().getExtras();
-        nameShop = bundle.getString("NameShop", "");
-        nameItem = bundle.getString("NameItem", "");
+
+        if (bundle != null) {
+
+            itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
+
+            itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
+
+        }
         imageItem = bundle.getInt("ImageItem");
 
-        initInstances();
-        tvTitle.setText(nameItem);
+        tvTitle.setText(itemProduct.getData().getNameProduct());
 
-        DataProductItem productItem = new DataProductItem(nameShop, imageItem, nameItem);
+        DataProductItem productItem = new DataProductItem(itemShop, itemProduct, imageItem);
 
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(productItem);
-        data.add(nameShop);
-        data.add("ไอศรีมที่เป็น Signature ของตลาดน้ำคลองลัดมะยม ใครที่มาตลาดน้ำแล้วไม่ได้กิน ถือว่าพลาดมากครับ");
-        data.add(nameItem);
+        data.add(itemShop.getData().getNameShop());
+        data.add(itemProduct.getData().getDescription());
+        data.add(itemProduct.getData().getNameProduct());
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);

@@ -1,15 +1,18 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.activity.shop.ShopItemActivity;
-import com.istyleglobalnetwork.floatingmarkets.data.DataShopItem;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderShop;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -48,15 +51,19 @@ public class RV_Adapter_Shop extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void configureViewHolderShop(ViewHolderShop vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        final DataShopItem data = (DataShopItem) items.get(position);
-        vh1.getIvShop().setImageResource(data.getImageItem());
-        vh1.getTvName().setText(data.getNameItem());
+//        final DataShopItem data = (DataShopItem) items.get(position);
+        final WrapFdbShop data = (WrapFdbShop) items.get(position);
+        vh1.getIvShop().setImageResource(R.drawable.floating_market_logo);
+        vh1.getTvName().setText(data.getData().getNameShop());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), ShopItemActivity.class);
-                intent.putExtra("NameShop", data.getNameItem());
+//                intent.putExtra("NameShop", data.getNameItem());
 //                intent.putExtra("ImageTravel", data.getImageItem());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemShop", Parcels.wrap(data));
+                intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
 //        }
             }

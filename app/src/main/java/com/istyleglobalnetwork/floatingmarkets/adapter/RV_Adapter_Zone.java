@@ -1,14 +1,18 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.activity.shop.ShopListActivity;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderZone;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -18,12 +22,14 @@ import java.util.List;
 
 public class RV_Adapter_Zone extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private List<Object> itemsIv;
     private List<Object> items;
     LayoutInflater inflater;
 
     private final int TITLE = 0, IMAGE = 1;
 
-    public RV_Adapter_Zone(List<Object> items) {
+    public RV_Adapter_Zone(List<Object> itemsIv, List<Object> items) {
+        this.itemsIv = itemsIv;
         this.items = items;
     }
 
@@ -45,14 +51,17 @@ public class RV_Adapter_Zone extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private void configureViewHolderZone(ViewHolderZone vh1, final int position) {
-//        User user = (User) items.get(position);
-//        if (user != null) {
-        vh1.getIv().setImageResource((Integer) items.get(position));
+        final WrapFdbZone data = (WrapFdbZone) items.get(position);
+
+        vh1.getIv().setImageResource((Integer) itemsIv.get(position));
+        vh1.getTv().setText(data.getData().getNameZone());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), ShopListActivity.class);
-                intent.putExtra("NumberZone", "" + (position + 1));
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemZone", Parcels.wrap(data));
+                intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
 //        }
             }

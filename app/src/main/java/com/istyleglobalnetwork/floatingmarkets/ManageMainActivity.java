@@ -31,7 +31,7 @@ public class ManageMainActivity extends AppCompatActivity {
         data.add(new DataMainMenu(ManageMarketActivity.class, "ตลาด"));
         data.add(new DataMainMenu(ManageZoneActivity.class, "โซน"));
         data.add(new DataMainMenu(ManageShopActivity.class, "ร้านค้า"));
-        data.add(new DataMainMenu(null, "สินค้า"));
+        data.add(new DataMainMenu(ManageProductActivity.class, "สินค้า"));
 
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         glm.setOrientation(LinearLayoutManager.VERTICAL);

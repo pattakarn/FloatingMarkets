@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.istyleglobalnetwork.floatingmarkets.EditShopActivity">
+    tools:context="com.istyleglobalnetwork.floatingmarkets.EditProductActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:gravity="center"
-                    android:text="Text"
+                    android:text="Market"
                     android:textSize="16sp" />
 
                 <TextView
@@ -57,7 +57,16 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:gravity="center"
-                    android:text="Text"
+                    android:text="Zone"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_shop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:text="Shop"
                     android:textSize="16sp" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -65,62 +74,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:hint="Shop Name"
+                    android:hint="Product Name"
                     android:textSize="16sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="?colorAccent"
                     app:met_singleLineEllipsis="true" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_owner"
+                    android:id="@+id/et_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:hint="Owner Name"
+                    android:hint="Type"
                     android:textSize="16sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="?colorAccent"
                     app:met_singleLineEllipsis="true" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_phone"
+                    android:id="@+id/et_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:hint="Phone"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
-
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Line ID"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
-
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_facebook"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Facebook"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
-
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Email"
+                    android:hint="Detail"
                     android:textSize="16sp"
                     app:met_floatingLabel="highlight"
                     app:met_primaryColor="?colorAccent"

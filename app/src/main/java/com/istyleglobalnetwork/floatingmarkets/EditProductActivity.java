@@ -9,36 +9,36 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbShop;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
 
 import org.parceler.Parcels;
 
-public class EditShopActivity extends AppCompatActivity {
+public class EditProductActivity extends AppCompatActivity {
 
     TextView tvTitle;
     TextView tvMarket;
     TextView tvZone;
+    TextView tvShop;
     EditText etName;
-    EditText etOwner;
-    EditText etPhone;
-    EditText etLine;
-    EditText etFacebook;
-    EditText etEmail;
+    EditText etType;
+    EditText etDetail;
     Button btnSave;
 
     WrapFdbZone itemZone = null;
     WrapFdbMarket itemMarket = null;
     WrapFdbShop itemShop = null;
+    WrapFdbProduct itemProduct = null;
 
     DatabaseReference mRootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_shop);
+        setContentView(R.layout.activity_edit_product);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -64,12 +64,12 @@ public class EditShopActivity extends AppCompatActivity {
 
             itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
             if (itemShop != null) {
-                etName.setText(itemShop.getData().getNameShop());
-                etOwner.setText(itemShop.getData().getOwner());
-                etPhone.setText(itemShop.getData().getPhone());
-                etLine.setText(itemShop.getData().getLine());
-                etFacebook.setText(itemShop.getData().getFacebook());
-                etEmail.setText(itemShop.getData().getEmail());
+                tvShop.setText(itemShop.getData().getNameShop());
+            }
+
+            itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
+            if (itemProduct != null) {
+                etName.setText(itemProduct.getData().getNameProduct());
             }
 
 
@@ -78,35 +78,29 @@ public class EditShopActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference mZoneRef = mRootRef.child("zone-shop");
-                DatabaseReference mShopRef = mRootRef.child("shop");
+                DatabaseReference mShopRef = mRootRef.child("shop-product");
+                DatabaseReference mProductRef = mRootRef.child("product");
 
 //                String marketKey = itemMarket.getKey();
-                String zoneKey = itemZone.getKey();
-                String nameShop = etName.getText().toString();
-                String nameOwner = etOwner.getText().toString();
-                String phone = etPhone.getText().toString();
-                String line = etLine.getText().toString();
-                String facebook = etFacebook.getText().toString();
-                String email = etEmail.getText().toString();
-                FdbShop dataZone = new FdbShop();
-                dataZone.setNameShop(nameShop);
-                dataZone.setOwner(nameOwner);
-                dataZone.setPhone(phone);
-                dataZone.setLine(line);
-                dataZone.setFacebook(facebook);
-                dataZone.setEmail(email);
+                String shopKey = itemShop.getKey();
+                String nameProduct = etName.getText().toString();
+                String txtType = etType.getText().toString();
+                String txtDetail = etDetail.getText().toString();
+                FdbProduct dataProduct = new FdbProduct();
+                dataProduct.setNameProduct(nameProduct);
+                dataProduct.setType(txtType);
+                dataProduct.setDescription(txtDetail);
 
 //                Toast.makeText(getApplication(), "Click " + dataZone.getNameZone() + " " + dataZone.getOwner(), Toast.LENGTH_SHORT).show();
-                if (itemShop != null) {
+                if (itemProduct != null) {
 //                    mMarketZoneRef.child(itemMarket.getKey()).setValue(dataMarket);
-                    String shopKey = itemShop.getKey();
-                    mShopRef.child(shopKey).setValue(dataZone);
-                    mZoneRef.child(zoneKey).child(shopKey).setValue(dataZone);
+                    String productKey = itemProduct.getKey();
+                    mProductRef.child(productKey).setValue(dataProduct);
+                    mShopRef.child(shopKey).child(productKey).setValue(dataProduct);
                 } else {
-                    String shopKey = mZoneRef.push().getKey();
-                    mShopRef.child(shopKey).setValue(dataZone);
-                    mZoneRef.child(zoneKey).child(shopKey).setValue(dataZone);
+                    String productKey = mProductRef.push().getKey();
+                    mProductRef.child(productKey).setValue(dataProduct);
+                    mShopRef.child(shopKey).child(productKey).setValue(dataProduct);
                 }
 
                 finish();
@@ -121,12 +115,10 @@ public class EditShopActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvMarket = (TextView) findViewById(R.id.tv_market);
         tvZone = (TextView) findViewById(R.id.tv_zone);
+        tvShop = (TextView) findViewById(R.id.tv_shop);
         etName = (EditText) findViewById(R.id.et_name);
-        etOwner = (EditText) findViewById(R.id.et_owner);
-        etPhone = (EditText) findViewById(R.id.et_phone);
-        etLine = (EditText) findViewById(R.id.et_line);
-        etFacebook = (EditText) findViewById(R.id.et_facebook);
-        etEmail = (EditText) findViewById(R.id.et_email);
+        etType = (EditText) findViewById(R.id.et_type);
+        etDetail = (EditText) findViewById(R.id.et_detail);
         btnSave = (Button) findViewById(R.id.btn_save);
 
     }

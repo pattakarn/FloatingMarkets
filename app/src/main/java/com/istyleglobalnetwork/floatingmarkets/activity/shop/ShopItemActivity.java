@@ -1,21 +1,29 @@
 package com.istyleglobalnetwork.floatingmarkets.activity.shop;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Shop_Item;
 import com.istyleglobalnetwork.floatingmarkets.data.DataImageShop;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -23,9 +31,14 @@ public class ShopItemActivity extends AppCompatActivity {
 
     String nameShop;
     int imageShop;
+    ArrayList<Object> data = new ArrayList<Object>();
 
     TextView tvTitle;
     RecyclerView rv;
+
+    WrapFdbShop itemShop = null;
+
+    DatabaseReference mRootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,35 +48,64 @@ public class ShopItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        LayoutInflater inflater = getLayoutInflater();
-        FragmentManager fm = getFragmentManager();
-
+        initInstances();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
 
         Bundle bundle = getIntent().getExtras();
-        nameShop = bundle.getString("NameShop", "");
-//        imageShop = bundle.getInt("ImageShop", 0);
 
-        initInstances();
-        tvTitle.setText(nameShop);
+        if (bundle != null) {
 
-        DataImageShop dataImageShop = new DataImageShop(R.drawable.talad2, nameShop);
+            itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
+            if (itemShop != null) {
+                tvTitle.setText(itemShop.getData().getNameShop());
+            }
 
-        ArrayList<Object> data = new ArrayList<Object>();
-        data.add(dataImageShop);
-        data.add("Award");
-        data.add("Time");
-        data.add("contact");
-        data.add(nameShop);
-        data.add(new DataProductItem(nameShop, R.drawable.ice1, "ไอติมโบรานใส่ถ้วย"));
-        data.add(new DataProductItem(nameShop, R.drawable.ice2, "ไอติมโบรานใส่ขนมปัง"));
-        data.add(new DataProductItem(nameShop, R.drawable.ice3, "ไอติมโบรานใส่มะพร้าว"));
-
+        }
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
-        RV_Adapter_Shop_Item adapterList = new RV_Adapter_Shop_Item(data, inflater);
-        rv.setAdapter(adapterList);
+
+        DataImageShop dataImageShop = new DataImageShop(R.drawable.talad2, nameShop);
+
+
+        data.add(dataImageShop);
+        data.add("Award");
+        data.add(itemShop); // time
+        data.add(itemShop); // contact
+        data.add(nameShop);
+//        listData.add(new DataProductItem(nameShop, R.drawable.ice1, "ไอติมโบรานใส่ถ้วย"));
+//        listData.add(new DataProductItem(nameShop, R.drawable.ice2, "ไอติมโบรานใส่ขนมปัง"));
+//        listData.add(new DataProductItem(nameShop, R.drawable.ice3, "ไอติมโบรานใส่มะพร้าว"));
+        setListProduct();
+
+
+
+    }
+
+    private void setListProduct() {
+        String shop = itemShop.getKey();
+        mRootRef.child("shop-product").child(shop).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbProduct value = postSnapshot.getValue(FdbProduct.class);
+//                    data.add(new WrapFdbProduct(key, value));
+                    WrapFdbProduct tempProduct = new WrapFdbProduct(key, value);
+                    data.add(new DataProductItem(itemShop, tempProduct, R.drawable.ice1));
+                }
+
+                RV_Adapter_Shop_Item adapterList = new RV_Adapter_Shop_Item(data, getLayoutInflater());
+                rv.setAdapter(adapterList);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initInstances() {

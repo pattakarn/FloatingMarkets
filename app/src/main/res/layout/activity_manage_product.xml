@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.istyleglobalnetwork.floatingmarkets.ManageZoneActivity">
+    tools:context="com.istyleglobalnetwork.floatingmarkets.ManageProductActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,8 +13,7 @@
         <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            />
+            android:layout_height="110dp" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -23,9 +22,9 @@
             android:layout_below="@+id/header"
             android:background="@android:color/darker_gray"
             android:gravity="center"
-            android:paddingTop="4dp"
             android:paddingBottom="4dp"
-            android:text="โซน"
+            android:paddingTop="4dp"
+            android:text="สินค้า"
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -47,23 +46,58 @@
                 android:layout_height="wrap_content" />
         </FrameLayout>
 
+        <FrameLayout
+            android:id="@+id/fl_zone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_market"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/white">
+
+            <Spinner
+                android:id="@+id/spin_zone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/fl_shop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_zone"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/white">
+
+            <Spinner
+                android:id="@+id/spin_shop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/fl_market"
-            android:layout_marginBottom="52dp"></android.support.v7.widget.RecyclerView>
+            android:layout_below="@+id/fl_shop"
+            android:layout_marginBottom="52dp" > </android.support.v7.widget.RecyclerView>
 
         <Button
             android:id="@+id/btn_add"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
             android:background="@drawable/shape_button_buy"
             android:text="ADD"
-            android:textColor="@android:color/white"
-            android:layout_margin="4dp"/>
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -18,7 +18,7 @@
         android:layout_height="36dp"
         android:background="@android:color/darker_gray"
         android:gravity="center"
-        android:text="บริการ"
+        android:text="โซน"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold" />

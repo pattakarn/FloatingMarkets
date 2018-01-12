@@ -35,13 +35,16 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:${firebaseVersion}"
     compile "com.google.firebase:firebase-core:${firebaseVersion}"
     compile "com.google.firebase:firebase-database:${firebaseVersion}"
+    compile "com.google.firebase:firebase-storage:${firebaseVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
-    compile 'com.jaredrummler:material-spinner:1.2.4'
     compile 'org.parceler:parceler-api:1.1.9'
+    compile 'com.github.myinnos:AwesomeImagePicker:1.0.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     annotationProcessor 'org.parceler:parceler:1.1.9'
 
 
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

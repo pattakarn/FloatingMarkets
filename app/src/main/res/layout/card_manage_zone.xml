@@ -52,8 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:text="owner" />
+                android:gravity="center_vertical" />
 
         </LinearLayout>
 
@@ -78,8 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:text="phone" />
+                android:gravity="center_vertical" />
 
         </LinearLayout>
 
@@ -104,8 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:text="line" />
+                android:gravity="center_vertical" />
 
         </LinearLayout>
 
@@ -130,8 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:text="facebook" />
+                android:gravity="center_vertical" />
 
         </LinearLayout>
 
@@ -156,8 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:gravity="center_vertical"
-                android:text="Email" />
+                android:gravity="center_vertical" />
 
         </LinearLayout>
 

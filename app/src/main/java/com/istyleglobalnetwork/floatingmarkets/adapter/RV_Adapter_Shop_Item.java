@@ -1,12 +1,14 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.activity.product.ProductItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.data.DataImageShop;
@@ -17,6 +19,8 @@ import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageShop;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderTime;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -106,12 +110,14 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void configureViewHolderContact(ViewHolderContact vh1, int position) {
-
+        WrapFdbShop data = (WrapFdbShop) items.get(position);
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        vh1.getTvLink().setText("http://www.diamondsweethotel.com");
-        vh1.getTvPhone().setText("02 455 2031");
-        vh1.getTvEmail().setText("diamond_sweet41@hotmail.com");
+        vh1.getTvLink().setText(data.getData().getFacebook());
+        vh1.getTvPhone().setText(data.getData().getPhone());
+        vh1.getTvLine().setText(data.getData().getLine());
+        vh1.getTvFb().setText(data.getData().getFacebook());
+        vh1.getTvEmail().setText(data.getData().getEmail());
 //        vh1.getDetail().setText(items.get(position).toString());
 //        }
     }
@@ -153,14 +159,16 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
 
         final DataProductItem data = (DataProductItem) items.get(position);
         vh2.getIvProduct().setImageResource(data.getImage());
-        vh2.getTvName().setText(data.getNameProduct());
+        vh2.getTvName().setText(data.getItemProduct().getData().getNameProduct());
         vh2.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), ProductItemActivity.class);
-                intent.putExtra("NameShop", data.getNameShop());
-                intent.putExtra("NameItem", data.getNameProduct());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemShop", Parcels.wrap(data.getItemShop()));
+                bundle.putParcelable("itemProduct", Parcels.wrap(data.getItemProduct()));
                 intent.putExtra("ImageItem", data.getImage());
+                intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }
         });

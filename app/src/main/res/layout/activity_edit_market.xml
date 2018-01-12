@@ -37,6 +37,13 @@
             android:layout_below="@+id/tv_title"
             android:layout_marginBottom="52dp">
 
+            <ImageView
+                android:id="@+id/iv_select"
+                android:layout_width="match_parent"
+                android:background="@android:color/darker_gray"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"/>
+
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"

@@ -15,7 +15,7 @@ public class ViewHolderManageShop extends RecyclerView.ViewHolder {
 
     private CardView cv;
     private TextView tvZone;
-    private TextView tvPerson;
+    private TextView tvOwner;
     private TextView tvPhone;
     private TextView tvLine;
     private TextView tvFb;
@@ -26,7 +26,7 @@ public class ViewHolderManageShop extends RecyclerView.ViewHolder {
         super(itemView);
         cv = (CardView) itemView.findViewById(R.id.cv);
         tvZone = (TextView) itemView.findViewById(R.id.tv_zone);
-        tvPerson = (TextView) itemView.findViewById(R.id.tv_person);
+        tvOwner = (TextView) itemView.findViewById(R.id.tv_person);
         tvPhone = (TextView) itemView.findViewById(R.id.tv_phone);
         tvLine = (TextView) itemView.findViewById(R.id.tv_line);
         tvFb = (TextView) itemView.findViewById(R.id.tv_fb);
@@ -49,12 +49,12 @@ public class ViewHolderManageShop extends RecyclerView.ViewHolder {
         this.tvZone = tvZone;
     }
 
-    public TextView getTvPerson() {
-        return tvPerson;
+    public TextView getTvOwner() {
+        return tvOwner;
     }
 
-    public void setTvPerson(TextView tvPerson) {
-        this.tvPerson = tvPerson;
+    public void setTvOwner(TextView tvPerson) {
+        this.tvOwner = tvPerson;
     }
 
     public TextView getTvPhone() {
