@@ -13,8 +13,7 @@
         <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            />
+            android:layout_height="110dp" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -23,8 +22,8 @@
             android:layout_below="@+id/header"
             android:background="@android:color/darker_gray"
             android:gravity="center"
-            android:paddingTop="4dp"
             android:paddingBottom="4dp"
+            android:paddingTop="4dp"
             android:text="ตลาด"
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
@@ -42,10 +41,10 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
             android:background="@drawable/shape_button_buy"
             android:text="ADD"
-            android:textColor="@android:color/white"
-            android:layout_margin="4dp"/>
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
 

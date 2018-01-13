@@ -6,23 +6,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbMarket;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.Util.Helper;
+import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image;
+import com.istyleglobalnetwork.floatingmarkets.viewgroup.ImageViewGroup;
 
 import org.parceler.Parcels;
 
@@ -31,6 +38,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import in.myinnos.awesomeimagepicker.activities.AlbumSelectActivity;
 import in.myinnos.awesomeimagepicker.helpers.ConstantsCustomGallery;
@@ -40,16 +48,19 @@ public class EditMarketActivity extends AppCompatActivity {
 
     TextView tvTitle;
     EditText etName;
-    ImageView ivSelect;
+    ImageViewGroup ivg;
     Button btnSave;
 
-    String pathImageProfile = null;
-
     WrapFdbMarket itemMarket = null;
+    List<WrapFdbImage> itemImage = new ArrayList<WrapFdbImage>();
+    List<String> listPathImage = new ArrayList<String>();
 
     DatabaseReference mRootRef;
     private UploadTask mUploadTask;
     private StorageReference folderRef, imageRef;
+
+    Boolean isImageUpdate = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,30 +71,18 @@ public class EditMarketActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initInstances();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         folderRef = storageRef.child("photos");
-        Bundle bundle = getIntent().getExtras();
 
-//        WrapFdbMarket itemMarket = Parcels.unwrap(getIntent().getExtras().getParcelableExtra("itemMarket"));
+        Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             itemMarket = Parcels.unwrap(bundle.getParcelable("itemMarket"));
             etName.setText(itemMarket.getData().getNameMarket());
-            imageRef = folderRef.child("hello.png");
-            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Glide.with(getApplicationContext())
-                            .load(uri.toString())
-                            .placeholder(R.mipmap.ic_floating_market)
-                            .into(ivSelect);
-                }
-            });
-
+            setListImage();
         }
 
-
-        mRootRef = FirebaseDatabase.getInstance().getReference();
-        ivSelect.setOnClickListener(new View.OnClickListener() {
+        ivg.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AlbumSelectActivity.class);
@@ -91,6 +90,7 @@ public class EditMarketActivity extends AppCompatActivity {
                 startActivityForResult(intent, ConstantsCustomGallery.REQUEST_CODE);
             }
         });
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,22 +99,58 @@ public class EditMarketActivity extends AppCompatActivity {
                 FdbMarket dataMarket = new FdbMarket();
                 dataMarket.setNameMarket(nameMarket);
 
-                if (itemMarket != null) {
-                    String key = itemMarket.getKey();
+                DatabaseReference mImageRef = mRootRef.child("photo");
+                DatabaseReference mItemImageRef = mRootRef.child("item-photo");
+                FdbImage dataImage = new FdbImage();
 
-                    if (pathImageProfile != null) {
-                        uploadFromStream(pathImageProfile);
-                        dataMarket.setImage(key + ".png");
-                    }
+                String key = null;
+                String keyImage = null;
+
+                if (itemMarket != null) {
+                    key = itemMarket.getKey();
                     mMarketRef.child(key).setValue(dataMarket);
                 } else {
-                    String key = mMarketRef.push().getKey();
-
-                    if (pathImageProfile != null) {
-                        uploadFromStream(pathImageProfile);
-                        dataMarket.setImage(key + ".png");
-                    }
+                    key = mMarketRef.push().getKey();
                     mMarketRef.child(key).setValue(dataMarket);
+                }
+
+//                for (int i = 0; i < listPathImage.size(); i++) {
+//                    keyImage = mImageRef.push().getKey();
+//                    String nameImage = keyImage + ".png";
+//                    dataImage.setNameImage(nameImage);
+//                    mImageRef.child(keyImage).setValue(dataImage);
+//                    mItemImageRef.child(key).child(keyImage).setValue(dataImage);
+//                    uploadFromStream(listPathImage.get(i), nameImage);
+//                }
+
+                if (isImageUpdate) {
+                    for (int i = 0; i < 5; i++) {
+                        String nameImage = null;
+                        try {
+                            keyImage = itemImage.get(i).getKey();
+                            nameImage = keyImage + ".png";
+                        } catch (IndexOutOfBoundsException ex) {
+                            keyImage = mImageRef.push().getKey();
+                            nameImage = keyImage + ".png";
+                        }
+//                    if (itemImage.get(i) != null){
+//                        keyImage = itemImage.get(i).getKey();
+//                        nameImage = keyImage + ".png";
+//                    } else {
+//                        keyImage = mImageRef.push().getKey();
+//                        nameImage = keyImage + ".png";
+//                    }
+
+                        dataImage.setNameImage(nameImage);
+                        mImageRef.child(keyImage).setValue(dataImage);
+                        mItemImageRef.child(key).child(keyImage).setValue(dataImage);
+                        try {
+                            uploadFromStream(listPathImage.get(i), nameImage);
+                        } catch (IndexOutOfBoundsException ex) {
+//                        uploadFromStream("", nameImage);
+                        }
+
+                    }
                 }
 
                 finish();
@@ -129,9 +165,51 @@ public class EditMarketActivity extends AppCompatActivity {
         // init instance with rootView.findViewById here
         tvTitle = (TextView) findViewById(R.id.tv_title);
         etName = (EditText) findViewById(R.id.et_name);
-        ivSelect = (ImageView) findViewById(R.id.iv_select);
+        ivg = (ImageViewGroup) findViewById(R.id.ivg);
         btnSave = (Button) findViewById(R.id.btn_save);
 
+    }
+
+    private void setListImage() {
+
+        mRootRef.child("item-photo").child(itemMarket.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final ArrayList<Object> dataUri = new ArrayList<Object>();
+                listPathImage = new ArrayList<String>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbImage value = postSnapshot.getValue(FdbImage.class);
+                    itemImage.add(new WrapFdbImage(key, value));
+//                    listMarket.add(value.getNameMarket());
+//                    dataMarket.add(new WrapFdbMarket(key, value));
+                    imageRef = folderRef.child(value.getNameImage());
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            listPathImage.add(uri.toString());
+                            dataUri.add(uri);
+//                            Glide.with(getApplicationContext())
+//                                    .load(uri.toString())
+//                                    .placeholder(R.mipmap.ic_floating_market)
+//                                    .into(ivSelect);
+                        }
+                    });
+                }
+
+                ivg.getTvImage().setText("Photo (" + itemImage.size() + ")");
+                GridLayoutManager glm = new GridLayoutManager(getApplicationContext(), 3);
+                glm.setOrientation(LinearLayoutManager.VERTICAL);
+                ivg.getRv().setLayoutManager(glm);
+                RV_Adapter_Grid_Image adapterList = new RV_Adapter_Grid_Image(dataUri);
+                ivg.getRv().setAdapter(adapterList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -139,23 +217,36 @@ public class EditMarketActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ConstantsCustomGallery.REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            isImageUpdate = true;
             //The array list has the image paths of the selected images
             ArrayList<Image> images = data.getParcelableArrayListExtra(ConstantsCustomGallery.INTENT_EXTRA_IMAGES);
+            ArrayList<Object> dataUri = new ArrayList<Object>();
+            listPathImage = new ArrayList<String>();
 
             for (int i = 0; i < images.size(); i++) {
                 Uri uri = Uri.fromFile(new File(images.get(i).path));
-                ivSelect.setImageURI(uri);
+                dataUri.add(uri);
+//                ivSelect.setImageURI(uri);
                 // start play with image uri
-                pathImageProfile = images.get(i).path;
+                listPathImage.add(images.get(i).path);
 //                uploadFromStream(images.get(i).path);
             }
+
+//            LinearLayoutManager llm = new LinearLayoutManager(this);
+//            llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+            ivg.getTvImage().setText("Photo (" + dataUri.size() + ")");
+            GridLayoutManager glm = new GridLayoutManager(this, 3);
+            glm.setOrientation(LinearLayoutManager.VERTICAL);
+            ivg.getRv().setLayoutManager(glm);
+            RV_Adapter_Grid_Image adapterList = new RV_Adapter_Grid_Image(dataUri);
+            ivg.getRv().setAdapter(adapterList);
         }
     }
 
-    private void uploadFromStream(String path) {
+    private void uploadFromStream(String path, String name) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         folderRef = storageRef.child("photos");
-        imageRef = folderRef.child("hello.png");
+        imageRef = folderRef.child(name);
 
 //        Helper.showDialog(getApplicationContext());
         InputStream stream = null;

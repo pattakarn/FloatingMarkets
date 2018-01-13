@@ -60,71 +60,131 @@
                     android:text="Text"
                     android:textSize="16sp" />
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_name"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Shop Name"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
+                    android:background="@android:color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_owner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Owner Name"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Shop Name"
+                        android:textSize="16sp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true"/>
+                </FrameLayout>
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_phone"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Phone"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
+                    android:background="@android:color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Line ID"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_owner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Owner Name"
+                        android:textSize="16sp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true"/>
+                </FrameLayout>
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_facebook"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Facebook"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
+                    android:background="@android:color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/et_email"
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone"
+                        android:textSize="16sp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true"/>
+                </FrameLayout>
+
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="Email"
-                    android:textSize="16sp"
-                    app:met_floatingLabel="highlight"
-                    app:met_primaryColor="?colorAccent"
-                    app:met_singleLineEllipsis="true" />
+                    android:background="@android:color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Line ID"
+                        android:textSize="16sp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_facebook"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Facebook"
+                        android:textSize="16sp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:textSize="16sp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true"/>
+                </FrameLayout>
+
+                <com.istyleglobalnetwork.floatingmarkets.viewgroup.ImageViewGroup
+                    android:id="@+id/ivg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
