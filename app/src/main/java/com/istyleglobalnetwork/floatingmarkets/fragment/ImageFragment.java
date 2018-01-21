@@ -1,5 +1,6 @@
 package com.istyleglobalnetwork.floatingmarkets.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.istyleglobalnetwork.floatingmarkets.R;
 
 public class ImageFragment extends Fragment {
 
     ImageView iv;
-    int image;
+    Uri image;
 
     LayoutInflater inflater;
 
@@ -20,10 +22,10 @@ public class ImageFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ImageFragment newInstance(int image1) {
+    public static ImageFragment newInstance(Uri image1) {
         ImageFragment fragment = new ImageFragment();
         Bundle args = new Bundle();
-        args.putInt("image", image1);
+//        args.putInt("image", image1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -32,7 +34,7 @@ public class ImageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            image = getArguments().getInt("image");
+//            image = getArguments().getInt("image");
         }
     }
 
@@ -44,7 +46,11 @@ public class ImageFragment extends Fragment {
         this.inflater = inflater;
         initInstances(rootView);
 
-        iv.setImageResource(image);
+//        iv.setImageResource(image);
+        Glide.with(inflater.getContext())
+                .load(image.toString())
+                .placeholder(R.mipmap.ic_floating_market)
+                .into(iv);
 
         return rootView;
     }

@@ -13,15 +13,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ice1"></ImageView>
+            android:adjustViewBounds="true"></ImageView>
 
 
     </RelativeLayout>

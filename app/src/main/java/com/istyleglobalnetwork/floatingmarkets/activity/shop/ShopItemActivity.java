@@ -14,8 +14,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -26,12 +31,14 @@ import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShopItemActivity extends AppCompatActivity {
 
     String nameShop;
     int imageShop;
     ArrayList<Object> data = new ArrayList<Object>();
+    List<Object> itemImage = new ArrayList<Object>();
 
     TextView tvTitle;
     RecyclerView rv;
@@ -39,6 +46,8 @@ public class ShopItemActivity extends AppCompatActivity {
     WrapFdbShop itemShop = null;
 
     DatabaseReference mRootRef;
+    private UploadTask mUploadTask;
+    private StorageReference folderRef, imageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,8 @@ public class ShopItemActivity extends AppCompatActivity {
 
         initInstances();
         mRootRef = FirebaseDatabase.getInstance().getReference();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        folderRef = storageRef.child("photos");
 
         Bundle bundle = getIntent().getExtras();
 
@@ -68,17 +79,7 @@ public class ShopItemActivity extends AppCompatActivity {
 
         DataImageShop dataImageShop = new DataImageShop(R.drawable.talad2, nameShop);
 
-
-        data.add(dataImageShop);
-        data.add("Award");
-        data.add(itemShop); // time
-        data.add(itemShop); // contact
-        data.add(nameShop);
-//        listData.add(new DataProductItem(nameShop, R.drawable.ice1, "ไอติมโบรานใส่ถ้วย"));
-//        listData.add(new DataProductItem(nameShop, R.drawable.ice2, "ไอติมโบรานใส่ขนมปัง"));
-//        listData.add(new DataProductItem(nameShop, R.drawable.ice3, "ไอติมโบรานใส่มะพร้าว"));
-        setListProduct();
-
+        setListImage();
 
 
     }
@@ -96,8 +97,36 @@ public class ShopItemActivity extends AppCompatActivity {
                     data.add(new DataProductItem(itemShop, tempProduct, R.drawable.ice1));
                 }
 
-                RV_Adapter_Shop_Item adapterList = new RV_Adapter_Shop_Item(data, getLayoutInflater());
+                RV_Adapter_Shop_Item adapterList = new RV_Adapter_Shop_Item(itemShop, data, getLayoutInflater());
                 rv.setAdapter(adapterList);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void setListImage() {
+        String shop = itemShop.getKey();
+        mRootRef.child("item-photo").child(shop).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                itemImage = new ArrayList<Object>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbImage value = postSnapshot.getValue(FdbImage.class);
+                    itemImage.add(new WrapFdbImage(key, value));
+                }
+
+                data.add(itemImage);
+                data.add("Award");
+                data.add(itemShop); // time
+                data.add(itemShop); // contact
+                data.add(nameShop);
+                setListProduct();
 
             }
 

@@ -11,16 +11,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Product_Item;
-import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductItemActivity extends AppCompatActivity {
 
@@ -31,6 +41,12 @@ public class ProductItemActivity extends AppCompatActivity {
 
     WrapFdbShop itemShop = null;
     WrapFdbProduct itemProduct = null;
+    ArrayList<Object> data = new ArrayList<Object>();
+    List<Object> itemImage = new ArrayList<Object>();
+
+    DatabaseReference mRootRef;
+    private UploadTask mUploadTask;
+    private StorageReference folderRef, imageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +57,9 @@ public class ProductItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initInstances();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        folderRef = storageRef.child("photos");
 
         Bundle bundle = getIntent().getExtras();
 
@@ -51,28 +70,50 @@ public class ProductItemActivity extends AppCompatActivity {
             itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
 
         }
+
         imageItem = bundle.getInt("ImageItem");
-
         tvTitle.setText(itemProduct.getData().getNameProduct());
+//        DataProductItem productItem = new DataProductItem(itemShop, itemProduct, imageItem);
+setListImage();
 
-        DataProductItem productItem = new DataProductItem(itemShop, itemProduct, imageItem);
-
-        ArrayList<Object> data = new ArrayList<Object>();
-        data.add(productItem);
-        data.add(itemShop.getData().getNameShop());
-        data.add(itemProduct.getData().getDescription());
-        data.add(itemProduct.getData().getNameProduct());
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rv.setLayoutManager(llm);
-        RV_Adapter_Product_Item adapterList = new RV_Adapter_Product_Item(data);
-        rv.setAdapter(adapterList);
 
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProductItemActivity.this, CartListActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void setListImage() {
+        String product = itemProduct.getKey();
+        mRootRef.child("item-photo").child(product).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                itemImage = new ArrayList<Object>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbImage value = postSnapshot.getValue(FdbImage.class);
+                    itemImage.add(new WrapFdbImage(key, value));
+                }
+
+                data = new ArrayList<Object>();
+                data.add(itemImage);
+                data.add(itemShop.getData().getNameShop());
+                data.add(itemProduct.getData().getDescription());
+                data.add(itemProduct.getData().getNameProduct());
+                LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+                llm.setOrientation(LinearLayoutManager.VERTICAL);
+                rv.setLayoutManager(llm);
+                RV_Adapter_Product_Item adapterList = new RV_Adapter_Product_Item(itemProduct, data);
+                rv.setAdapter(adapterList);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

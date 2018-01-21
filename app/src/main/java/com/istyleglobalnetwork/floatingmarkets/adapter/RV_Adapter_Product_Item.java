@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderText1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,10 +25,12 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
 
     private List<Object> items;
     LayoutInflater inflater;
+    WrapFdbProduct itemProduct;
 
     private final int TITLE = 0, IMAGE = 1;
 
-    public RV_Adapter_Product_Item(List<Object> items) {
+    public RV_Adapter_Product_Item(WrapFdbProduct itemProduct, List<Object> items) {
+        this.itemProduct = itemProduct;
         this.items = items;
     }
 
@@ -37,7 +41,7 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
 
         switch (viewType) {
             case 0:
-                View v2 = inflater.inflate(R.layout.card_image_product, parent, false);
+                View v2 = inflater.inflate(R.layout.card_image_product_rv, parent, false);
                 viewHolder = new ViewHolderImageProduct(v2);
                 break;
             case 1:
@@ -105,8 +109,9 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
     }
 
     private void configureViewHolderImageProduct(ViewHolderImageProduct vh2, int position) {
-        DataProductItem data = (DataProductItem) items.get(position);
-        vh2.getTvName().setText(data.getItemProduct().getData().getNameProduct());
+        ArrayList<WrapFdbImage> data = (ArrayList<WrapFdbImage>) items.get(position);
+        vh2.setImage(data);
+        vh2.getTvName().setText(itemProduct.getData().getNameProduct());
     }
 
     private void configureViewHolderRating(ViewHolderRating vh2, final int position) {

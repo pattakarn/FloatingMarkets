@@ -29,6 +29,7 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.Util.Helper;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image;
+import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb;
 import com.istyleglobalnetwork.floatingmarkets.viewgroup.ImageViewGroup;
 
 import org.parceler.Parcels;
@@ -181,27 +182,14 @@ public class EditMarketActivity extends AppCompatActivity {
                     String key = postSnapshot.getKey();
                     FdbImage value = postSnapshot.getValue(FdbImage.class);
                     itemImage.add(new WrapFdbImage(key, value));
-//                    listMarket.add(value.getNameMarket());
-//                    dataMarket.add(new WrapFdbMarket(key, value));
-                    imageRef = folderRef.child(value.getNameImage());
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            listPathImage.add(uri.toString());
-                            dataUri.add(uri);
-//                            Glide.with(getApplicationContext())
-//                                    .load(uri.toString())
-//                                    .placeholder(R.mipmap.ic_floating_market)
-//                                    .into(ivSelect);
-                        }
-                    });
                 }
 
                 ivg.getTvImage().setText("Photo (" + itemImage.size() + ")");
                 GridLayoutManager glm = new GridLayoutManager(getApplicationContext(), 3);
                 glm.setOrientation(LinearLayoutManager.VERTICAL);
                 ivg.getRv().setLayoutManager(glm);
-                RV_Adapter_Grid_Image adapterList = new RV_Adapter_Grid_Image(dataUri);
+//                RV_Adapter_Grid_Image adapterList = new RV_Adapter_Grid_Image(dataUri);
+                RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(itemImage);
                 ivg.getRv().setAdapter(adapterList);
             }
 

@@ -9,7 +9,7 @@ import org.parceler.Parcel;
 @Parcel
 public class FdbImage {
 
-    private String nameImage;
+    String nameImage;
 
     public String getNameImage() {
         return nameImage;

@@ -9,13 +9,13 @@ import org.parceler.Parcel;
 @Parcel
 public class FdbShop {
 
-    private String nameShop;
-    private String type;
-    private String owner;
-    private String phone;
-    private String line;
-    private String facebook;
-    private String email;
+    String nameShop;
+    String type;
+    String owner;
+    String phone;
+    String line;
+    String facebook;
+    String email;
 
     public String getNameShop() {
         return nameShop;

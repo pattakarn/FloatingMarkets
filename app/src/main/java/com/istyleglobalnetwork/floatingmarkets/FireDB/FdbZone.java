@@ -9,13 +9,13 @@ import org.parceler.Parcel;
 @Parcel
 public class FdbZone {
 
-    private String nameZone;
-    private String owner;
-    private String phone;
-    private String line;
-    private String facebook;
-    private String email;
-    private String size;
+    String nameZone;
+    String owner;
+    String phone;
+    String line;
+    String facebook;
+    String email;
+    String size;
 
     public String getNameZone() {
         return nameZone;

@@ -9,9 +9,9 @@ import org.parceler.Parcel;
 @Parcel
 public class FdbProduct {
 
-    private String nameProduct;
-    private String type;
-    private String description;
+    String nameProduct;
+    String type;
+    String description;
 
     public String getNameProduct() {
         return nameProduct;

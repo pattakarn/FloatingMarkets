@@ -1,13 +1,15 @@
 package com.istyleglobalnetwork.floatingmarkets.viewholder;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.pageradapter.PagerAdapterImage;
+import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb;
+
+import java.util.ArrayList;
 
 /**
  * Created by Sung on 12/12/2017 AD.
@@ -16,16 +18,19 @@ import com.istyleglobalnetwork.floatingmarkets.pageradapter.PagerAdapterImage;
 public class ViewHolderImageProduct extends RecyclerView.ViewHolder {
 
     private TextView tvName;
+    private RecyclerView rv;
+    ArrayList<WrapFdbImage> image = new ArrayList<WrapFdbImage>();
 
     public ViewHolderImageProduct(View itemView) {
         super(itemView);
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
+        rv = (RecyclerView) itemView.findViewById(R.id.rv);
 
-        int[] image = { R.drawable.ice1, R.drawable.ice2, R.drawable.ice3};
+//        int[] image = { R.drawable.ice1, R.drawable.ice2, R.drawable.ice3};
 
-        PagerAdapterImage adapter = new PagerAdapterImage(((AppCompatActivity) itemView.getContext()).getSupportFragmentManager(), image);
-        ViewPager pager = (ViewPager) itemView.findViewById(R.id.pager);
-        pager.setAdapter(adapter);
+//        PagerAdapterImage adapter = new PagerAdapterImage(((AppCompatActivity) itemView.getContext()).getSupportFragmentManager(), image);
+//        ViewPager pager = (ViewPager) itemView.findViewById(R.id.pager);
+//        pager.setAdapter(adapter);
     }
 
     public TextView getTvName() {
@@ -34,6 +39,16 @@ public class ViewHolderImageProduct extends RecyclerView.ViewHolder {
 
     public void setTvName(TextView tvName) {
         this.tvName = tvName;
+    }
+
+    public void setImage(ArrayList<WrapFdbImage> image) {
+        this.image = image;
+
+        LinearLayoutManager llm = new LinearLayoutManager(itemView.getContext());
+        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rv.setLayoutManager(llm);
+        RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(image);
+        rv.setAdapter(adapterList);
     }
 
 }

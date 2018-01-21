@@ -1,12 +1,9 @@
 package com.istyleglobalnetwork.floatingmarkets.viewholder;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.pageradapter.PagerAdapterImage;
 
 /**
  * Created by Sung on 12/12/2017 AD.
@@ -19,9 +16,9 @@ public class ViewHolderImage extends RecyclerView.ViewHolder {
 
         int[] image = { R.drawable.ice1, R.drawable.ice2, R.drawable.ice3};
 
-        PagerAdapterImage adapter = new PagerAdapterImage(((AppCompatActivity) itemView.getContext()).getSupportFragmentManager(), image);
-        ViewPager pager = (ViewPager) itemView.findViewById(R.id.pager);
-        pager.setAdapter(adapter);
+//        PagerAdapterImage adapter = new PagerAdapterImage(((AppCompatActivity) itemView.getContext()).getSupportFragmentManager(), image);
+//        ViewPager pager = (ViewPager) itemView.findViewById(R.id.pager);
+//        pager.setAdapter(adapter);
     }
 
 }

@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.activity.product.ProductItemActivity;
-import com.istyleglobalnetwork.floatingmarkets.data.DataImageShop;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderAward;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
@@ -22,6 +22,7 @@ import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderTime;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,11 +32,13 @@ import java.util.List;
 public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Object> items;
+    WrapFdbShop itemShop;
     LayoutInflater inflater;
 
     private final int TITLE = 0, IMAGE = 1;
 
-    public RV_Adapter_Shop_Item(List<Object> items, LayoutInflater inflater) {
+    public RV_Adapter_Shop_Item(WrapFdbShop itemShop, List<Object> items, LayoutInflater inflater) {
+        this.itemShop = itemShop;
         this.items = items;
         this.inflater = inflater;
     }
@@ -48,7 +51,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
 
         switch (viewType) {
             case 0:
-                View v1 = inflater.inflate(R.layout.card_image_shop, parent, false);
+                View v1 = inflater.inflate(R.layout.card_image_shop_rv, parent, false);
                 viewHolder = new ViewHolderImageShop(v1);
                 break;
             case 1:
@@ -150,8 +153,9 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
 
     private void configureViewHolderImageShop(ViewHolderImageShop vh2, int position) {
 
-        DataImageShop data = (DataImageShop) items.get(position);
-        vh2.getTvName().setText(data.getNameShop());
+        ArrayList<WrapFdbImage> data = (ArrayList<WrapFdbImage>) items.get(position);
+        vh2.setImage(data);
+        vh2.getTvName().setText(itemShop.getData().getNameShop());
 //        vh2.getImage().setImageResource(R.drawable.talad3);
     }
 

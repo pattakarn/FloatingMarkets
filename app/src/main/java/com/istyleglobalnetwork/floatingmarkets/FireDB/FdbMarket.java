@@ -9,7 +9,7 @@ import org.parceler.Parcel;
 @Parcel
 public class FdbMarket {
 
-    private String nameMarket;
+    String nameMarket;
 
     public String getNameMarket() {
         return nameMarket;
