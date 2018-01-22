@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
-        android:text="จำหน่ายโดย"
-        android:textSize="16sp" />
+        android:text="จำหน่ายโดย" />
 
     <TextView
         android:id="@+id/tv_detail"
@@ -24,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Name"
-        android:textSize="18sp"
         android:layout_marginTop="4dp"
         android:layout_centerVertical="true"/>
 

@@ -16,7 +16,9 @@ import com.istyleglobalnetwork.floatingmarkets.EditStockActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStock;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbStock;
+import com.istyleglobalnetwork.floatingmarkets.ManageStockOrderActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.ManageStockListActivity;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderManageStock;
 
 import org.parceler.Parcels;
@@ -67,10 +69,36 @@ public class RV_Adapter_Manage_Product_Stock extends RecyclerView.Adapter<Recycl
         vh1.getTvProduct().setText("Product : " + data.getData().getNameProduct());
         vh1.getTvType().setText(data.getData().getType());
         vh1.getTvDetail().setText(data.getData().getDescription());
-        vh1.getCv().setOnClickListener(new View.OnClickListener() {
+        vh1.getBtnEdit().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), EditStockActivity.class);
+                Bundle bundle = new Bundle();
+//                bundle.putParcelable("itemMarket", Parcels.wrap(itemMarket));
+//                bundle.putParcelable("itemZone", Parcels.wrap(itemZone));
+//                bundle.putParcelable("itemShop", Parcels.wrap(itemShop));
+                bundle.putParcelable("itemProduct", Parcels.wrap(data));
+                intent.putExtras(bundle);
+                inflater.getContext().startActivity(intent);
+            }
+        });
+        vh1.getBtnList().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(inflater.getContext(), ManageStockListActivity.class);
+                Bundle bundle = new Bundle();
+//                bundle.putParcelable("itemMarket", Parcels.wrap(itemMarket));
+//                bundle.putParcelable("itemZone", Parcels.wrap(itemZone));
+//                bundle.putParcelable("itemShop", Parcels.wrap(itemShop));
+                bundle.putParcelable("itemProduct", Parcels.wrap(data));
+                intent.putExtras(bundle);
+                inflater.getContext().startActivity(intent);
+            }
+        });
+        vh1.getBtnOrder().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(inflater.getContext(), ManageStockOrderActivity.class);
                 Bundle bundle = new Bundle();
 //                bundle.putParcelable("itemMarket", Parcels.wrap(itemMarket));
 //                bundle.putParcelable("itemZone", Parcels.wrap(itemZone));
@@ -94,7 +122,9 @@ public class RV_Adapter_Manage_Product_Stock extends RecyclerView.Adapter<Recycl
                 FdbStock value = dataSnapshot.getValue(FdbStock.class);
                 itemStock = new WrapFdbStock(key, value);
 
-                vh1.getTvAmount().setText(itemStock.getData().getAmount());
+                if (itemStock.getData() != null) {
+                    vh1.getTvAmount().setText(itemStock.getData().getQuantity() + "");
+                }
             }
 
             @Override

@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
-        android:text="รายละเอียดสินค้า"
-        android:textSize="16sp" />
+        android:text="รายละเอียดสินค้า" />
 
     <TextView
         android:id="@+id/tv_detail"
@@ -24,11 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="detail"
-        android:layout_marginTop="4dp"
-        android:lineSpacingExtra="4dp"
+        android:layout_marginTop="8dp"
         android:layout_centerVertical="true"/>
-
-
-
 
 </LinearLayout>

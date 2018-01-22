@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStock;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStockList;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbStock;
 
@@ -67,31 +68,38 @@ public class EditStockActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseReference mStockRef = mRootRef.child("stock");
+                DatabaseReference mStockListRef = mRootRef.child("stock-list");
 
                 String nameProduct = itemProduct.getData().getNameProduct();
 
-                int oldAmount = 0;
-                int newAmount = 0;
-                int sumAmount = 0;
-                if (itemStock != null){
-                    oldAmount = Integer.parseInt(itemStock.getData().getAmount());
+                int oldQuantity = 0;
+                int newQuantity = 0;
+                int sumQuantity = 0;
+                if (itemStock.getData() != null){
+                    oldQuantity = itemStock.getData().getQuantity();
                 }
+                newQuantity = Integer.parseInt(etAmount.getText().toString());
 
-                newAmount = Integer.parseInt(etAmount.getText().toString());
+                FdbStockList dataStockList = new FdbStockList();
                 
                 if (radioAdd.isChecked()){
-                    sumAmount = oldAmount + newAmount;
+                    sumQuantity = oldQuantity + newQuantity;
+                    dataStockList.setMark("add");
                 } else if (radioReduce.isChecked()){
-                    sumAmount = oldAmount - newAmount;
+                    sumQuantity = oldQuantity - newQuantity;
+                    dataStockList.setMark("reduce");
                 }
-
 
 
                 FdbStock dataStock = new FdbStock();
                 dataStock.setNameProduct(nameProduct);
-                dataStock.setAmount(sumAmount + "");
+                dataStock.setQuantity(sumQuantity);
+
+                String keyStockList = mStockListRef.child(itemProduct.getKey()).push().getKey();
+                dataStockList.setQuantity(sumQuantity);
 
                 mStockRef.child(itemProduct.getKey()).setValue(dataStock);
+                mStockListRef.child(itemProduct.getKey()).child(keyStockList).setValue(dataStockList);
 
 
                 finish();

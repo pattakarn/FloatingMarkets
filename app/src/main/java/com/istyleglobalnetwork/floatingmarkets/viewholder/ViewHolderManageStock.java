@@ -3,6 +3,7 @@ package com.istyleglobalnetwork.floatingmarkets.viewholder;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -18,6 +19,10 @@ public class ViewHolderManageStock extends RecyclerView.ViewHolder {
     private TextView tvAmount;
     private TextView tvType;
     private TextView tvDetail;
+    private Button btnList;
+    private Button btnOrder;
+    private Button btnEdit;
+
 
 
     public ViewHolderManageStock(View itemView) {
@@ -27,6 +32,9 @@ public class ViewHolderManageStock extends RecyclerView.ViewHolder {
         tvAmount = (TextView) itemView.findViewById(R.id.tv_amount);
         tvType = (TextView) itemView.findViewById(R.id.tv_type);
         tvDetail = (TextView) itemView.findViewById(R.id.tv_detail);
+        btnList = (Button) itemView.findViewById(R.id.btn_list);
+        btnOrder = (Button) itemView.findViewById(R.id.btn_order);
+        btnEdit = (Button) itemView.findViewById(R.id.btn_edit);
     }
 
     public CardView getCv() {
@@ -67,5 +75,29 @@ public class ViewHolderManageStock extends RecyclerView.ViewHolder {
 
     public void setTvDetail(TextView tvDetail) {
         this.tvDetail = tvDetail;
+    }
+
+    public Button getBtnList() {
+        return btnList;
+    }
+
+    public void setBtnList(Button btnList) {
+        this.btnList = btnList;
+    }
+
+    public Button getBtnOrder() {
+        return btnOrder;
+    }
+
+    public void setBtnOrder(Button btnOrder) {
+        this.btnOrder = btnOrder;
+    }
+
+    public Button getBtnEdit() {
+        return btnEdit;
+    }
+
+    public void setBtnEdit(Button btnEdit) {
+        this.btnEdit = btnEdit;
     }
 }

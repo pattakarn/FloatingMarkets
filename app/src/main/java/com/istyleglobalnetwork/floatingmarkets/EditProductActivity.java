@@ -57,6 +57,7 @@ public class EditProductActivity extends AppCompatActivity {
     EditText etName;
     EditText etType;
     EditText etDetail;
+    EditText etPrice;
     ImageViewGroup ivg;
     Button btnSave;
 
@@ -132,10 +133,12 @@ public class EditProductActivity extends AppCompatActivity {
                 String nameProduct = etName.getText().toString();
                 String txtType = etType.getText().toString();
                 String txtDetail = etDetail.getText().toString();
+                int price = Integer.parseInt(etPrice.getText().toString());
                 FdbProduct dataProduct = new FdbProduct();
                 dataProduct.setNameProduct(nameProduct);
                 dataProduct.setType(txtType);
                 dataProduct.setDescription(txtDetail);
+                dataProduct.setPrice(price);
 
                 DatabaseReference mImageRef = mRootRef.child("photo");
                 DatabaseReference mItemImageRef = mRootRef.child("item-photo");
@@ -202,6 +205,7 @@ public class EditProductActivity extends AppCompatActivity {
         etName = (EditText) findViewById(R.id.et_name);
         etType = (EditText) findViewById(R.id.et_type);
         etDetail = (EditText) findViewById(R.id.et_detail);
+        etPrice = (EditText) findViewById(R.id.et_price);
         ivg = (ImageViewGroup) findViewById(R.id.ivg);
         btnSave = (Button) findViewById(R.id.btn_save);
 

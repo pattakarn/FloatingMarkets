@@ -4,10 +4,10 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.viewgroup.QuantityViewGroup;
 
 /**
  * Created by Sung on 12/12/2017 AD.
@@ -21,7 +21,7 @@ public class ViewHolderProductCart extends RecyclerView.ViewHolder {
     private TextView tvName;
     private TextView tvPrice;
     private ImageView ivDelete;
-    private Spinner spnNumber;
+    private QuantityViewGroup qvgQuantity;
 
 
     public ViewHolderProductCart(View itemView) {
@@ -32,7 +32,7 @@ public class ViewHolderProductCart extends RecyclerView.ViewHolder {
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
         tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
         ivDelete = (ImageView) itemView.findViewById(R.id.iv_delete);
-        spnNumber = (Spinner) itemView.findViewById(R.id.spin_number);
+        qvgQuantity = (QuantityViewGroup) itemView.findViewById(R.id.qvg);
 
     }
 
@@ -84,11 +84,11 @@ public class ViewHolderProductCart extends RecyclerView.ViewHolder {
         this.ivDelete = ivDelete;
     }
 
-    public Spinner getSpnNumber() {
-        return spnNumber;
+    public QuantityViewGroup getQvgQuantity() {
+        return qvgQuantity;
     }
 
-    public void setSpnNumber(Spinner spnNumber) {
-        this.spnNumber = spnNumber;
+    public void setQvgQuantity(QuantityViewGroup qvgQuantity) {
+        this.qvgQuantity = qvgQuantity;
     }
 }

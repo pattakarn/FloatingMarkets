@@ -74,7 +74,6 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp">
 
@@ -93,8 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="4dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp">
 
@@ -113,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="8dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp">
@@ -127,6 +125,27 @@
                         app:met_floatingLabel="highlight"
                         app:met_primaryColor="?colorAccent"
                         app:met_singleLineEllipsis="true"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/et_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Price"
+                        android:textSize="16sp"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true"
+                        android:inputType="number"/>
                 </FrameLayout>
 
                 <com.istyleglobalnetwork.floatingmarkets.viewgroup.ImageViewGroup

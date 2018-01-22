@@ -7,18 +7,10 @@ import org.parceler.Parcel;
  */
 
 @Parcel
-public class FdbStock {
+public class FdbStockList {
 
-    String nameProduct;
     int quantity;
-
-    public String getNameProduct() {
-        return nameProduct;
-    }
-
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
-    }
+    String mark;
 
     public int getQuantity() {
         return quantity;
@@ -26,5 +18,13 @@ public class FdbStock {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
     }
 }

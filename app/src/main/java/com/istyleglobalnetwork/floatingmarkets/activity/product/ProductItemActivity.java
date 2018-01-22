@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.istyleglobalnetwork.floatingmarkets.BuyActivity;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
@@ -66,7 +67,6 @@ public class ProductItemActivity extends AppCompatActivity {
         if (bundle != null) {
 
             itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
-
             itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
 
         }
@@ -80,7 +80,14 @@ setListImage();
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProductItemActivity.this, CartListActivity.class);
+//                Intent intent = new Intent(ProductItemActivity.this, CartListActivity.class);
+//                startActivity(intent);
+
+                Intent intent = new Intent(ProductItemActivity.this, BuyActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemShop", Parcels.wrap(itemShop));
+                bundle.putParcelable("itemProduct", Parcels.wrap(itemProduct));
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

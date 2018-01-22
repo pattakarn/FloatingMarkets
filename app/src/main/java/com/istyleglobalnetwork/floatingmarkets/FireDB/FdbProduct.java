@@ -12,6 +12,7 @@ public class FdbProduct {
     String nameProduct;
     String type;
     String description;
+    int price;
 
     public String getNameProduct() {
         return nameProduct;
@@ -35,5 +36,13 @@ public class FdbProduct {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

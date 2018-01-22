@@ -64,7 +64,7 @@ public class RV_Adapter_Manage_Product extends RecyclerView.Adapter<RecyclerView
         final WrapFdbProduct data = (WrapFdbProduct) items.get(position);
 //        vh1.getIv().setImageResource(data.getImageMarket());
         vh1.getTvProduct().setText("Product : " + data.getData().getNameProduct());
-        vh1.getTvType().setText(data.getData().getType());
+        vh1.getTvType().setText(data.getData().getPrice() + "");
         vh1.getTvDetail().setText(data.getData().getDescription());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override

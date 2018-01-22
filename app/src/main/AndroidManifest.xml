@@ -81,7 +81,10 @@
         <activity android:name=".ManageProductActivity" />
         <activity android:name=".EditProductActivity" />
         <activity android:name=".ManageStockActivity" />
-        <activity android:name=".EditStockActivity"></activity>
+        <activity android:name=".EditStockActivity" />
+        <activity android:name=".BuyActivity" />
+        <activity android:name=".ManageStockListActivity" />
+        <activity android:name=".ManageStockOrderActivity"></activity>
     </application>
 
 </manifest>
