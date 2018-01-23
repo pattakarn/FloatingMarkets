@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.istyleglobalnetwork.floatingmarkets.ManageMarketActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include layout="@layout/appbar_header" />
 
-        <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="110dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
             android:id="@+id/tv_title"
@@ -24,7 +24,7 @@
             android:gravity="center"
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
-            android:text="ตลาด"
+            android:text="จัดการ (ตลาด)"
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -36,16 +36,17 @@
             android:layout_below="@+id/tv_title"
             android:layout_marginBottom="52dp"></android.support.v7.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="4dp"
-            android:background="@drawable/shape_button_buy"
-            android:text="ADD"
-            android:textColor="@android:color/white" />
-    </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:layout_margin="4dp"
+        android:background="@drawable/shape_button_buy"
+        android:text="ADD"
+        android:textColor="@android:color/white" />
 
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

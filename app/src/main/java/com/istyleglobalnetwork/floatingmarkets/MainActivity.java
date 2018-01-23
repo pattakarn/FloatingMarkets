@@ -5,12 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.activity.hotel.HotelListActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.network.NetworkListActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.service.ServiceListActivity;
-import com.istyleglobalnetwork.floatingmarkets.activity.travel.TravelActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.travel.TravelListActivity;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Main;
 import com.istyleglobalnetwork.floatingmarkets.data.DataMainMenu;
 
@@ -26,7 +27,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         initInstances();
+
 //        setSupportActionBar(toolbar);
 
 //        RV_Adapter_Main_Menu adapter = new RV_Adapter_Main_Menu(this);
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(new DataMainMenu(InformationActivity.class, "ประวัติ"));
         data.add(new DataMainMenu(HomeZoneActivity.class, "โซน"));
-        data.add(new DataMainMenu(TravelActivity.class, "สถานที่ท่องเที่ยว"));
+        data.add(new DataMainMenu(TravelListActivity.class, "สถานที่ท่องเที่ยว"));
         data.add(new DataMainMenu(MapsActivity.class, "แผนที่"));
         data.add(new DataMainMenu(NetworkListActivity.class, "เครือข่าย"));
         data.add(new DataMainMenu(ServiceListActivity.class, "บริการ"));
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         data.add(new DataMainMenu(HotelListActivity.class, "ที่พัก"));
         data.add(new DataMainMenu(ContactUsActivity.class, "ติดต่อเรา"));
         data.add(new DataMainMenu(ManageMainActivity.class, "Dashboard"));
+        data.add(new DataMainMenu(ScrollingActivity.class, "Test"));
 
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         glm.setOrientation(LinearLayoutManager.VERTICAL);

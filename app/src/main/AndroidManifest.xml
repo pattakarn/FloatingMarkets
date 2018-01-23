@@ -18,8 +18,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_floating_market"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".MainActivity"/>
         <activity android:name=".InformationActivity" />
         <activity android:name=".HomeZoneActivity" />
         <activity android:name=".activity.shop.ShopListActivity" />
@@ -45,7 +45,7 @@
         <activity
             android:name=".CarParkActivity"
             android:label="@string/title_activity_car_park" />
-        <activity android:name=".activity.travel.TravelActivity" />
+        <activity android:name=".activity.travel.TravelListActivity" />
         <activity android:name=".activity.hotel.HotelListActivity" />
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".RatingActivity" />
@@ -84,7 +84,11 @@
         <activity android:name=".EditStockActivity" />
         <activity android:name=".BuyActivity" />
         <activity android:name=".ManageStockListActivity" />
-        <activity android:name=".ManageStockOrderActivity"></activity>
+        <activity android:name=".ManageStockOrderActivity" />
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

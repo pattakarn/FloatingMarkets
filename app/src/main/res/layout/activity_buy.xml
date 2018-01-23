@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.istyleglobalnetwork.floatingmarkets.BuyActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include layout="@layout/appbar_header" />
 
-        <com.istyleglobalnetwork.floatingmarkets.viewgroup.HeaderViewGroup
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="110dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
             android:id="@+id/tv_title"
@@ -27,7 +27,8 @@
             android:text="สินค้า"
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -109,16 +110,16 @@
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_add_cart"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="4dp"
-            android:background="@drawable/shape_button_buy"
-            android:text="Add to cart"
-            android:textColor="@android:color/white" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_add_cart"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/shape_button_buy"
+        android:text="Add to cart"
+        android:textColor="@android:color/white"
+        android:layout_gravity="bottom"/>
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

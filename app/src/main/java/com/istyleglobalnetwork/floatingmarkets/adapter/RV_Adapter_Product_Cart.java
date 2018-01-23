@@ -68,7 +68,7 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
                 builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(inflater.getContext(),
-                                "ขอบคุณครับ", Toast.LENGTH_SHORT).show();
+                                "ลบเรียบร้อย", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {

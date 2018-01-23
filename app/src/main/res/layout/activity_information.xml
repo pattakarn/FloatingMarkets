@@ -1,31 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.istyleglobalnetwork.floatingmarkets.InformationActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <include layout="@layout/appbar_header" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff" >
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v4.view.PagerTitleStrip
-            android:id="@+id/pager_title_strip"
+        <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#00FFFFFF"
+            android:layout_height="36dp"
+            android:layout_below="@+id/header"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
             android:paddingBottom="4dp"
-            android:paddingTop="8dp"/>
-    </android.support.v4.view.ViewPager>
+            android:paddingTop="4dp"
+            android:text="ประวัติ"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-<!--<ImageView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:focusable="true"-->
-    <!--android:src="@drawable/intro1"/>-->
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nsv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-</RelativeLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff">
+
+                <android.support.v4.view.PagerTitleStrip
+                    android:id="@+id/pager_title_strip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="#00FFFFFF"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="8dp" />
+            </android.support.v4.view.ViewPager>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+    <!--<ImageView--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:focusable="true"--><!--android:src="@drawable/intro1"/>-->
+
+</android.support.design.widget.CoordinatorLayout>
