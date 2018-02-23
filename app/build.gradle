@@ -3,11 +3,11 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.istyleglobalnetwork.floatingmarkets"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 8
         versionName "1.07"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,11 +21,12 @@ android {
     buildToolsVersion '27.0.3'
 }
 
-def supportLibraryVersion = '26.1.0'
+def supportLibraryVersion = '27.0.1'
 def firebaseVersion = '11.4.2'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.facebook.android:facebook-login:[4,5)'
     implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
@@ -36,11 +37,14 @@ dependencies {
     compile "com.google.firebase:firebase-core:${firebaseVersion}"
     compile "com.google.firebase:firebase-database:${firebaseVersion}"
     compile "com.google.firebase:firebase-storage:${firebaseVersion}"
+    compile "com.google.firebase:firebase-auth:${firebaseVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "com.google.android.gms:play-services-auth:${firebaseVersion}"
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'org.parceler:parceler-api:1.1.9'
     compile 'com.github.myinnos:AwesomeImagePicker:1.0.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
     annotationProcessor 'org.parceler:parceler:1.1.9'
 
 
@@ -49,6 +53,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
 
 
 

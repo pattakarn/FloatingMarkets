@@ -1,6 +1,7 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderText1;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +123,9 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), CommentActivity.class);
-                intent.putExtra("Name", items.get(position).toString());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemProduct", Parcels.wrap(itemProduct));
+                intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }
         });

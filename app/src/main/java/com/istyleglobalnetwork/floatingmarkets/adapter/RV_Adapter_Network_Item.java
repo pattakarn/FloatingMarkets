@@ -1,6 +1,7 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,7 +131,9 @@ public class RV_Adapter_Network_Item extends RecyclerView.Adapter<RecyclerView.V
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), CommentActivity.class);
-                intent.putExtra("Name", items.get(position).toString());
+                Bundle bundle = new Bundle();
+//                bundle.putParcelable("itemShop", Parcels.wrap(itemShop));
+                intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }
         });

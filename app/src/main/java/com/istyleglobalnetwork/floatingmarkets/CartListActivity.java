@@ -1,6 +1,7 @@
 package com.istyleglobalnetwork.floatingmarkets;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +42,8 @@ public class CartListActivity extends AppCompatActivity {
     int total = 0;
 
     DatabaseReference mRootRef;
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,33 +73,41 @@ public class CartListActivity extends AppCompatActivity {
 //        data.add("1");
 //        data.add("2");
 
-        setListOrder();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(CartListActivity.this, LoginActivity2.class);
+            startActivity(intent);
+        } else {
 
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(CartListActivity.this);
-                builder.setMessage("ยืนยันการสั่งซื้อ ?");
-                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(CartListActivity.this,
-                                "ขอบคุณครับ", Toast.LENGTH_SHORT).show();
-                        setConfirm();
-                        finish();
-                    }
-                });
-                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //dialog.dismiss();
-                    }
-                });
-                builder.show();
+            setListOrder();
+
+            btnConfirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(CartListActivity.this);
+                    builder.setMessage("ยืนยันการสั่งซื้อ ?");
+                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Toast.makeText(CartListActivity.this,
+                                    "ขอบคุณครับ", Toast.LENGTH_SHORT).show();
+                            setConfirm();
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //dialog.dismiss();
+                        }
+                    });
+                    builder.show();
 
 
-            }
-        });
+                }
+            });
+        }
 
 
 
@@ -102,7 +115,7 @@ public class CartListActivity extends AppCompatActivity {
 
     private void setListOrder() {
 
-        mRootRef.child("order").orderByChild("status").equalTo("standby").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRootRef.child("user-order").child(currentUser.getUid()).orderByChild("status").equalTo("standby").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -131,11 +144,13 @@ public class CartListActivity extends AppCompatActivity {
     private void setConfirm(){
         for (int i=0; i< dataOrder.size(); i++){
             DatabaseReference mOrderRef = mRootRef.child("order");
+            DatabaseReference mUserOrderRef = mRootRef.child("user-order");
             DatabaseReference mStockListRef = mRootRef.child("stock-list");
 
             FdbOrder order = dataOrder.get(i).getData();
             order.setStatus("order");
             mOrderRef.child(dataOrder.get(i).getKey()).setValue(order);
+            mUserOrderRef.child(currentUser.getUid()).child(dataOrder.get(i).getKey()).setValue(order);
 
             String keyStockList = mStockListRef.child(order.getProductID()).push().getKey();
             FdbStockList dataStockList = new FdbStockList();

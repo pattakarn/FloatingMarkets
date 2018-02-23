@@ -12,8 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Comment_Item;
 import com.istyleglobalnetwork.floatingmarkets.data.DataCommentItem;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -23,7 +27,9 @@ public class CommentActivity extends AppCompatActivity {
     TextView tvTitle;
     Button btn;
 
-    String name;
+    WrapFdbShop itemShop = null;
+    WrapFdbProduct itemProduct = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +48,21 @@ public class CommentActivity extends AppCompatActivity {
         initInstances();
 
         Bundle bundle = getIntent().getExtras();
-        name = bundle.getString("Name", "");
+        if (bundle != null) {
 
-        tvTitle.setText(name);
+            itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
+            if (itemShop != null){
+                tvTitle.setText(itemShop.getData().getNameShop());
+            }
+
+            itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
+            if (itemProduct != null){
+                tvTitle.setText(itemProduct.getData().getNameProduct());
+            }
+
+        }
+
+
 
         String[] title_comment = getResources().getStringArray(R.array.title_comment);
         String[] detail_comment = getResources().getStringArray(R.array.detail_comment);
@@ -66,7 +84,13 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CommentActivity.this, RatingActivity.class);
-                intent.putExtra("NameShop", name);
+                Bundle bundle = new Bundle();
+                if (itemShop != null) {
+                    bundle.putParcelable("itemShop", Parcels.wrap(itemShop));
+                } else if (itemProduct != null) {
+                    bundle.putParcelable("itemProduct", Parcels.wrap(itemProduct));
+                }
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

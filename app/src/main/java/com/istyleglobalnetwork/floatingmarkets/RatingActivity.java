@@ -9,9 +9,22 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
+
+import org.parceler.Parcels;
+
 public class RatingActivity extends AppCompatActivity {
 
-    String nameShop;
+    private TextView tvTitle;
+    private TextView tvTitleRating;
+    private RatingBar ratingBar;
+    private Button btnSubmit;
+
+    WrapFdbShop itemShop = null;
+    WrapFdbProduct itemProduct = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +39,22 @@ public class RatingActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        initInstances();
+
         Bundle bundle = getIntent().getExtras();
-        nameShop = bundle.getString("NameShop", "");
+        if (bundle != null) {
 
-        TextView tv_title = (TextView) findViewById(R.id.tv_title);
-        TextView tv_title_rating = (TextView) findViewById(R.id.tv_title_rating);
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-//        final TextView tv_result = (TextView) findViewById(R.id.tv_result);
-        Button btn_submit = (Button) findViewById(R.id.btn_submit);
+            itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
+            if (itemShop != null){
+                tvTitle.setText(itemShop.getData().getNameShop());
+            }
 
-        tv_title.setText(nameShop);
+            itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
+            if (itemProduct != null){
+                tvTitle.setText(itemProduct.getData().getNameProduct());
+            }
+
+        }
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -43,6 +62,15 @@ public class RatingActivity extends AppCompatActivity {
 //                tv_result.setText("Result : " + v);
             }
         });
+    }
+
+    private void initInstances() {
+        // init instance with rootView.findViewById here
+        tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvTitleRating = (TextView) findViewById(R.id.tv_title_rating);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        btnSubmit = (Button) findViewById(R.id.btn_submit);
+
     }
 
     @Override

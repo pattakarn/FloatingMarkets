@@ -21,11 +21,13 @@
 
         <ImageView
             android:id="@+id/iv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            android:layout_gravity="center"
             android:src="@mipmap/ic_floating_market" />
 
         <LinearLayout

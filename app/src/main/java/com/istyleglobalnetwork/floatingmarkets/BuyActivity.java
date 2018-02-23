@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -43,6 +45,7 @@ public class BuyActivity extends AppCompatActivity {
     DatabaseReference mRootRef;
     private UploadTask mUploadTask;
     private StorageReference folderRef, imageRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,30 +78,42 @@ public class BuyActivity extends AppCompatActivity {
 
         }
 
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference mOrderRef = mRootRef.child("order");
 
-                FdbOrder dataOrder = new FdbOrder();
-                String productID = itemProduct.getKey();
-                int quantity = qvg.getQuantity();
-                int price = itemProduct.getData().getPrice() * quantity;
-                dataOrder.setProductID(productID);
-                dataOrder.setQuantity(quantity);
-                dataOrder.setStatus("standby");
-                dataOrder.setPrice(price);
+                mAuth = FirebaseAuth.getInstance();
+                final FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser == null) {
+                    Intent intent = new Intent(BuyActivity.this, LoginActivity2.class);
+                    startActivity(intent);
+                } else {
+                    DatabaseReference mOrderRef = mRootRef.child("order");
+                    DatabaseReference mUserOrderRef = mRootRef.child("user-order");
+
+                    FdbOrder dataOrder = new FdbOrder();
+                    String productID = itemProduct.getKey();
+                    int quantity = qvg.getQuantity();
+                    int price = itemProduct.getData().getPrice() * quantity;
+                    dataOrder.setProductID(productID);
+                    dataOrder.setQuantity(quantity);
+                    dataOrder.setStatus("standby");
+                    dataOrder.setPrice(price);
 
 
-                String keyOrder = mOrderRef.push().getKey();
-                mOrderRef.child(keyOrder).setValue(dataOrder);
+                    String keyOrder = mOrderRef.push().getKey();
+                    mOrderRef.child(keyOrder).setValue(dataOrder);
+                    mUserOrderRef.child(currentUser.getUid()).child(keyOrder).setValue(dataOrder);
 
-                Intent intent = new Intent(BuyActivity.this, CartListActivity.class);
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(BuyActivity.this, CartListActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
 
             }
         });
+
     }
 
     private void initInstances() {

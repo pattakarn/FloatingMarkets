@@ -1,13 +1,18 @@
 package com.istyleglobalnetwork.floatingmarkets;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.istyleglobalnetwork.floatingmarkets.activity.hotel.HotelListActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.network.NetworkListActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.service.ServiceListActivity;
@@ -19,6 +24,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
     RecyclerView rv;
     TextView tv_title;
 
@@ -48,19 +54,48 @@ public class MainActivity extends AppCompatActivity {
         data.add(new DataMainMenu(HotelListActivity.class, "ที่พัก"));
         data.add(new DataMainMenu(ContactUsActivity.class, "ติดต่อเรา"));
         data.add(new DataMainMenu(ManageMainActivity.class, "Dashboard"));
-        data.add(new DataMainMenu(ScrollingActivity.class, "Test"));
+//        data.add(new DataMainMenu(ScrollingActivity.class, "Test"));
+//        data.add(new DataMainMenu(LoginActivity.class, "Login"));
 
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         glm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(glm);
         RV_Adapter_Main adapterList = new RV_Adapter_Main(data);
         rv.setAdapter(adapterList);
+
     }
 
     private void initInstances() {
         tv_title = (TextView) findViewById(R.id.tv_title);
         rv = (RecyclerView) findViewById(R.id.rv);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_person:
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser!=null) {
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity2.class);
+                    startActivity(intent);
+                }
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 }
