@@ -55,6 +55,11 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.istyleglobalnetwork.floatingmarkets.DialogPopup.DialogLoginAndProfile;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +70,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks<Cursor>, OnClickListener {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -87,12 +92,15 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private TextView tvRepassword;
     private View mProgressView;
     private View mLoginFormView;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = "SignInActivity";
+    private Button btnLogin;
+    private Button btnRegister;
     private static SignInButton googleSignIn;
     private LoginButton facebookSignIn;
 
@@ -100,6 +108,8 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
     private GoogleApiClient mGoogleApiClient;
 
     CallbackManager mCallbackManager;
+    Boolean checkEmail = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,8 +150,26 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if (firebaseAuth.getCurrentUser() != null) {
-                    startActivity(new Intent(LoginActivity2.this, ProfileActivity.class));
-                    finish();
+                    if (checkEmail) {
+                        setUserProfile(firebaseAuth.getCurrentUser());
+                        Toast.makeText(LoginActivity2.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
+                        Log.d("EmailVerified", "checkEmail เข้าสู่ระบบสำเร็จ");
+                        startActivity(new Intent(LoginActivity2.this, ProfileActivity.class));
+                        finish();
+                    } else {
+                        if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                            Toast.makeText(LoginActivity2.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
+                            Log.d("EmailVerified", "is Verified");
+                            startActivity(new Intent(LoginActivity2.this, ProfileActivity.class));
+                            finish();
+                        } else {
+                            firebaseAuth.getCurrentUser().sendEmailVerification();
+                            Toast.makeText(LoginActivity2.this, "กรุณายืนยันอีเมล", Toast.LENGTH_SHORT).show();
+                            Log.d("EmailVerified", "not Verified");
+                            FirebaseAuth.getInstance().signOut();
+                        }
+                    }
+
                 }
             }
         };
@@ -168,7 +196,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
 
         facebookSignIn = (LoginButton) findViewById(R.id.login_button);
         facebookSignIn.setReadPermissions(Arrays.asList(EMAIL));
-//        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//        facebookSignIn.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
 //            @Override
 //            public void onSuccess(LoginResult loginResult) {
 //                Log.d(TAG, "facebook:onSuccess:" + loginResult);
@@ -197,6 +225,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                             public void onSuccess(LoginResult loginResult) {
                                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                                 handleFacebookAccessToken(loginResult.getAccessToken());
+                                checkEmail = true;
                             }
 
                             @Override
@@ -213,11 +242,8 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
         });
 
 
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -229,21 +255,81 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
+        tvRepassword.setOnClickListener(this);
+
+
+    }
+
+    private void getRegister() {
+        DialogLoginAndProfile make_popup = new DialogLoginAndProfile(LoginActivity2.this);
+        make_popup.Popup_Register(false);
+//        make_popup.Popup_Login();
+    }
+
+    private void getResetPassword() {
+        DialogLoginAndProfile make_popup = new DialogLoginAndProfile(LoginActivity2.this);
+        make_popup.Popup_ResetPassword();
+//        make_popup.Popup_Login();
     }
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void setUserProfile(FirebaseUser user) {
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserRef = mRootRef.child("user");
+
+        FdbUser dataUser = new FdbUser();
+        String nameContact = "";
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                nameContact = profile.getDisplayName();
+            }
+            ;
+        }
+
+        String email = user.getEmail();
+
+        dataUser.setNameContact(nameContact);
+        dataUser.setEmail(email);
+
+        mUserRef.child(user.getUid()).setValue(dataUser);
+
+    }
+
+    private void initInstances() {
+        // init instance with rootView.findViewById here
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        tvRepassword = (TextView) findViewById(R.id.tv_repassword);
+        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnRegister = (Button) findViewById(R.id.btn_register);
+        googleSignIn = (SignInButton) findViewById(R.id.login_with_google);
+
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_register:
+                getRegister();
+                break;
+            case R.id.btn_login:
+                attemptLogin();
+                break;
+            case R.id.tv_repassword:
+                getResetPassword();
+                break;
+
+        }
     }
 
     @Override
@@ -267,6 +353,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+                checkEmail = true;
             } else {
 
             }
@@ -287,6 +374,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                             Log.d(TAG, "signInWithCredential:success");
                             Toast.makeText(LoginActivity2.this, "Success", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -313,6 +401,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -325,12 +414,6 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
                         // ...
                     }
                 });
-    }
-
-    private void initInstances() {
-        // init instance with rootView.findViewById here
-        googleSignIn = (SignInButton) findViewById(R.id.login_with_google);
-
     }
 
 
@@ -411,7 +494,11 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -531,6 +618,8 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
     }
 
 
+
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -584,7 +673,18 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
             showProgress(false);
 
             if (success) {
-                finish();
+                mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful())
+                            Log.d("signin", "================ Success");
+                        else {
+                            Toast.makeText(LoginActivity2.this, "เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง", Toast.LENGTH_SHORT).show();
+                            Log.d("signin", "================ failed");
+                        }
+                    }
+                });
+//                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

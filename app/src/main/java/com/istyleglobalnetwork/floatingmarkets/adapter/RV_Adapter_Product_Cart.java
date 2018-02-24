@@ -1,6 +1,7 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,11 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -28,11 +36,17 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
 
     private List<WrapFdbOrder> items;
     LayoutInflater inflater;
+    DatabaseReference mRootRef;
+    StorageReference storageRef;
+    StorageReference folderRef, imageRef;
 
     private final int TITLE = 0, IMAGE = 1;
 
     public RV_Adapter_Product_Cart(List<WrapFdbOrder> items) {
         this.items = items;
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+        storageRef = FirebaseStorage.getInstance().getReference();
+        folderRef = storageRef.child("photos");
     }
 
     @Override
@@ -55,7 +69,7 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
     private void configureViewHolderProductCart(ViewHolderProductCart vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        WrapFdbOrder dataOrder = items.get(position);
+        final WrapFdbOrder dataOrder = items.get(position);
 
         getProduct(vh1, dataOrder.getData().getProductID());
         vh1.getQvgQuantity().setQuantity(dataOrder.getData().getQuantity());
@@ -67,6 +81,7 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
                 builder.setMessage("คุณต้องการจะลบออเดอร์ใช่หรือไม่ ?");
                 builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        removeProduct(dataOrder.getKey());
                         Toast.makeText(inflater.getContext(),
                                 "ลบเรียบร้อย", Toast.LENGTH_SHORT).show();
                     }
@@ -84,12 +99,42 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
     }
 
     private void getProduct(final ViewHolderProductCart vh1, String productID) {
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         mRootRef.child("product").child(productID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String key = dataSnapshot.getKey();
+                final String key = dataSnapshot.getKey();
                 FdbProduct value = dataSnapshot.getValue(FdbProduct.class);
+
+                mRootRef.child("item-photo").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String keyPhoto = postSnapshot.getKey();
+                            FdbImage value = postSnapshot.getValue(FdbImage.class);
+//                            vh1.getIvProduct().setImageDrawable(value.getNameImage());
+                            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                            StorageReference folderRef = storageRef.child("photos");
+                            StorageReference imageRef = folderRef.child(value.getNameImage());
+                            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Glide.with(inflater.getContext())
+                                            .load(uri.toString())
+                                            .placeholder(R.mipmap.ic_floating_market)
+                                            .into(vh1.getIvProduct());
+                                }
+                            });
+                            break;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
                 vh1.getTvName().setText(value.getNameProduct());
                 vh1.getTvPrice().setText(value.getPrice() + " บาท");
@@ -100,6 +145,17 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
 
             }
         });
+
+    }
+
+    private void removeProduct(String keyOrder){
+        DatabaseReference mOrderRef = mRootRef.child("order");
+        DatabaseReference mUserOrderRef = mRootRef.child("user-order");
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        mOrderRef.child(keyOrder).setValue(null);
+        mUserOrderRef.child(currentUser.getUid()).child(keyOrder).setValue(null);
 
     }
 

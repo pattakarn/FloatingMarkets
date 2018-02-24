@@ -1,13 +1,25 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -35,12 +47,20 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
     WrapFdbShop itemShop;
     LayoutInflater inflater;
 
+    DatabaseReference mRootRef;
+    StorageReference storageRef;
+    StorageReference folderRef, imageRef;
+
     private final int TITLE = 0, IMAGE = 1;
 
     public RV_Adapter_Shop_Item(WrapFdbShop itemShop, List<Object> items, LayoutInflater inflater) {
         this.itemShop = itemShop;
         this.items = items;
         this.inflater = inflater;
+
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+        storageRef = FirebaseStorage.getInstance().getReference();
+        folderRef = storageRef.child("photos");
     }
 
 
@@ -164,7 +184,8 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
     private void configureViewHolderProduct(ViewHolderProduct vh2, int position) {
 
         final DataProductItem data = (DataProductItem) items.get(position);
-        vh2.getIvProduct().setImageResource(data.getImage());
+        setPhoto(vh2.getIvProduct(), data.getItemProduct().getKey());
+//        vh2.getIvProduct().setImageResource(data.getImage());
         vh2.getTvName().setText(data.getItemProduct().getData().getNameProduct());
         vh2.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +200,38 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
             }
         });
 //        vh2.getImage().setImageResource(R.drawable.talad3);
+    }
+
+    private void setPhoto(final ImageView iv, String key) {
+        mRootRef.child("item-photo").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String keyPhoto = postSnapshot.getKey();
+                    FdbImage value = postSnapshot.getValue(FdbImage.class);
+//                            vh1.getIvProduct().setImageDrawable(value.getNameImage());
+                    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                    StorageReference folderRef = storageRef.child("photos");
+                    StorageReference imageRef = folderRef.child(value.getNameImage());
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(inflater.getContext())
+                                    .load(uri.toString())
+                                    .placeholder(R.mipmap.ic_floating_market)
+                                    .into(iv);
+                        }
+                    });
+                    break;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

@@ -3,6 +3,7 @@ package com.istyleglobalnetwork.floatingmarkets;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStock;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStockList;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Product_Cart;
 
@@ -37,8 +39,10 @@ public class CartListActivity extends AppCompatActivity {
     TextView tvTitle;
     TextView tvTotal;
     Button btnConfirm;
+    SwipeRefreshLayout swipeRefreshLayout;
 
-    List<WrapFdbOrder> dataOrder = new ArrayList<WrapFdbOrder>();
+    List<WrapFdbOrder> dataOrder;
+    List<WrapFdbImage> dataPhoto;
     int total = 0;
 
     DatabaseReference mRootRef;
@@ -72,6 +76,12 @@ public class CartListActivity extends AppCompatActivity {
 //        ArrayList<Object> data = new ArrayList<Object>();
 //        data.add("1");
 //        data.add("2");
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setListOrder();
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -110,28 +120,28 @@ public class CartListActivity extends AppCompatActivity {
         }
 
 
-
     }
 
     private void setListOrder() {
-
-        mRootRef.child("user-order").child(currentUser.getUid()).orderByChild("status").equalTo("standby").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRootRef.child("user-order").child(currentUser.getUid()).orderByChild("status").equalTo("standby").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                dataOrder = new ArrayList<WrapFdbOrder>();
+                dataPhoto = new ArrayList<WrapFdbImage>();
+                total = 0;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String key = postSnapshot.getKey();
+                    final String key = postSnapshot.getKey();
                     FdbOrder value = postSnapshot.getValue(FdbOrder.class);
                     dataOrder.add(new WrapFdbOrder(key, value));
                     total += value.getPrice();
-
                 }
-
 
                 RV_Adapter_Product_Cart adapterList = new RV_Adapter_Product_Cart(dataOrder);
                 rv.setAdapter(adapterList);
                 tvTotal.setText(total + " บาท");
 //                RV_Adapter_Manage_Market adapterList = new RV_Adapter_Manage_Market(data);
 //                rv.setAdapter(adapterList);
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -139,10 +149,11 @@ public class CartListActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
-    private void setConfirm(){
-        for (int i=0; i< dataOrder.size(); i++){
+    private void setConfirm() {
+        for (int i = 0; i < dataOrder.size(); i++) {
             DatabaseReference mOrderRef = mRootRef.child("order");
             DatabaseReference mUserOrderRef = mRootRef.child("user-order");
             DatabaseReference mStockListRef = mRootRef.child("stock-list");
@@ -162,7 +173,7 @@ public class CartListActivity extends AppCompatActivity {
         }
     }
 
-    private void updateStock(final String productID, final int orderQuantity){
+    private void updateStock(final String productID, final int orderQuantity) {
         final DatabaseReference mStockRef = mRootRef.child("stock");
         mRootRef.child("stock").child(productID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -188,6 +199,7 @@ public class CartListActivity extends AppCompatActivity {
         tvTotal = (TextView) findViewById(R.id.tv_total);
         rv = (RecyclerView) findViewById(R.id.rv);
         btnConfirm = (Button) findViewById(R.id.btn_confirm);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 //        iv_company = (ImageView) rootView.findViewById(R.id.iv_company);
 //        iv_company.setOnClickListener(this);
 

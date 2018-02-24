@@ -17,6 +17,7 @@ import com.istyleglobalnetwork.floatingmarkets.R;
 
 public class ColAccountViewGroup extends LinearLayout {
 
+    private LinearLayout ll;
     private TextView tvTitle;
     private TextView tvValue;
 
@@ -44,14 +45,22 @@ public class ColAccountViewGroup extends LinearLayout {
         initInstance();
     }
 
-    public void initInflate(){
-        inflate(getContext(), R.layout.col_account,this);
+    public void initInflate() {
+        inflate(getContext(), R.layout.col_account, this);
     }
 
-    public void initInstance(){
-
+    public void initInstance() {
+        ll = (LinearLayout) findViewById(R.id.ll);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvValue = (TextView) findViewById(R.id.tv_value);
+    }
+
+    public LinearLayout getLl() {
+        return ll;
+    }
+
+    public void setLl(LinearLayout ll) {
+        this.ll = ll;
     }
 
     public TextView getTvTitle() {

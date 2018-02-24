@@ -16,6 +16,7 @@ public class ViewHolderAccountProfile extends RecyclerView.ViewHolder {
     private ColAccountViewGroup colEmail;
     private ColAccountViewGroup colSex;
     private ColAccountViewGroup colBirth;
+    private ColAccountViewGroup colPhone;
 
     public ViewHolderAccountProfile(View itemView) {
         super(itemView);
@@ -23,6 +24,7 @@ public class ViewHolderAccountProfile extends RecyclerView.ViewHolder {
         this.colEmail = (ColAccountViewGroup) itemView.findViewById(R.id.col_email);
         this.colSex = (ColAccountViewGroup) itemView.findViewById(R.id.col_sex);
         this.colBirth = (ColAccountViewGroup) itemView.findViewById(R.id.col_birth);
+        this.colPhone = (ColAccountViewGroup) itemView.findViewById(R.id.col_phone);
     }
 
     public ColAccountViewGroup getColName() {
@@ -55,5 +57,13 @@ public class ViewHolderAccountProfile extends RecyclerView.ViewHolder {
 
     public void setColBirth(ColAccountViewGroup colBirth) {
         this.colBirth = colBirth;
+    }
+
+    public ColAccountViewGroup getColPhone() {
+        return colPhone;
+    }
+
+    public void setColPhone(ColAccountViewGroup colPhone) {
+        this.colPhone = colPhone;
     }
 }
