@@ -279,7 +279,7 @@ public class DialogLoginAndProfile {
         firstname.setText(dataUser.getData().getNameContact().split(" ")[0]);
         lastname.setText(dataUser.getData().getNameContact().split(" ")[1]);
         popupDialog.setView(layout_popup);
-        popupDialog.setTitle("Reset password");
+        popupDialog.setTitle("Contact Name");
         popupDialog.setNegativeButton("ยกเลิก", null);
         popupDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
@@ -354,7 +354,7 @@ public class DialogLoginAndProfile {
         final EditTextNotNull phone = (EditTextNotNull) layout_popup.findViewById(R.id.phone);
 
         phone.setText(dataUser.getData().getPhone());
-        phone.setPhoneType(true);
+        phone.setNumberType(true);
 
         popupDialog.setView(layout_popup);
         popupDialog.setTitle("Phone");

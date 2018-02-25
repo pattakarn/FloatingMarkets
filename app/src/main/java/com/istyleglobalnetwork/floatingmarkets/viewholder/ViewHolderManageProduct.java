@@ -3,6 +3,7 @@ package com.istyleglobalnetwork.floatingmarkets.viewholder;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -17,6 +18,7 @@ public class ViewHolderManageProduct extends RecyclerView.ViewHolder {
     private TextView tvProduct;
     private TextView tvType;
     private TextView tvDetail;
+    private ImageView ivStat;
 
 
     public ViewHolderManageProduct(View itemView) {
@@ -25,6 +27,7 @@ public class ViewHolderManageProduct extends RecyclerView.ViewHolder {
         tvProduct = (TextView) itemView.findViewById(R.id.tv_product);
         tvType = (TextView) itemView.findViewById(R.id.tv_type);
         tvDetail = (TextView) itemView.findViewById(R.id.tv_detail);
+        ivStat = (ImageView) itemView.findViewById(R.id.iv_stat);
     }
 
     public CardView getCv() {
@@ -57,5 +60,13 @@ public class ViewHolderManageProduct extends RecyclerView.ViewHolder {
 
     public void setTvDetail(TextView tvDetail) {
         this.tvDetail = tvDetail;
+    }
+
+    public ImageView getIvStat() {
+        return ivStat;
+    }
+
+    public void setIvStat(ImageView ivStat) {
+        this.ivStat = ivStat;
     }
 }

@@ -99,7 +99,8 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
 //        User user = (User) items.get(position);
 //        if (user != null) {
         vh1.getTitle().setText("จำหน่ายโดย");
-        vh1.getDetail().setText(items.get(position).toString());
+        if (items.get(position) != null)
+            vh1.getDetail().setText(items.get(position).toString());
 //        }
     }
 
@@ -107,14 +108,16 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
 //        User user = (User) items.get(position);
 //        if (user != null) {
         vh1.getTitle().setText("รายละเอียดสินค้า");
-        vh1.getDetail().setText(items.get(position).toString());
+        if (items.get(position) != null)
+            vh1.getDetail().setText(items.get(position).toString());
 //        }
     }
 
     private void configureViewHolderImageProduct(ViewHolderImageProduct vh2, int position) {
         ArrayList<WrapFdbImage> data = (ArrayList<WrapFdbImage>) items.get(position);
         vh2.setImage(data);
-        vh2.getTvName().setText(itemProduct.getData().getNameProduct());
+        if (items.get(position) != null)
+            vh2.getTvName().setText(itemProduct.getData().getNameProduct());
     }
 
     private void configureViewHolderRating(ViewHolderRating vh2, final int position) {

@@ -117,7 +117,9 @@
         <activity android:name=".ProfileActivity" />
         <activity
             android:name=".LoginActivity2"
-            android:label="@string/title_activity_login2"></activity>
+            android:label="@string/title_activity_login2" />
+        <activity android:name=".DashboardItemActivity" />
+        <activity android:name=".UpdatePhotoActivity"></activity>
     </application>
 
 </manifest>

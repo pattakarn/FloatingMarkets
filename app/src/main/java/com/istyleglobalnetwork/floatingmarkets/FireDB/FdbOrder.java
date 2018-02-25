@@ -13,6 +13,8 @@ public class FdbOrder {
     String status;
     int quantity;
     int price;
+    String date;
+    String time;
 
     public String getProductID() {
         return productID;
@@ -44,5 +46,21 @@ public class FdbOrder {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

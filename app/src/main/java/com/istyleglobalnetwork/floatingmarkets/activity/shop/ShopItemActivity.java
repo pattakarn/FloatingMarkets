@@ -16,9 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
@@ -27,7 +24,6 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Shop_Item;
-import com.istyleglobalnetwork.floatingmarkets.data.DataImageShop;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
 
 import org.parceler.Parcels;
@@ -38,7 +34,6 @@ import java.util.List;
 public class ShopItemActivity extends AppCompatActivity {
 
     String nameShop;
-    int imageShop;
     ArrayList<Object> data = new ArrayList<Object>();
     List<Object> itemImage = new ArrayList<Object>();
 
@@ -48,8 +43,7 @@ public class ShopItemActivity extends AppCompatActivity {
     WrapFdbShop itemShop = null;
 
     DatabaseReference mRootRef;
-    private UploadTask mUploadTask;
-    private StorageReference folderRef, imageRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +60,6 @@ public class ShopItemActivity extends AppCompatActivity {
 
         initInstances();
         mRootRef = FirebaseDatabase.getInstance().getReference();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        folderRef = storageRef.child("photos");
 
         Bundle bundle = getIntent().getExtras();
 
@@ -83,8 +75,6 @@ public class ShopItemActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
-
-        DataImageShop dataImageShop = new DataImageShop(R.drawable.talad2, nameShop);
 
         setListImage();
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.istyleglobalnetwork.floatingmarkets.DashboardItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.EditProductActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
@@ -61,11 +62,11 @@ public class RV_Adapter_Manage_Product extends RecyclerView.Adapter<RecyclerView
     private void configureViewHolderManageProduct(ViewHolderManageProduct vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        final WrapFdbProduct data = (WrapFdbProduct) items.get(position);
+        final WrapFdbProduct dataProduct = (WrapFdbProduct) items.get(position);
 //        vh1.getIv().setImageResource(data.getImageMarket());
-        vh1.getTvProduct().setText("Product : " + data.getData().getNameProduct());
-        vh1.getTvType().setText(data.getData().getPrice() + "");
-        vh1.getTvDetail().setText(data.getData().getDescription());
+        vh1.getTvProduct().setText("Product : " + dataProduct.getData().getNameProduct());
+        vh1.getTvType().setText(dataProduct.getData().getPrice() + "");
+        vh1.getTvDetail().setText(dataProduct.getData().getDescription());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +75,17 @@ public class RV_Adapter_Manage_Product extends RecyclerView.Adapter<RecyclerView
                 bundle.putParcelable("itemMarket", Parcels.wrap(itemMarket));
                 bundle.putParcelable("itemZone", Parcels.wrap(itemZone));
                 bundle.putParcelable("itemShop", Parcels.wrap(itemShop));
-                bundle.putParcelable("itemProduct", Parcels.wrap(data));
+                bundle.putParcelable("itemProduct", Parcels.wrap(dataProduct));
+                intent.putExtras(bundle);
+                inflater.getContext().startActivity(intent);
+            }
+        });
+        vh1.getIvStat().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(inflater.getContext(), DashboardItemActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemProduct", Parcels.wrap(dataProduct));
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }

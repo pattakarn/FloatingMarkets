@@ -49,7 +49,7 @@
                     android:layout_marginLeft="4dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@drawable/room1" />
+                    android:src="@drawable/floating_market_logo" />
 
                 <RelativeLayout
                     android:layout_width="0dp"

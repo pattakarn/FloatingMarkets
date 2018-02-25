@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:card_view="http://schemas.android.com/apk/res-auto"--><!--android:id="@+id/cv"--><!--android:layout_width="100dp"--><!--android:layout_height="100dp"--><!--android:layout_gravity="center"--><!--android:elevation="8dp"--><!--card_view:cardCornerRadius="10dp"--><!--card_view:cardUseCompatPadding="true">-->
+
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="4dp"
+    android:layout_marginTop="4dp"
+    android:elevation="8dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
+            android:id="@+id/col_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
+
+        <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
+            android:id="@+id/col_owner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
+
+        <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
+            android:id="@+id/col_size"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
+
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

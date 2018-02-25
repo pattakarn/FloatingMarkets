@@ -70,4 +70,132 @@ public class DateTimeMillis {
         }
         return "";
     }
+
+    static public String[] getDateWeek() {
+        String[] date = new String[15];
+
+        Calendar calendar = Calendar.getInstance();
+        for (int i = 0; i < 15; i++) {
+            String day = calendar.get(Calendar.DATE) + "";
+            String month = (calendar.get(Calendar.MONTH) + 1) + "";
+            String year = calendar.get(Calendar.YEAR) + "";
+            date[i] = day + "-" + month + "-" + year;
+
+            calendar.add(Calendar.DATE, -1);
+        }
+        return date;
+
+    }
+
+    static public String[] getDateMonth() {
+        String[] date = new String[15];
+
+        Calendar calendar = Calendar.getInstance();
+        for (int i = 0; i < 15; i++) {
+//            String day = calendar.get(Calendar.DATE) + "";
+            String month = (calendar.get(Calendar.MONTH) + 1) + "";
+            String year = calendar.get(Calendar.YEAR) + "";
+            date[i] = month + "-" + year;
+
+            calendar.add(Calendar.MONTH, -1);
+        }
+        return date;
+
+    }
+
+    static public String[] getDateQuatre() {
+        String[] date = new String[15];
+
+        Calendar calendar = Calendar.getInstance();
+        for (int i = 0; i < 15; i++) {
+//            String day = calendar.get(Calendar.DATE) + "";
+            int month = (calendar.get(Calendar.MONTH) + 1);
+            String Quatre = "";
+            if (month == 12 || (month >= 1 && month <= 2)) {
+                Quatre = "Q1";
+            } else if (month >= 3 && month <= 5) {
+                Quatre = "Q2";
+            } else if (month >= 6 && month <= 8) {
+                Quatre = "Q3";
+            } else if (month >= 9 && month <= 11) {
+                Quatre = "Q4";
+            }
+            String year = calendar.get(Calendar.YEAR) + "";
+            date[i] = Quatre + "-" + year;
+
+            calendar.add(Calendar.MONTH, -4);
+        }
+        return date;
+
+    }
+
+    static public String[] getDateYear() {
+        String[] date = new String[15];
+
+        Calendar calendar = Calendar.getInstance();
+        for (int i = 0; i < 15; i++) {
+//            String day = calendar.get(Calendar.DATE) + "";
+//            String month = (calendar.get(Calendar.MONTH)+1) + "";
+            String year = calendar.get(Calendar.YEAR) + "";
+            date[i] = year;
+
+            calendar.add(Calendar.YEAR, -1);
+        }
+        return date;
+
+    }
+
+    static public String getTimeNow() {
+        String time = "";
+
+        Calendar calendar = Calendar.getInstance();
+        String minute = calendar.get(Calendar.MINUTE) + "";
+        String hour = calendar.get(Calendar.HOUR_OF_DAY) + "";
+        time = hour + ":" + minute;
+
+        calendar.add(Calendar.DATE, -1);
+        return time;
+
+    }
+
+    static public String getDateNow() {
+        String date = "";
+
+        Calendar calendar = Calendar.getInstance();
+        String day = calendar.get(Calendar.DATE) + "";
+        String month = (calendar.get(Calendar.MONTH) + 1) + "";
+        String year = calendar.get(Calendar.YEAR) + "";
+        date = day + "-" + month + "-" + year;
+
+        return date;
+
+    }
+
+    static public String getTimeMillisNow() {
+        String time = "";
+
+        Calendar calendar = Calendar.getInstance();
+        String minute = calendar.get(Calendar.MINUTE) + "";
+        String hour = calendar.get(Calendar.HOUR_OF_DAY) + "";
+        time = hour + ":" + minute;
+
+        calendar.add(Calendar.DATE, -1);
+        return TimeToMillis(time);
+
+    }
+
+    static public String getDateMillisNow() {
+        String date = "";
+
+        Calendar calendar = Calendar.getInstance();
+        String day = calendar.get(Calendar.DATE) + "";
+        String month = (calendar.get(Calendar.MONTH) + 1) + "";
+        String year = calendar.get(Calendar.YEAR) + "";
+        date = day + "-" + month + "-" + year;
+
+        return DateToMillis(date);
+
+    }
+
+
 }

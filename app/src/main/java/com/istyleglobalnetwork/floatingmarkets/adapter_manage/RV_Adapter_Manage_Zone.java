@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.istyleglobalnetwork.floatingmarkets.DashboardItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.EditZoneActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
@@ -54,17 +55,27 @@ public class RV_Adapter_Manage_Zone extends RecyclerView.Adapter<RecyclerView.Vi
     private void configureViewHolderManageZone(ViewHolderManageZone vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        final WrapFdbZone data = (WrapFdbZone) items.get(position);
+        final WrapFdbZone dataZone = (WrapFdbZone) items.get(position);
 //        vh1.getIv().setImageResource(data.getImageMarket());
-        vh1.getTvZone().setText("Zone : " + data.getData().getNameZone());
-        vh1.getTvPerson().setText(data.getData().getOwner());
+        vh1.getTvZone().setText("Zone : " + dataZone.getData().getNameZone());
+        vh1.getTvPerson().setText(dataZone.getData().getOwner());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), EditZoneActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("itemZone", Parcels.wrap(data));
+                bundle.putParcelable("itemZone", Parcels.wrap(dataZone));
                 bundle.putParcelable("itemMarket", Parcels.wrap(itemMarket));
+                intent.putExtras(bundle);
+                inflater.getContext().startActivity(intent);
+            }
+        });
+        vh1.getIvStat().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(inflater.getContext(), DashboardItemActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemZone", Parcels.wrap(dataZone));
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }

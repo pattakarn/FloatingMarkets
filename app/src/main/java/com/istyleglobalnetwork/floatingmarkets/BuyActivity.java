@@ -188,6 +188,8 @@ public class BuyActivity extends AppCompatActivity {
         dataOrder.setQuantity(quantity);
         dataOrder.setStatus("standby");
         dataOrder.setPrice(price);
+        dataOrder.setDate(DateTimeMillis.getDateMillisNow());
+        dataOrder.setTime(DateTimeMillis.getTimeMillisNow());
 
 
         String keyOrder = mOrderRef.push().getKey();

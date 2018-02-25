@@ -11,6 +11,8 @@ public class FdbStockList {
 
     int quantity;
     String mark;
+    String date;
+    String time;
 
     public int getQuantity() {
         return quantity;
@@ -26,5 +28,21 @@ public class FdbStockList {
 
     public void setMark(String mark) {
         this.mark = mark;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.istyleglobalnetwork.floatingmarkets.DashboardItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.EditShopActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
@@ -57,14 +58,14 @@ public class RV_Adapter_Manage_Shop extends RecyclerView.Adapter<RecyclerView.Vi
     private void configureViewHolderManageShop(ViewHolderManageShop vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        final WrapFdbShop data = (WrapFdbShop) items.get(position);
+        final WrapFdbShop dataShop = (WrapFdbShop) items.get(position);
 //        vh1.getIv().setImageResource(data.getImageMarket());
-        vh1.getTvZone().setText("Shop : " + data.getData().getNameShop());
-        vh1.getTvOwner().setText(data.getData().getOwner());
-        vh1.getTvPhone().setText(data.getData().getPhone());
-        vh1.getTvLine().setText(data.getData().getLine());
-        vh1.getTvFb().setText(data.getData().getFacebook());
-        vh1.getTvEmail().setText(data.getData().getEmail());
+        vh1.getTvZone().setText("Shop : " + dataShop.getData().getNameShop());
+        vh1.getTvOwner().setText(dataShop.getData().getOwner());
+        vh1.getTvPhone().setText(dataShop.getData().getPhone());
+        vh1.getTvLine().setText(dataShop.getData().getLine());
+        vh1.getTvFb().setText(dataShop.getData().getFacebook());
+        vh1.getTvEmail().setText(dataShop.getData().getEmail());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +73,17 @@ public class RV_Adapter_Manage_Shop extends RecyclerView.Adapter<RecyclerView.Vi
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("itemMarket", Parcels.wrap(itemMarket));
                 bundle.putParcelable("itemZone", Parcels.wrap(itemZone));
-                bundle.putParcelable("itemShop", Parcels.wrap(data));
+                bundle.putParcelable("itemShop", Parcels.wrap(dataShop));
+                intent.putExtras(bundle);
+                inflater.getContext().startActivity(intent);
+            }
+        });
+        vh1.getIvStat().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(inflater.getContext(), DashboardItemActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemShop", Parcels.wrap(dataShop));
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }

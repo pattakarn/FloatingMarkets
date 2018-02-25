@@ -16,7 +16,8 @@
         android:layout_weight="1"
         android:gravity="center|left"
         android:layout_margin="16dp"
-        android:text="Title" />
+        android:text="Title"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/tv_value"

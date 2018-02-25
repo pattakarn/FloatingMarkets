@@ -98,13 +98,16 @@ public class EditStockActivity extends AppCompatActivity {
                     dataStockList.setMark("reduce");
                 }
 
-
                 FdbStock dataStock = new FdbStock();
                 dataStock.setNameProduct(nameProduct);
                 dataStock.setQuantity(sumQuantity);
+                dataStock.setUpdateDate(DateTimeMillis.getDateMillisNow());
+                dataStock.setUpdateTime(DateTimeMillis.getTimeMillisNow());
 
                 String keyStockList = mStockListRef.child(itemProduct.getKey()).push().getKey();
                 dataStockList.setQuantity(sumQuantity);
+                dataStockList.setDate(DateTimeMillis.getDateMillisNow());
+                dataStockList.setTime(DateTimeMillis.getTimeMillisNow());
 
                 mStockRef.child(itemProduct.getKey()).setValue(dataStock);
                 mStockListRef.child(itemProduct.getKey()).child(keyStockList).setValue(dataStockList);

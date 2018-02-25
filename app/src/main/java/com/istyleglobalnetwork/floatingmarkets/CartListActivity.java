@@ -160,6 +160,8 @@ public class CartListActivity extends AppCompatActivity {
 
             FdbOrder order = dataOrder.get(i).getData();
             order.setStatus("order");
+            order.setDate(DateTimeMillis.getDateMillisNow());
+            order.setTime(DateTimeMillis.getTimeMillisNow());
             mOrderRef.child(dataOrder.get(i).getKey()).setValue(order);
             mUserOrderRef.child(currentUser.getUid()).child(dataOrder.get(i).getKey()).setValue(order);
 
@@ -167,6 +169,8 @@ public class CartListActivity extends AppCompatActivity {
             FdbStockList dataStockList = new FdbStockList();
             dataStockList.setQuantity(order.getQuantity());
             dataStockList.setMark("sell");
+            dataStockList.setDate(DateTimeMillis.getDateMillisNow());
+            dataStockList.setTime(DateTimeMillis.getTimeMillisNow());
             mStockListRef.child(order.getProductID()).child(keyStockList).setValue(dataStockList);
 
             updateStock(order.getProductID(), order.getQuantity());

@@ -86,7 +86,7 @@ public class EditTextNotNull extends LinearLayout {
             value.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
     }
 
-    public void setPhoneType(Boolean bool) {
+    public void setNumberType(Boolean bool) {
         if (bool)
             value.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
     }
