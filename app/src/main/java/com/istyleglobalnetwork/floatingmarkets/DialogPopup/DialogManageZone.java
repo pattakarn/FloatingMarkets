@@ -72,9 +72,15 @@ public class DialogManageZone {
                 DatabaseReference mShopRef = mRootRef.child("market-zone");
                 DatabaseReference mProductRef = mRootRef.child("zone");
 
-                if (childName != "") {
-                    mShopRef.child(dataMarket.getKey()).child(dataZone.getKey()).child(childName).setValue(editText.getText());
-                    mProductRef.child(dataZone.getKey()).child(childName).setValue(editText.getText());
+                if (!childName.equals("")) {
+                    if (childName.equals("name")){
+                        dataZone.getData().setNameZone(editText.getText());
+                        mShopRef.child(dataMarket.getKey()).child(dataZone.getKey()).setValue(dataZone.getData());
+                        mProductRef.child(dataZone.getKey()).setValue(dataZone.getData());
+                    } else {
+                        mShopRef.child(dataMarket.getKey()).child(dataZone.getKey()).child(childName).setValue(editText.getText());
+                        mProductRef.child(dataZone.getKey()).child(childName).setValue(editText.getText());
+                    }
                 }
 
 

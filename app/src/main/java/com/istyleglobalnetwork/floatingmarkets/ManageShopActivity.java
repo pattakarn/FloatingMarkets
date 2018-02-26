@@ -265,6 +265,7 @@ public class ManageShopActivity extends AppCompatActivity {
                             String key = postSnapshot.getKey();
                             FdbShop value = postSnapshot.getValue(FdbShop.class);
                             data.add(new WrapFdbShop(key, value));
+
                         }
 
                         tvTitle.setText("ร้านค้า (" + data.size() + ")");

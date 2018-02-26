@@ -30,20 +30,28 @@
             android:layout_gravity="center"
             android:src="@mipmap/ic_floating_market" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="8dp">
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp">
 
             <TextView
                 android:id="@+id/tv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Hello"
                 android:textSize="20sp"
-                android:gravity="center"/>
-        </LinearLayout>
+                android:gravity="left|center"
+                android:layout_marginLeft="16dp"/>
+
+            <ImageView
+                android:id="@+id/iv_stat"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_stat"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
 
 
 

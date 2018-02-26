@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -17,17 +18,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
-import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbShop;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
+import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Dashboard_Item_Market;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Dashboard_Item_Product;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Dashboard_Item_Shop;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Dashboard_Item_Zone;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductOrder;
-import com.istyleglobalnetwork.floatingmarkets.data.DataShopProductOrder;
 
 import org.parceler.Parcels;
 
@@ -51,6 +51,7 @@ public class DashboardItemActivity extends AppCompatActivity {
     DatabaseReference mRootRef;
     int count;
     int countRound;
+    int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class DashboardItemActivity extends AppCompatActivity {
                 itemKey = itemMarket.getKey();
                 mode = "market";
                 tvTitle.setText(itemMarket.getData().getNameMarket());
+                setMarketProduct();
             }
 
             itemZone = Parcels.unwrap(bundle.getParcelable("itemZone"));
@@ -86,7 +88,7 @@ public class DashboardItemActivity extends AppCompatActivity {
                 itemKey = itemZone.getKey();
                 mode = "zone";
                 tvTitle.setText(itemZone.getData().getNameZone());
-                setZoneShop();
+                setZoneProduct();
             }
 
             itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
@@ -127,88 +129,30 @@ public class DashboardItemActivity extends AppCompatActivity {
                         setShopProduct();
                         break;
                     case "zone":
-                        setZoneShop();
+                        setZoneProduct();
+                        break;
+                    case "market":
+                        setMarketProduct();
                         break;
                 }
 
             }
         });
 
-
-//        LineChart chart = (LineChart) findViewById(R.id.chart);
-//        BarChart chart = (BarChart) findViewById(R.id.barchart);
-
-//        List<Entry> entries = new ArrayList<Entry>();
-//        for (int i = 0; i<5;i++){
-//            entries.add(new BarEntry(i, i*10));
-//        }
-//        LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
-//        dataSet.setColor(Color.GREEN);
-//        dataSet.setValueTextColor(Color.RED);
-//
-//        List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-//        dataSets.add(dataSet);
-//
-//        LineData lineData = new LineData(dataSet);
-//        chart.setData(lineData);
-//        chart.invalidate();
-
-//        List<Entry> valsComp1 = new ArrayList<Entry>();
-//        List<Entry> valsComp2 = new ArrayList<Entry>();
-//        Entry c1e1 = new Entry(0f, 100000f); // 0 == quarter 1
-//        valsComp1.add(c1e1);
-//        Entry c1e2 = new Entry(1f, 140000f); // 1 == quarter 2 ...
-//        valsComp1.add(c1e2);
-//        // and so on ...
-//
-//        Entry c2e1 = new Entry(0f, 130000f); // 0 == quarter 1
-//        valsComp2.add(c2e1);
-//        Entry c2e2 = new Entry(1f, 115000f); // 1 == quarter 2 ...
-//        valsComp2.add(c2e2);
-//
-//        LineDataSet setComp1 = new LineDataSet(valsComp1, "Company 1");
-//        setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
-//        setComp1.setColor(Color.RED);
-//        LineDataSet setComp2 = new LineDataSet(valsComp2, "Company 2");
-//        setComp2.setAxisDependency(YAxis.AxisDependency.LEFT);
-//
-//        List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-//        dataSets.add(setComp1);
-//        dataSets.add(setComp2);
-//
-//        LineData data = new LineData(dataSets);
-//        chart.setData(data);
-//        chart.invalidate(); // refresh
-
-//        final String[] quarters = new String[] { "Q1", "Q2", "Q3", "Q4", "Q5" };
-//        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-//
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//                return quarters[(int) value];
-//            }
-//
-//            // we don't draw numbers, so no decimal digits needed
-//        };
-//
-//        XAxis xAxis = chart.getXAxis();
-//        xAxis.setGranularity(1); // minimum axis-step (interval) is 1
-//        xAxis.setValueFormatter(formatter);
-
     }
 
     public void setProductOrder() {
         dataList = new ArrayList<Object>();
-        mRootRef.child("order").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRootRef.child("order").orderByChild("productID").equalTo(itemKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<WrapFdbOrder> data = new ArrayList<WrapFdbOrder>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     FdbOrder value = postSnapshot.getValue(FdbOrder.class);
-                    if (value.getProductID().equals(itemKey)) {
-                        data.add(new WrapFdbOrder(key, value));
-                    }
+//                    if (value.getProductID().equals(itemKey)) {
+                    data.add(new WrapFdbOrder(key, value));
+//                    }
 
                 }
 
@@ -276,6 +220,7 @@ public class DashboardItemActivity extends AppCompatActivity {
                 }
 
                 dataList.add(dataProductOrders);
+                dataList.add(dataProductOrders);
 
                 RV_Adapter_Dashboard_Item_Shop adapterList = new RV_Adapter_Dashboard_Item_Shop(dataList);
                 rv.setAdapter(adapterList);
@@ -290,20 +235,23 @@ public class DashboardItemActivity extends AppCompatActivity {
         });
     }
 
-    public void setZoneShop() {
-        mRootRef.child("zone-shop").child(itemKey).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void setZoneProduct() {
+        mRootRef.child("product").orderByChild("zoneID").equalTo(itemKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<DataShopProductOrder> dataShopProductOrders = new ArrayList<DataShopProductOrder>();
+                List<DataProductOrder> productOrders = new ArrayList<DataProductOrder>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
-                    FdbShop value = postSnapshot.getValue(FdbShop.class);
+                    FdbProduct value = postSnapshot.getValue(FdbProduct.class);
 
-                    dataShopProductOrders.add(new DataShopProductOrder(new WrapFdbShop(key, value)));
+                    Log.d("setZoneProduct", "================== " + value.getNameProduct());
+                    productOrders.add(new DataProductOrder(new WrapFdbProduct(key, value)));
+//                    dataShopProductOrders.add(new DataShopProductOrder(new WrapFdbShop(key, value)));
 
                 }
 
-                setZoneShopProduct(dataShopProductOrders);
+//                setZoneShopProduct(dataShopProductOrders);
+                setZoneProductOrder(productOrders);
             }
 
             @Override
@@ -313,34 +261,34 @@ public class DashboardItemActivity extends AppCompatActivity {
         });
     }
 
-    public void setZoneShopProduct(final List<DataShopProductOrder> dataShopProductOrders) {
+    public void setZoneProductOrder(final List<DataProductOrder> productOrders) {
+        dataList = new ArrayList<Object>();
         countRound = 0;
-        for (int i = 0; i < dataShopProductOrders.size(); i++) {
-            count = i;
-            String shopKey = dataShopProductOrders.get(i).getShop().getKey();
-//            Log.d("shop-product key", shopKey);
-            mRootRef.child("shop-product").child(shopKey).addListenerForSingleValueEvent(new ValueEventListener() {
+        for (int i = 0; i < productOrders.size(); i++) {
+            index = i;
+            final String productKey = productOrders.get(index).getProduct().getKey();
+            mRootRef.child("order").orderByChild("productID").equalTo(productKey).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         String key = postSnapshot.getKey();
-                        FdbProduct value = postSnapshot.getValue(FdbProduct.class);
+                        FdbOrder value = postSnapshot.getValue(FdbOrder.class);
 
-//                        Log.d("shop-product key", value.getNameProduct() + " - " + key);
-                        dataShopProductOrders.get(count).getProductOrders().add(new DataProductOrder(new WrapFdbProduct(key, value)));
-//                    for (int i = 0; i < dataShopProductOrders.size(); i++) {
-//                        Log.d("shop-product key", dataShopProductOrders.get(i).getShop().getKey() + " - " + key);
-//                        if (dataShopProductOrders.get(i).getShop().getKey().equals(key)) {
-//                            Log.d("shop-product", value.getNameProduct());
-//                            dataShopProductOrders.get(i).getProductOrders().add(new DataProductOrder(new WrapFdbProduct(key, value)));
-//                        }
-//                    }
+                        Log.d("Order ID", "================== " + key);
+                        productOrders.get(index).getOrder().add(new WrapFdbOrder(key, value));
+
                     }
 
-                    countRound+=1;
-                    if (countRound == dataShopProductOrders.size()) {
-                        setZoneShopProductOrder(dataShopProductOrders);
+                    countRound++;
+                    if (countRound == productOrders.size()) {
+                        Log.d("countRound", "================== " + countRound);
+                        dataList.add(productOrders);
+                        dataList.add(productOrders);
+                        RV_Adapter_Dashboard_Item_Zone adapterList = new RV_Adapter_Dashboard_Item_Zone(dataList);
+                        rv.setAdapter(adapterList);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
+//
                 }
 
                 @Override
@@ -349,37 +297,32 @@ public class DashboardItemActivity extends AppCompatActivity {
                 }
             });
         }
+        if (productOrders.size() == 0) {
+            dataList.add(productOrders);
+            dataList.add(productOrders);
+            RV_Adapter_Dashboard_Item_Zone adapterList = new RV_Adapter_Dashboard_Item_Zone(dataList);
+            rv.setAdapter(adapterList);
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
-    public void setZoneShopProductOrder(final List<DataShopProductOrder> dataShopProductOrders) {
-        dataList = new ArrayList<Object>();
-        mRootRef.child("order").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void setMarketProduct() {
+        mRootRef.child("product").orderByChild("marketID").equalTo(itemKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                List<DataProductOrder> productOrders = new ArrayList<DataProductOrder>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
-                    FdbOrder value = postSnapshot.getValue(FdbOrder.class);
+                    FdbProduct value = postSnapshot.getValue(FdbProduct.class);
 
-//                    Log.d("order key", value.getProductID() + " - " + dataShopProductOrders.get(i).getProductOrders().get(j).getProduct().getKey());
+                    Log.d("setMarketProduct", "================== " + value.getNameProduct());
+                    productOrders.add(new DataProductOrder(new WrapFdbProduct(key, value)));
+//                    dataShopProductOrders.add(new DataShopProductOrder(new WrapFdbShop(key, value)));
 
-                    for (int i = 0; i < dataShopProductOrders.size(); i++) {
-//                        Log.d("order - shop", value.getProductID() + " - " + dataShopProductOrders.get(i).getShop().getData().getNameShop());
-                        for (int j = 0; j < dataShopProductOrders.get(i).getProductOrders().size(); j++) {
-//                            Log.d("order key", value.getProductID() + " - " + dataShopProductOrders.get(i).getProductOrders().get(j).getProduct().getKey());
-                            if (dataShopProductOrders.get(i).getProductOrders().get(j).getProduct().getKey().equals(value.getProductID())) {
-                                WrapFdbOrder tempOrder = new WrapFdbOrder(key, value);
-                                dataShopProductOrders.get(i).getProductOrders().get(j).getOrder().add(tempOrder);
-                            }
-                        }
-                    }
                 }
 
-                dataList.add(dataShopProductOrders);
-
-                RV_Adapter_Dashboard_Item_Zone adapterList = new RV_Adapter_Dashboard_Item_Zone(dataList);
-                rv.setAdapter(adapterList);
-                swipeRefreshLayout.setRefreshing(false);
-
+//                setZoneShopProduct(dataShopProductOrders);
+                setMarketProductOrder(productOrders);
             }
 
             @Override
@@ -387,6 +330,51 @@ public class DashboardItemActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void setMarketProductOrder(final List<DataProductOrder> productOrders) {
+        dataList = new ArrayList<Object>();
+        countRound = 0;
+        for (int i = 0; i < productOrders.size(); i++) {
+            index = i;
+            final String productKey = productOrders.get(index).getProduct().getKey();
+            mRootRef.child("order").orderByChild("productID").equalTo(productKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String key = postSnapshot.getKey();
+                        FdbOrder value = postSnapshot.getValue(FdbOrder.class);
+
+                        Log.d("Order ID", "================== " + key);
+                        productOrders.get(index).getOrder().add(new WrapFdbOrder(key, value));
+
+                    }
+
+                    countRound++;
+                    if (countRound == productOrders.size()) {
+                        Log.d("countRound", "================== " + countRound);
+                        dataList.add(productOrders);
+                        dataList.add(productOrders);
+                        RV_Adapter_Dashboard_Item_Market adapterList = new RV_Adapter_Dashboard_Item_Market(dataList);
+                        rv.setAdapter(adapterList);
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+//
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        if (productOrders.size() == 0) {
+            dataList.add(productOrders);
+            dataList.add(productOrders);
+            RV_Adapter_Dashboard_Item_Market adapterList = new RV_Adapter_Dashboard_Item_Market(dataList);
+            rv.setAdapter(adapterList);
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
 

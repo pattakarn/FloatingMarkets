@@ -99,7 +99,9 @@ public class EditZoneActivity extends AppCompatActivity {
                 dataItem.add(dataHead);
 
                 List<Object> temp = new ArrayList<Object>();
-                itemZone = new WrapFdbZone(key, value);
+                if (value != null)
+                    itemZone = new WrapFdbZone(key, value);
+                itemZone.getData().setMarketID(itemMarket.getKey());
                 temp.add(itemZone);
                 temp.add(itemMarket);
                 dataItem.add(temp);

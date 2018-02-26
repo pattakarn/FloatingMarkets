@@ -14,6 +14,10 @@ public class FdbProduct {
     String description;
     int price;
 
+    String marketID;
+    String zoneID;
+    String shopID;
+
     public String getNameProduct() {
         return nameProduct;
     }
@@ -44,5 +48,29 @@ public class FdbProduct {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getMarketID() {
+        return marketID;
+    }
+
+    public void setMarketID(String marketID) {
+        this.marketID = marketID;
+    }
+
+    public String getZoneID() {
+        return zoneID;
+    }
+
+    public void setZoneID(String zoneID) {
+        this.zoneID = zoneID;
+    }
+
+    public String getShopID() {
+        return shopID;
+    }
+
+    public void setShopID(String shopID) {
+        this.shopID = shopID;
     }
 }

@@ -17,6 +17,9 @@ public class FdbShop {
     String facebook;
     String email;
 
+    String marketID;
+    String zoneID;
+
     public String getNameShop() {
         return nameShop;
     }
@@ -71,5 +74,21 @@ public class FdbShop {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getMarketID() {
+        return marketID;
+    }
+
+    public void setMarketID(String marketID) {
+        this.marketID = marketID;
+    }
+
+    public String getZoneID() {
+        return zoneID;
+    }
+
+    public void setZoneID(String zoneID) {
+        this.zoneID = zoneID;
     }
 }

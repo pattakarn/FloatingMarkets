@@ -17,6 +17,8 @@ public class FdbZone {
     String email;
     String size;
 
+    String marketID;
+
     public String getNameZone() {
         return nameZone;
     }
@@ -71,5 +73,13 @@ public class FdbZone {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public String getMarketID() {
+        return marketID;
+    }
+
+    public void setMarketID(String marketID) {
+        this.marketID = marketID;
     }
 }

@@ -17,12 +17,14 @@ public class ViewHolderManageMarket extends RecyclerView.ViewHolder {
     private CardView cv;
     private ImageView iv;
     private TextView tv;
+    private ImageView ivStat;
 
     public ViewHolderManageMarket(View itemView) {
         super(itemView);
         this.cv = (CardView) itemView.findViewById(R.id.cv);
         this.iv = (ImageView) itemView.findViewById(R.id.iv);
         this.tv = (TextView) itemView.findViewById(R.id.tv);
+        this.ivStat = (ImageView) itemView.findViewById(R.id.iv_stat);
     }
 
     public CardView getCv() {
@@ -47,5 +49,13 @@ public class ViewHolderManageMarket extends RecyclerView.ViewHolder {
 
     public void setTv(TextView tv) {
         this.tv = tv;
+    }
+
+    public ImageView getIvStat() {
+        return ivStat;
+    }
+
+    public void setIvStat(ImageView ivStat) {
+        this.ivStat = ivStat;
     }
 }

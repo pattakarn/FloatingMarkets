@@ -91,10 +91,41 @@ public class DialogManageShop {
                 DatabaseReference mShopRef = mRootRef.child("zone-shop");
                 DatabaseReference mProductRef = mRootRef.child("shop");
 
-                if (childName != "") {
-                    mShopRef.child(dataZone.getKey()).child(dataShop.getKey()).child(childName).setValue(editText.getText());
-                    mProductRef.child(dataShop.getKey()).child(childName).setValue(editText.getText());
+                if (!childName.equals("")) {
+                    if (childName.equals("name")){
+                        dataShop.getData().setNameShop(editText.getText());
+                        mShopRef.child(dataZone.getKey()).child(dataShop.getKey()).setValue(dataShop.getData());
+                        mProductRef.child(dataShop.getKey()).setValue(dataShop.getData());
+                    } else {
+                        mShopRef.child(dataZone.getKey()).child(dataShop.getKey()).child(childName).setValue(editText.getText());
+                        mProductRef.child(dataShop.getKey()).child(childName).setValue(editText.getText());
+                    }
                 }
+
+
+            }
+        });
+        popupDialog.create();
+        popupDialog.show();
+    }
+
+    public void Popup_ChangeOpentime(final WrapFdbShop dataShop, final WrapFdbZone dataZone, String day) {
+        layout_popup = inflater.inflate(R.layout.dialog_opentime, null);
+
+        popupDialog.setView(layout_popup);
+        popupDialog.setTitle("Opentime");
+        popupDialog.setNegativeButton("ยกเลิก", null);
+        popupDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+//                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+//                DatabaseReference mShopRef = mRootRef.child("shop-product");
+//                DatabaseReference mProductRef = mRootRef.child("product");
+//
+//                dataProduct.getData().setNameProduct(name.getText());
+//
+//                mShopRef.child(dataShop.getKey()).child(dataProduct.getKey()).setValue(dataProduct.getData());
+//                mProductRef.child(dataProduct.getKey()).setValue(dataProduct.getData());
 
 
             }

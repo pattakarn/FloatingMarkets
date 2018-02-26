@@ -3,6 +3,7 @@ package com.istyleglobalnetwork.floatingmarkets.DialogPopup;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -41,6 +42,10 @@ public class DialogManageProduct {
 //        name.setHint("Product Name");
         if (dataProduct.getData() != null) {
             name.setText(dataProduct.getData().getNameProduct());
+
+            Log.d("Popup_ChangeName", " ++++ " + dataProduct.getData().getMarketID());
+            Log.d("Popup_ChangeName", " ++++ " + dataProduct.getData().getZoneID());
+            Log.d("Popup_ChangeName", " ++++ " + dataProduct.getData().getShopID());
         }
         popupDialog.setView(layout_popup);
         popupDialog.setTitle("Product Name");
@@ -52,8 +57,10 @@ public class DialogManageProduct {
                 DatabaseReference mShopRef = mRootRef.child("shop-product");
                 DatabaseReference mProductRef = mRootRef.child("product");
 
-                mShopRef.child(dataShop.getKey()).child(dataProduct.getKey()).child("nameProduct").setValue(name.getText());
-                mProductRef.child(dataProduct.getKey()).child("nameProduct").setValue(name.getText());
+                dataProduct.getData().setNameProduct(name.getText());
+
+                mShopRef.child(dataShop.getKey()).child(dataProduct.getKey()).setValue(dataProduct.getData());
+                mProductRef.child(dataProduct.getKey()).setValue(dataProduct.getData());
 
 
             }

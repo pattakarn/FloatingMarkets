@@ -19,6 +19,7 @@ import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditPhoto;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopData;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopHead;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopOpentime;
 
 import org.parceler.Parcels;
 
@@ -55,9 +56,14 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
                 viewHolder = new ViewHolderEditShopData(v2);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_edit_photo, parent, false);
-                viewHolder = new ViewHolderEditPhoto(v3);
+                View v3 = inflater.inflate(R.layout.card_edit_shop_opentime, parent, false);
+                viewHolder = new ViewHolderEditShopOpentime(v3);
                 break;
+            case 3:
+                View v4 = inflater.inflate(R.layout.card_edit_photo, parent, false);
+                viewHolder = new ViewHolderEditPhoto(v4);
+                break;
+
             default:
 //                View v = inflater.inflate(R.layout.card_edit_photo, parent, false);
 //                viewHolder = new ViewHolderEditProductPhoto(v);
@@ -79,9 +85,14 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
                 configureViewHolderEditShopData(vh2, position);
                 break;
             case 2:
-                ViewHolderEditPhoto vh3 = (ViewHolderEditPhoto) holder;
-                configureViewHolderEditPhoto(vh3, position);
+                ViewHolderEditShopOpentime vh3 = (ViewHolderEditShopOpentime) holder;
+                configureViewHolderEditShopOpentime(vh3, position);
                 break;
+            case 3:
+                ViewHolderEditPhoto vh4 = (ViewHolderEditPhoto) holder;
+                configureViewHolderEditPhoto(vh4, position);
+                break;
+
             default:
 //                ViewHolderEditProductPhoto vh = (ViewHolderEditProductPhoto) holder;
 //                configureViewHolderEditProductPhoto(vh, position);
@@ -193,6 +204,83 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
             vh1.getColFacebook().getTvValue().setText(dataShop.getData().getFacebook());
             vh1.getColEmail().getTvValue().setText(dataShop.getData().getEmail());
         }
+
+
+    }
+
+    private void configureViewHolderEditShopOpentime(ViewHolderEditShopOpentime vh1, int position) {
+
+//        ArrayList<Object> tempObject = (ArrayList<Object>) items.get(position);
+        final WrapFdbShop dataShop = null;
+        final WrapFdbZone dataZone = null;
+
+        vh1.getColMonday().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                popup.Popup_ChangeOpentime(dataShop, dataZone, "monday");
+            }
+        });
+        vh1.getColTuesday().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                popup.Popup_ChangeOpentime(dataShop, dataZone, "tuesday");
+            }
+        });
+        vh1.getColWednesday().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                popup.Popup_ChangeOpentime(dataShop, dataZone, "wednesday");
+            }
+        });
+        vh1.getColThursday().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                popup.Popup_ChangeOpentime(dataShop, dataZone, "thursday");
+            }
+        });
+        vh1.getColFriday().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                popup.Popup_ChangeOpentime(dataShop, dataZone, "friday");
+            }
+        });
+        vh1.getColSaturday().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                popup.Popup_ChangeOpentime(dataShop, dataZone, "saturday");
+            }
+        });
+        vh1.getColSunday().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                popup.Popup_ChangeOpentime(dataShop, dataZone, "sunday");
+            }
+        });
+
+        vh1.getColMonday().getTvTitle().setText("Monday");
+        vh1.getColTuesday().getTvTitle().setText("Tuesday");
+        vh1.getColWednesday().getTvTitle().setText("Wednesday");
+        vh1.getColThursday().getTvTitle().setText("Thursday");
+        vh1.getColFriday().getTvTitle().setText("Friday");
+        vh1.getColSaturday().getTvTitle().setText("Saturday");
+        vh1.getColSunday().getTvTitle().setText("Sunday");
+
+//        if (dataShop.getData() != null) {
+//            vh1.getColMonday().getTvValue().setText(dataShop.getData().getNameShop());
+//            vh1.getColTuesday().getTvValue().setText(dataShop.getData().getOwner());
+//            vh1.getColWednesday().getTvValue().setText(dataShop.getData().getPhone());
+//            vh1.getColThursday().getTvValue().setText(dataShop.getData().getLine());
+//            vh1.getColFriday().getTvValue().setText(dataShop.getData().getFacebook());
+//            vh1.getColSaturday().getTvValue().setText(dataShop.getData().getEmail());
+//            vh1.getColFriday().getTvValue().setText(dataShop.getData().getEmail());
+//        }
 
 
     }

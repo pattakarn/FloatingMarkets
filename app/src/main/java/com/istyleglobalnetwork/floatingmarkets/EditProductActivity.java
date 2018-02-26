@@ -114,7 +114,11 @@ public class EditProductActivity extends AppCompatActivity {
                 dataItem.add(dataHead);
 
                 List<Object> temp = new ArrayList<Object>();
-                itemProduct = new WrapFdbProduct(key, value);
+                if (value != null)
+                    itemProduct = new WrapFdbProduct(key, value);
+                itemProduct.getData().setMarketID(itemMarket.getKey());
+                itemProduct.getData().setZoneID(itemZone.getKey());
+                itemProduct.getData().setShopID(itemShop.getKey());
                 temp.add(itemProduct);
                 temp.add(itemShop);
                 dataItem.add(temp);

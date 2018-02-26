@@ -108,10 +108,14 @@ public class EditShopActivity extends AppCompatActivity {
                 dataItem.add(dataHead);
 
                 List<Object> temp = new ArrayList<Object>();
-                itemShop = new WrapFdbShop(key, value);
+                if (value != null)
+                    itemShop = new WrapFdbShop(key, value);
+                itemShop.getData().setMarketID(itemMarket.getKey());
+                itemShop.getData().setZoneID(itemZone.getKey());
                 temp.add(itemShop);
                 temp.add(itemZone);
                 dataItem.add(temp);
+                dataItem.add("opentime");
 
                 setListImage();
             }
@@ -131,8 +135,8 @@ public class EditShopActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 itemImage = new ArrayList<WrapFdbImage>();
 
-                if (dataItem.size() == 3) {
-                    dataItem.remove(2);
+                if (dataItem.size() == 4) {
+                    dataItem.remove(3);
                 }
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
@@ -144,6 +148,7 @@ public class EditShopActivity extends AppCompatActivity {
                 temp.add(itemShop);
                 temp.add(itemImage);
                 dataItem.add(temp);
+
 
                 RV_Adapter_Edit_Shop adapterList = new RV_Adapter_Edit_Shop(dataItem);
                 rv.setAdapter(adapterList);

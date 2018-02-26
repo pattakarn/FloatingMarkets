@@ -159,6 +159,7 @@ public class ManageZoneActivity extends AppCompatActivity {
                     String key = postSnapshot.getKey();
                     FdbZone value = postSnapshot.getValue(FdbZone.class);
                     data.add(new WrapFdbZone(key, value));
+
                 }
 
                 tvTitle.setText("โซน (" + data.size() + ")");
