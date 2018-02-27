@@ -98,4 +98,15 @@ public class EditTextNotNull extends LinearLayout {
     public void setText(String text) {
         value.setText(text);
     }
+
+    public void setEnable(boolean bool) {
+        value.setEnabled(bool);
+    }
+
+    public void setDateType(Boolean bool){
+        if (bool)
+            value.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_DATETIME_VARIATION_DATE);
+    }
+
+
 }

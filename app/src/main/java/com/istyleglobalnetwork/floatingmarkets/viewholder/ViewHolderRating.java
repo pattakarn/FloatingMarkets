@@ -31,7 +31,7 @@ public class ViewHolderRating extends RecyclerView.ViewHolder {
         super(itemView);
         tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
         tvRatingMean = (TextView) itemView.findViewById(R.id.tv_ratingMean);
-        tvRatingMean = (TextView) itemView.findViewById(R.id.tv_ratingAll);
+        tvRatingAll = (TextView) itemView.findViewById(R.id.tv_ratingAll);
         tv5star = (TextView) itemView.findViewById(R.id.tv_5star);
         tv4star = (TextView) itemView.findViewById(R.id.tv_4star);
         tv3star = (TextView) itemView.findViewById(R.id.tv_3star);

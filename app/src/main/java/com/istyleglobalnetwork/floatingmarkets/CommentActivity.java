@@ -7,15 +7,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.istyleglobalnetwork.floatingmarkets.DialogPopup.DialogComment;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbComment;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbComment;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Comment_Item;
-import com.istyleglobalnetwork.floatingmarkets.data.DataCommentItem;
+import com.istyleglobalnetwork.floatingmarkets.data.DataRating;
 
 import org.parceler.Parcels;
 
@@ -29,6 +39,12 @@ public class CommentActivity extends AppCompatActivity {
 
     WrapFdbShop itemShop = null;
     WrapFdbProduct itemProduct = null;
+
+    String itemID;
+    String itemName;
+
+    DatabaseReference mRootRef;
+    ArrayList<Object> dataComment;
 
 
     @Override
@@ -46,54 +62,93 @@ public class CommentActivity extends AppCompatActivity {
         }
 
         initInstances();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
 
             itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
-            if (itemShop != null){
+            if (itemShop != null) {
                 tvTitle.setText(itemShop.getData().getNameShop());
+                itemID = itemShop.getKey();
+                itemName = itemShop.getData().getNameShop();
             }
 
             itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
-            if (itemProduct != null){
+            if (itemProduct != null) {
                 tvTitle.setText(itemProduct.getData().getNameProduct());
+                itemID = itemProduct.getKey();
+                itemName = itemProduct.getData().getNameProduct();
             }
 
-        }
-
-
-
-        String[] title_comment = getResources().getStringArray(R.array.title_comment);
-        String[] detail_comment = getResources().getStringArray(R.array.detail_comment);
-
-        ArrayList<Object> data = new ArrayList<Object>();
-        data.add("rating");
-
-        for (int i=0; i<title_comment.length; i++){
-            data.add(new DataCommentItem(title_comment[i], detail_comment[i], "5"));
         }
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
-        RV_Adapter_Comment_Item adapterList = new RV_Adapter_Comment_Item(data);
-        rv.setAdapter(adapterList);
+        setListComment();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CommentActivity.this, RatingActivity.class);
-                Bundle bundle = new Bundle();
-                if (itemShop != null) {
-                    bundle.putParcelable("itemShop", Parcels.wrap(itemShop));
-                } else if (itemProduct != null) {
-                    bundle.putParcelable("itemProduct", Parcels.wrap(itemProduct));
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                if (mAuth == null) {
+                    startActivity(new Intent(CommentActivity.this, LoginActivity2.class));
+                } else {
+                    DialogComment popup = new DialogComment(CommentActivity.this);
+                    popup.Popup_ChangeComment(itemID);
                 }
-                intent.putExtras(bundle);
-                startActivity(intent);
+
             }
         });
+
+    }
+
+    private void setListComment() {
+        mRootRef.child("item-comment").child(itemShop.getKey()).orderByChild("date").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataComment = new ArrayList<Object>();
+                DataRating dataRating = new DataRating();
+                dataComment.add("Rating");
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbComment value = postSnapshot.getValue(FdbComment.class);
+//
+                    Log.d("item-comment", "==========================================================" + key);
+                    Log.d("item-comment", "==========================================================" + value.getComment());
+
+                    dataRating.addStarAll(value.getRating());
+                    dataRating.addUserAll();
+
+                    int ratingPoint = (int) value.getRating();
+                    if (ratingPoint == 1){
+                        dataRating.addStar1();
+                    } else if (ratingPoint == 2){
+                        dataRating.addStar2();
+                    } else if (ratingPoint == 3){
+                        dataRating.addStar3();
+                    } else if (ratingPoint == 4){
+                        dataRating.addStar4();
+                    } else if (ratingPoint == 5){
+                        dataRating.addStar5();
+                    }
+
+                    dataComment.add(new WrapFdbComment(key, value));
+                }
+
+                dataComment.set(0, dataRating);
+
+                RV_Adapter_Comment_Item adapterList = new RV_Adapter_Comment_Item(dataComment);
+                rv.setAdapter(adapterList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 

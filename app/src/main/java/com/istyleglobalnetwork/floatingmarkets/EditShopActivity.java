@@ -115,7 +115,7 @@ public class EditShopActivity extends AppCompatActivity {
                 temp.add(itemShop);
                 temp.add(itemZone);
                 dataItem.add(temp);
-                dataItem.add("opentime");
+                dataItem.add(temp);
 
                 setListImage();
             }

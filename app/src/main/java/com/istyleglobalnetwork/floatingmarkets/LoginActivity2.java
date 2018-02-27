@@ -289,6 +289,7 @@ public class LoginActivity2 extends AppCompatActivity implements LoaderCallbacks
         if (user != null) {
             for (UserInfo profile : user.getProviderData()) {
                 nameContact = profile.getDisplayName();
+                
             }
             ;
         }

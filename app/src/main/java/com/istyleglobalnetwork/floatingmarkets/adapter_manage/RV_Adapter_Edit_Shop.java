@@ -210,9 +210,9 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
 
     private void configureViewHolderEditShopOpentime(ViewHolderEditShopOpentime vh1, int position) {
 
-//        ArrayList<Object> tempObject = (ArrayList<Object>) items.get(position);
-        final WrapFdbShop dataShop = null;
-        final WrapFdbZone dataZone = null;
+        ArrayList<Object> tempObject = (ArrayList<Object>) items.get(position);
+        final WrapFdbShop dataShop = (WrapFdbShop) tempObject.get(0);
+        final WrapFdbZone dataZone = (WrapFdbZone) tempObject.get(1);
 
         vh1.getColMonday().getLl().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,15 +272,15 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
         vh1.getColSaturday().getTvTitle().setText("Saturday");
         vh1.getColSunday().getTvTitle().setText("Sunday");
 
-//        if (dataShop.getData() != null) {
-//            vh1.getColMonday().getTvValue().setText(dataShop.getData().getNameShop());
-//            vh1.getColTuesday().getTvValue().setText(dataShop.getData().getOwner());
-//            vh1.getColWednesday().getTvValue().setText(dataShop.getData().getPhone());
-//            vh1.getColThursday().getTvValue().setText(dataShop.getData().getLine());
-//            vh1.getColFriday().getTvValue().setText(dataShop.getData().getFacebook());
-//            vh1.getColSaturday().getTvValue().setText(dataShop.getData().getEmail());
-//            vh1.getColFriday().getTvValue().setText(dataShop.getData().getEmail());
-//        }
+        if (dataShop.getData() != null) {
+            vh1.getColMonday().getTvValue().setText(dataShop.getData().getMonday());
+            vh1.getColTuesday().getTvValue().setText(dataShop.getData().getTuesday());
+            vh1.getColWednesday().getTvValue().setText(dataShop.getData().getWednesday());
+            vh1.getColThursday().getTvValue().setText(dataShop.getData().getThursday());
+            vh1.getColFriday().getTvValue().setText(dataShop.getData().getFriday());
+            vh1.getColSaturday().getTvValue().setText(dataShop.getData().getSaturday());
+            vh1.getColSunday().getTvValue().setText(dataShop.getData().getSunday());
+        }
 
 
     }

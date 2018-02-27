@@ -24,7 +24,7 @@ public class ViewHolderComment extends RecyclerView.ViewHolder {
         this.iv = (ImageView) itemView.findViewById(R.id.iv);
         this.tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
         this.tvDetail = (TextView) itemView.findViewById(R.id.tv_detail);
-        this.ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
+        this.ratingBar = (RatingBar) itemView.findViewById(R.id.rating);
     }
 
     public ImageView getIv() {

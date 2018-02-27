@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbComment;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.activity.product.ProductItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
+import com.istyleglobalnetwork.floatingmarkets.data.DataRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderAward;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageShop;
@@ -145,7 +148,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
 //        }
     }
 
-    private void configureViewHolderRating(ViewHolderRating vh1, final int position) {
+    private void configureViewHolderRating(final ViewHolderRating vh1, final int position) {
         vh1.getBtnRating().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +157,52 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
                 bundle.putParcelable("itemShop", Parcels.wrap(itemShop));
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
+            }
+        });
+
+        mRootRef.child("item-comment").child(itemShop.getKey()).orderByChild("date").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataRating dataRating = new DataRating();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbComment value = postSnapshot.getValue(FdbComment.class);
+//
+                    Log.d("item-comment", "==========================================================" + key);
+                    Log.d("item-comment", "==========================================================" + value.getComment());
+
+                    dataRating.addStarAll(value.getRating());
+                    dataRating.addUserAll();
+
+                    int ratingPoint = (int) value.getRating();
+                    if (ratingPoint == 1){
+                        dataRating.addStar1();
+                    } else if (ratingPoint == 2){
+                        dataRating.addStar2();
+                    } else if (ratingPoint == 3){
+                        dataRating.addStar3();
+                    } else if (ratingPoint == 4){
+                        dataRating.addStar4();
+                    } else if (ratingPoint == 5){
+                        dataRating.addStar5();
+                    }
+
+                }
+
+                vh1.getRatingBar().setRating(dataRating.getStarAvg());
+                vh1.getTvRatingMean().setText(dataRating.getStarAvg() + " out of 5");
+                vh1.getTvRatingAll().setText(dataRating.getUserAll() + " rating & review");
+                vh1.getTv5star().setText("5 stars : " + dataRating.getStar5());
+                vh1.getTv4star().setText("4 stars : " + dataRating.getStar4());
+                vh1.getTv3star().setText("3 stars : " + dataRating.getStar3());
+                vh1.getTv2star().setText("2 stars : " + dataRating.getStar2());
+                vh1.getTv1star().setText("1 stars : " + dataRating.getStar1());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 //        User user = (User) items.get(position);
@@ -168,8 +217,14 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void configureViewHolderTime(ViewHolderTime vh2, int position) {
+        String textTime = itemShop.getData().getMonday() + "\n" + itemShop.getData().getTuesday() +
+                "\n" + itemShop.getData().getWednesday() + "\n" + itemShop.getData().getThursday() +
+                "\n" + itemShop.getData().getFriday() + "\n" + itemShop.getData().getSaturday() +
+                "\n" + itemShop.getData().getSunday();
         vh2.getTvDate().setText("วันจันทร์\nวันอังคาร\nวันพุธ\nวันพฤหัสบดี\nวันศุกร์\nวันเสาร์\nวันอาทิตย์");
-        vh2.getTvTime().setText("ปิด\nปิด\n9:00 - 18:00\n9:00 - 18:00\n9:00 - 22:00\n9:00 - 22:00\n9:00 - 22:00");
+        textTime = textTime.replace("null", "ปิด");
+//        vh2.getTvTime().setText("ปิด\nปิด\n9:00 - 18:00\n9:00 - 18:00\n9:00 - 22:00\n9:00 - 22:00\n9:00 - 22:00");
+        vh2.getTvTime().setText(textTime);
 //        vh2.getImage().setImageResource(R.drawable.talad3);
     }
 
@@ -187,6 +242,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
         setPhoto(vh2.getIvProduct(), data.getItemProduct().getKey());
 //        vh2.getIvProduct().setImageResource(data.getImage());
         vh2.getTvName().setText(data.getItemProduct().getData().getNameProduct());
+        vh2.getTvPrice().setText(data.getItemProduct().getData().getPrice() + " B");
         vh2.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

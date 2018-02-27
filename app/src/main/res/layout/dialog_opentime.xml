@@ -23,26 +23,38 @@
             android:weightSum="2">
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/radio_open"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="เปิด" />
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/radio_close"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="ปิด" />
         </RadioGroup>
 
-        <com.istyleglobalnetwork.floatingmarkets.viewgroup.EditTextNotNull
-            android:id="@+id/open"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"></com.istyleglobalnetwork.floatingmarkets.viewgroup.EditTextNotNull>
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.istyleglobalnetwork.floatingmarkets.viewgroup.EditTextNotNull
+                android:id="@+id/open"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></com.istyleglobalnetwork.floatingmarkets.viewgroup.EditTextNotNull>
+
+            <com.istyleglobalnetwork.floatingmarkets.viewgroup.EditTextNotNull
+                android:id="@+id/close"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></com.istyleglobalnetwork.floatingmarkets.viewgroup.EditTextNotNull>
+        </LinearLayout>
 
 
     </LinearLayout>
