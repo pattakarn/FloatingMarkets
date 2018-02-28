@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.DialogPopup.DialogManageShop;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbAward;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
@@ -17,6 +18,7 @@ import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.UpdatePhotoActivity;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditPhoto;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopAward;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopData;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopHead;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopOpentime;
@@ -56,12 +58,16 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
                 viewHolder = new ViewHolderEditShopData(v2);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_edit_shop_opentime, parent, false);
-                viewHolder = new ViewHolderEditShopOpentime(v3);
+                View v3 = inflater.inflate(R.layout.card_edit_shop_award, parent, false);
+                viewHolder = new ViewHolderEditShopAward(v3);
                 break;
             case 3:
-                View v4 = inflater.inflate(R.layout.card_edit_photo, parent, false);
-                viewHolder = new ViewHolderEditPhoto(v4);
+                View v4 = inflater.inflate(R.layout.card_edit_shop_opentime, parent, false);
+                viewHolder = new ViewHolderEditShopOpentime(v4);
+                break;
+            case 4:
+                View v5 = inflater.inflate(R.layout.card_edit_photo, parent, false);
+                viewHolder = new ViewHolderEditPhoto(v5);
                 break;
 
             default:
@@ -85,12 +91,16 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
                 configureViewHolderEditShopData(vh2, position);
                 break;
             case 2:
-                ViewHolderEditShopOpentime vh3 = (ViewHolderEditShopOpentime) holder;
-                configureViewHolderEditShopOpentime(vh3, position);
+                ViewHolderEditShopAward vh3 = (ViewHolderEditShopAward) holder;
+                configureViewHolderEditShopAward(vh3, position);
                 break;
             case 3:
-                ViewHolderEditPhoto vh4 = (ViewHolderEditPhoto) holder;
-                configureViewHolderEditPhoto(vh4, position);
+                ViewHolderEditShopOpentime vh4 = (ViewHolderEditShopOpentime) holder;
+                configureViewHolderEditShopOpentime(vh4, position);
+                break;
+            case 4:
+                ViewHolderEditPhoto vh5 = (ViewHolderEditPhoto) holder;
+                configureViewHolderEditPhoto(vh5, position);
                 break;
 
             default:
@@ -98,31 +108,6 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
 //                configureViewHolderEditProductPhoto(vh, position);
                 break;
         }
-    }
-
-    private void configureViewHolderEditPhoto(ViewHolderEditPhoto vh3, int position) {
-        List<Object> tempObject = (List<Object>) items.get(position);
-        final WrapFdbShop dataShop = (WrapFdbShop) tempObject.get(0);
-        final List<WrapFdbImage> itemImage = (List<WrapFdbImage>) tempObject.get(1);
-
-        vh3.getIvg().getTvImage().setText("Photo (" + itemImage.size() + ")");
-        GridLayoutManager glm = new GridLayoutManager(inflater.getContext(), 3);
-        glm.setOrientation(LinearLayoutManager.VERTICAL);
-        vh3.getIvg().getRv().setLayoutManager(glm);
-        RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(itemImage);
-        vh3.getIvg().getRv().setAdapter(adapterList);
-
-        vh3.getIvg().getCv().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(inflater.getContext(), UpdatePhotoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("itemShop", Parcels.wrap(dataShop));
-                bundle.putParcelable("itemImage", Parcels.wrap(itemImage));
-                intent.putExtras(bundle);
-                inflater.getContext().startActivity(intent);
-            }
-        });
     }
 
     private void configureViewHolderEditShopHead(ViewHolderEditShopHead vh1, int position) {
@@ -208,6 +193,61 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
 
     }
 
+    private void configureViewHolderEditShopAward(ViewHolderEditShopAward vh3, int position) {
+        ArrayList<Object> tempObject = (ArrayList<Object>) items.get(position);
+        final WrapFdbShop dataShop = (WrapFdbShop) tempObject.get(0);
+        final List<WrapFdbAward> dataAward = (List<WrapFdbAward>) tempObject.get(1);
+
+        vh3.getColAward1().getTvTitle().setText("Award 1");
+        vh3.getColAward2().getTvTitle().setText("Award 2");
+        vh3.getColAward3().getTvTitle().setText("Award 3");
+
+        vh3.getColAward1().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                if (dataAward.size() > 0) {
+                    popup.Popup_ChangeAward(dataShop, dataAward.get(0), "award1");
+                } else {
+                    popup.Popup_ChangeAward(dataShop, null, "award1");
+                }
+            }
+        });
+        vh3.getColAward2().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                if (dataAward.size() > 1) {
+                    popup.Popup_ChangeAward(dataShop, dataAward.get(1), "award2");
+                } else {
+                    popup.Popup_ChangeAward(dataShop, null, "award2");
+                }
+            }
+        });
+        vh3.getColAward3().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageShop popup = new DialogManageShop(inflater.getContext());
+                if (dataAward.size() > 2) {
+                    popup.Popup_ChangeAward(dataShop, dataAward.get(2), "award3");
+                } else {
+                    popup.Popup_ChangeAward(dataShop, null, "award3");
+                }
+            }
+        });
+        for (int i = 0; i < dataAward.size(); i++) {
+            if (i == 0) {
+                vh3.getColAward1().getTvValue().setText(dataAward.get(i).getData().getNameAward());
+            } else if (i == 1) {
+                vh3.getColAward2().getTvValue().setText(dataAward.get(i).getData().getNameAward());
+            } else if (i == 2) {
+                vh3.getColAward3().getTvValue().setText(dataAward.get(i).getData().getNameAward());
+            }
+        }
+
+
+    }
+
     private void configureViewHolderEditShopOpentime(ViewHolderEditShopOpentime vh1, int position) {
 
         ArrayList<Object> tempObject = (ArrayList<Object>) items.get(position);
@@ -283,6 +323,31 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
         }
 
 
+    }
+
+    private void configureViewHolderEditPhoto(ViewHolderEditPhoto vh3, int position) {
+        List<Object> tempObject = (List<Object>) items.get(position);
+        final WrapFdbShop dataShop = (WrapFdbShop) tempObject.get(0);
+        final List<WrapFdbImage> itemImage = (List<WrapFdbImage>) tempObject.get(1);
+
+        vh3.getIvg().getTvImage().setText("Photo (" + itemImage.size() + ")");
+        GridLayoutManager glm = new GridLayoutManager(inflater.getContext(), 3);
+        glm.setOrientation(LinearLayoutManager.VERTICAL);
+        vh3.getIvg().getRv().setLayoutManager(glm);
+        RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(itemImage);
+        vh3.getIvg().getRv().setAdapter(adapterList);
+
+        vh3.getIvg().getCv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(inflater.getContext(), UpdatePhotoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemShop", Parcels.wrap(dataShop));
+                bundle.putParcelable("itemImage", Parcels.wrap(itemImage));
+                intent.putExtras(bundle);
+                inflater.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

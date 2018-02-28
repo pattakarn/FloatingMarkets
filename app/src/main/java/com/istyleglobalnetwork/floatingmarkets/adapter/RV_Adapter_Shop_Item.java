@@ -1,6 +1,7 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,10 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.istyleglobalnetwork.floatingmarkets.CommentActivity;
+import com.istyleglobalnetwork.floatingmarkets.DateTimeMillis;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbComment;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbFeeling;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbAward;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbFeeling;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
+import com.istyleglobalnetwork.floatingmarkets.LoginActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.activity.product.ProductItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.data.DataProductItem;
@@ -50,9 +57,9 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
     WrapFdbShop itemShop;
     LayoutInflater inflater;
 
+    WrapFdbFeeling dataFeeling;
     DatabaseReference mRootRef;
-    StorageReference storageRef;
-    StorageReference folderRef, imageRef;
+    FirebaseAuth mAuth;
 
     private final int TITLE = 0, IMAGE = 1;
 
@@ -62,8 +69,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
         this.inflater = inflater;
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
-        storageRef = FirebaseStorage.getInstance().getReference();
-        folderRef = storageRef.child("photos");
+        mAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -212,8 +218,21 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void configureViewHolderAward(ViewHolderAward vh2, int position) {
-        vh2.getTvAward().setText("รางวัลที่ 1\nรางวัลที่ 2\nรางวัลที่ 3");
+//        vh2.getTvAward().setText("รางวัลที่ 1\nรางวัลที่ 2\nรางวัลที่ 3");
 //        vh2.getImage().setImageResource(R.drawable.talad3);
+
+        final List<WrapFdbAward> dataAward = (List<WrapFdbAward>) items.get(position);
+        String txtAward = "";
+
+        for (int i = 0; i < dataAward.size(); i++) {
+            txtAward += dataAward.get(i).getData().getNameAward();
+
+            if (i < dataAward.size()-1){
+                txtAward += "\n";
+            }
+        }
+
+        vh2.getTvAward().setText(txtAward);
     }
 
     private void configureViewHolderTime(ViewHolderTime vh2, int position) {
@@ -228,12 +247,112 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
 //        vh2.getImage().setImageResource(R.drawable.talad3);
     }
 
-    private void configureViewHolderImageShop(ViewHolderImageShop vh2, int position) {
+    private void configureViewHolderImageShop(final ViewHolderImageShop vh2, int position) {
 
         ArrayList<WrapFdbImage> data = (ArrayList<WrapFdbImage>) items.get(position);
         vh2.setImage(data);
         vh2.getTvName().setText(itemShop.getData().getNameShop());
 //        vh2.getImage().setImageResource(R.drawable.talad3);
+        if (mAuth.getCurrentUser() != null) {
+            mRootRef.child("item-feeling").child(itemShop.getKey()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        String key = postSnapshot.getKey();
+                        FdbFeeling value = postSnapshot.getValue(FdbFeeling.class);
+//
+                        if (value != null) {
+                            if (value.getUserID().equals(mAuth.getCurrentUser().getUid())) {
+                                Log.d("item-comment", "==========================================================" + key);
+                                Log.d("item-comment", "==========================================================" + value.getFeeling());
+
+                                dataFeeling = new WrapFdbFeeling(key, value);
+                                if (value.getFeeling().equals("love")) {
+                                    vh2.getIvLove().setColorFilter(Color.RED);
+                                } else {
+                                    vh2.getIvLove().setColorFilter(Color.GRAY);
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        vh2.getIvLove().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mAuth.getCurrentUser() != null) {
+                    String feeling = "";
+                    if (dataFeeling != null) {
+                        feeling = dataFeeling.getData().getFeeling();
+                    }
+
+                    if (feeling.equals("")) {
+                        feeling = "love";
+                        vh2.getIvLove().setColorFilter(Color.RED);
+
+                    } else if (feeling.equals("love")) {
+                        feeling = "";
+                        vh2.getIvLove().setColorFilter(Color.GRAY);
+                    }
+
+                    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                    DatabaseReference mItemRef = mRootRef.child("item-feeling");
+                    DatabaseReference mFeelingRef = mRootRef.child("feeling");
+
+                    String userID = mAuth.getCurrentUser().getUid();
+                    if (dataFeeling == null) {
+                        String newKey = mFeelingRef.push().getKey();
+                        FdbFeeling data = new FdbFeeling();
+                        dataFeeling = new WrapFdbFeeling(newKey, data);
+                    } else if (dataFeeling.getData() == null) {
+                        String newKey = mFeelingRef.push().getKey();
+                        FdbFeeling data = new FdbFeeling();
+                        dataFeeling = new WrapFdbFeeling(newKey, data);
+                    }
+                    dataFeeling.getData().setFeeling(feeling);
+                    dataFeeling.getData().setItemID(itemShop.getKey());
+                    dataFeeling.getData().setUserID(userID);
+                    dataFeeling.getData().setDate(DateTimeMillis.getDateMillisNow());
+                    dataFeeling.getData().setTime(DateTimeMillis.getTimeMillisNow());
+
+                    mItemRef.child(itemShop.getKey()).child(dataFeeling.getKey()).setValue(dataFeeling.getData());
+                    mFeelingRef.child(dataFeeling.getKey()).setValue(dataFeeling.getData());
+                } else {
+                    inflater.getContext().startActivity(new Intent(inflater.getContext(), LoginActivity.class));
+                }
+            }
+        });
+
+        mRootRef.child("item-feeling").child(itemShop.getKey()).orderByChild("feeling").equalTo("love").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int count = 0;
+                DataRating dataRating = new DataRating();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbComment value = postSnapshot.getValue(FdbComment.class);
+//
+                    count++;
+
+                }
+
+                vh2.getTvCount().setText(count + "");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void configureViewHolderProduct(ViewHolderProduct vh2, int position) {

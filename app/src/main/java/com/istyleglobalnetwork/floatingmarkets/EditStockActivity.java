@@ -12,13 +12,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStock;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStockList;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
@@ -38,8 +37,7 @@ public class EditStockActivity extends AppCompatActivity {
     WrapFdbStock itemStock = null;
 
     DatabaseReference mRootRef;
-    private UploadTask mUploadTask;
-    private StorageReference folderRef, imageRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +102,10 @@ public class EditStockActivity extends AppCompatActivity {
                 dataStock.setUpdateDate(DateTimeMillis.getDateMillisNow());
                 dataStock.setUpdateTime(DateTimeMillis.getTimeMillisNow());
 
+                mAuth = FirebaseAuth.getInstance();
                 String keyStockList = mStockListRef.child(itemProduct.getKey()).push().getKey();
-                dataStockList.setQuantity(sumQuantity);
+                dataStockList.setQuantity(newQuantity);
+                dataStockList.setUserID(mAuth.getCurrentUser().getUid());
                 dataStockList.setDate(DateTimeMillis.getDateMillisNow());
                 dataStockList.setTime(DateTimeMillis.getTimeMillisNow());
 

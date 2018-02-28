@@ -5,6 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.istyleglobalnetwork.floatingmarkets.DateTimeMillis;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbUser;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbStock;
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -22,11 +29,14 @@ public class RV_Adapter_Manage_StockOrder extends RecyclerView.Adapter<RecyclerV
     LayoutInflater inflater;
 
     WrapFdbStock itemStock = null;
+    DatabaseReference mRootRef;
 
     private final int TITLE = 0, IMAGE = 1;
 
     public RV_Adapter_Manage_StockOrder(List<Object> items) {
         this.items = items;
+
+        mRootRef = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -47,7 +57,7 @@ public class RV_Adapter_Manage_StockOrder extends RecyclerView.Adapter<RecyclerV
         configureViewHolderManageStock(vh, position);
     }
 
-    private void configureViewHolderManageStock(ViewHolderManageStockOrder vh1, int position) {
+    private void configureViewHolderManageStock(final ViewHolderManageStockOrder vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
         final WrapFdbOrder data = (WrapFdbOrder) items.get(position);
@@ -55,6 +65,24 @@ public class RV_Adapter_Manage_StockOrder extends RecyclerView.Adapter<RecyclerV
 //        vh1.getIv().setImageResource(data.getImageMarket());
         vh1.getTvStatus().setText(status);
         vh1.getTvAmount().setText(data.getData().getQuantity() + "");
+        vh1.getTvDate().setText(DateTimeMillis.MillisToDate(data.getData().getDate()) + "  "
+                + DateTimeMillis.MillisToTime(data.getData().getTime()));
+        if (data.getData().getUserID() != null) {
+            mRootRef.child("user").child(data.getData().getUserID()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String key = dataSnapshot.getKey();
+                    FdbUser value = dataSnapshot.getValue(FdbUser.class);
+
+                    vh1.getTvUser().setText(value.getNameContact());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
 
     }
 

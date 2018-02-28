@@ -12,6 +12,8 @@ import android.widget.RadioButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbAward;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbAward;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
 import com.istyleglobalnetwork.floatingmarkets.R;
@@ -286,6 +288,46 @@ public class DialogManageShop {
                 Log.d("Popup_ChangeOpentime", "============================= " + day + " " + date);
                 mShopRef.child(dataZone.getKey()).child(dataShop.getKey()).child(day).setValue(date);
                 mProductRef.child(dataShop.getKey()).child(day).setValue(date);
+
+
+            }
+        });
+        popupDialog.create();
+        popupDialog.show();
+    }
+
+    public void Popup_ChangeAward(final WrapFdbShop dataShop, final WrapFdbAward dataAward, String mode) {
+        layout_popup = inflater.inflate(R.layout.dialog_edit, null);
+        final EditTextNotNull editText = (EditTextNotNull) layout_popup.findViewById(R.id.edit);
+
+        if (dataAward != null)
+            editText.setText(dataAward.getData().getNameAward());
+
+        popupDialog.setView(layout_popup);
+        popupDialog.setTitle("Award");
+        popupDialog.setNegativeButton("ยกเลิก", null);
+        popupDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mShopRef = mRootRef.child("item-award");
+                DatabaseReference mAwardRef = mRootRef.child("award");
+
+                WrapFdbAward value = dataAward;
+
+                if (value == null) {
+                    String newKey = mAwardRef.push().getKey();
+                    FdbAward data = new FdbAward();
+                    data.setNameAward(editText.getText());
+                    data.setItemID(dataShop.getKey());
+                    value = new WrapFdbAward(newKey, data);
+                } else {
+                    value.getData().setNameAward(editText.getText());
+                    value.getData().setItemID(dataShop.getKey());
+                }
+
+                mShopRef.child(dataShop.getKey()).child(value.getKey()).setValue(value.getData());
+                mAwardRef.child(value.getKey()).setValue(value.getData());
 
 
             }

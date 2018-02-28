@@ -10,6 +10,7 @@ import org.parceler.Parcel;
 public class FdbOrder {
 
     String productID;
+    String userID;
     String status;
     int quantity;
     int price;
@@ -22,6 +23,14 @@ public class FdbOrder {
 
     public void setProductID(String productID) {
         this.productID = productID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getStatus() {

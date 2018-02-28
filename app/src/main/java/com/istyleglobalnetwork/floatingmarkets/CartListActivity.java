@@ -86,7 +86,7 @@ public class CartListActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
-            Intent intent = new Intent(CartListActivity.this, LoginActivity2.class);
+            Intent intent = new Intent(CartListActivity.this, LoginActivity.class);
             startActivity(intent);
         } else {
 
@@ -160,6 +160,7 @@ public class CartListActivity extends AppCompatActivity {
 
             FdbOrder order = dataOrder.get(i).getData();
             order.setStatus("order");
+            order.setUserID(mAuth.getCurrentUser().getUid());
             order.setDate(DateTimeMillis.getDateMillisNow());
             order.setTime(DateTimeMillis.getTimeMillisNow());
             mOrderRef.child(dataOrder.get(i).getKey()).setValue(order);
@@ -169,6 +170,7 @@ public class CartListActivity extends AppCompatActivity {
             FdbStockList dataStockList = new FdbStockList();
             dataStockList.setQuantity(order.getQuantity());
             dataStockList.setMark("sell");
+            dataStockList.setUserID(mAuth.getCurrentUser().getUid());
             dataStockList.setDate(DateTimeMillis.getDateMillisNow());
             dataStockList.setTime(DateTimeMillis.getTimeMillisNow());
             mStockListRef.child(order.getProductID()).child(keyStockList).setValue(dataStockList);

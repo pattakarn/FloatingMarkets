@@ -32,15 +32,32 @@
             android:textSize="18sp"
             android:layout_centerVertical="true"/>
 
-        <ImageButton
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+        <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:orientation="vertical"
             android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop"
-            android:background="@color/common_google_signin_btn_text_dark_default"
-            android:src="@drawable/ic_favorite_black_24dp"
-            android:tint="#bbbbbb" />
+            android:layout_marginRight="8dp">
+
+            <ImageView
+                android:id="@+id/iv_love"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:scaleType="centerCrop"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:src="@drawable/ic_favorite_black_24dp"
+                android:tint="#bbbbbb"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="999999"
+                android:layout_below="@+id/iv"
+                android:layout_gravity="center|bottom"/>
+        </FrameLayout>
     </RelativeLayout>
 
 

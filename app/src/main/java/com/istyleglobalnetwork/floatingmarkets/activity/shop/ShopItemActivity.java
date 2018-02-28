@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -17,8 +18,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbAward;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbAward;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
@@ -81,6 +84,61 @@ public class ShopItemActivity extends AppCompatActivity {
 
     }
 
+    private void setListImage() {
+        String shop = itemShop.getKey();
+        mRootRef.child("item-photo").child(shop).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                itemImage = new ArrayList<Object>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbImage value = postSnapshot.getValue(FdbImage.class);
+                    itemImage.add(new WrapFdbImage(key, value));
+                }
+
+                data.add(itemImage);
+                setAward();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void setAward() {
+        mRootRef.child("item-award").child(itemShop.getKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<WrapFdbAward> dataAward = new ArrayList<WrapFdbAward>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbAward value = postSnapshot.getValue(FdbAward.class);
+                    dataAward.add(new WrapFdbAward(key, value));
+
+                    Log.d("Award", "+++++++++++++++++++++++++++++++++++++ ");
+
+                }
+
+                data.add(dataAward);
+                data.add(itemShop); // time
+                data.add(itemShop); // contact
+                data.add(nameShop);
+                setListProduct();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+
     private void setListProduct() {
         String shop = itemShop.getKey();
         mRootRef.child("shop-product").child(shop).addValueEventListener(new ValueEventListener() {
@@ -106,33 +164,8 @@ public class ShopItemActivity extends AppCompatActivity {
         });
     }
 
-    private void setListImage() {
-        String shop = itemShop.getKey();
-        mRootRef.child("item-photo").child(shop).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                itemImage = new ArrayList<Object>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String key = postSnapshot.getKey();
-                    FdbImage value = postSnapshot.getValue(FdbImage.class);
-                    itemImage.add(new WrapFdbImage(key, value));
-                }
 
-                data.add(itemImage);
-                data.add("Award");
-                data.add(itemShop); // time
-                data.add(itemShop); // contact
-                data.add(nameShop);
-                setListProduct();
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void initInstances() {
         // init instance with rootView.findViewById here

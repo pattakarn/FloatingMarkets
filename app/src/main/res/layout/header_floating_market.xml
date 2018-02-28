@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl"
+    android:layout_width="match_parent"
+    android:layout_height="110dp">
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/header" />
+
+    <TextView
+        android:id="@+id/tv_name_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="ตลาดน้ำคลองลัดมะยม"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"/>
+
+    <ImageView
+        android:id="@+id/iv_logo1"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="4dp"
+        android:src="@drawable/logo2" />
+
+    <ImageView
+        android:id="@+id/iv_logo2"
+        android:layout_width="100dp"
+        android:layout_height="76dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="4dp"
+        android:src="@drawable/logo1" />
+
+    <ImageView
+        android:id="@+id/iv_logo3"
+        android:layout_width="80dp"
+        android:layout_height="68dp"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="4dp"
+        android:src="@drawable/logo3" />
+
+
+</FrameLayout>

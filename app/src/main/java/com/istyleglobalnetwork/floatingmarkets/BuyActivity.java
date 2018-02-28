@@ -115,9 +115,9 @@ public class BuyActivity extends AppCompatActivity {
 
                 currentUser = mAuth.getCurrentUser();
                 if (currentUser == null) {
-//                    Intent intent = new Intent(BuyActivity.this, LoginActivity2.class);
-//                    startActivity(intent);
-                    getLogin();
+                    Intent intent = new Intent(BuyActivity.this, LoginActivity.class);
+                    startActivity(intent);
+//                    getLogin();
                 } else {
 //                    if (currentUser.isEmailVerified()) {
 ////                        Toast.makeText(BuyActivity.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
@@ -185,6 +185,7 @@ public class BuyActivity extends AppCompatActivity {
         int quantity = qvg.getQuantity();
         int price = itemProduct.getData().getPrice() * quantity;
         dataOrder.setProductID(productID);
+        dataOrder.setUserID(mAuth.getCurrentUser().getUid());
         dataOrder.setQuantity(quantity);
         dataOrder.setStatus("standby");
         dataOrder.setPrice(price);

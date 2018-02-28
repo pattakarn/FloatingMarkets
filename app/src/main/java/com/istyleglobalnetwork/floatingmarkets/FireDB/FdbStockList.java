@@ -13,6 +13,7 @@ public class FdbStockList {
     String mark;
     String date;
     String time;
+    String userID;
 
     public int getQuantity() {
         return quantity;
@@ -44,5 +45,13 @@ public class FdbStockList {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

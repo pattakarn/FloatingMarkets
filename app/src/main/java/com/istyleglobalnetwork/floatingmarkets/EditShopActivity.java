@@ -16,8 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbAward;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbShop;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbAward;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
@@ -116,7 +118,38 @@ public class EditShopActivity extends AppCompatActivity {
                 temp.add(itemZone);
                 dataItem.add(temp);
                 dataItem.add(temp);
+                dataItem.add(temp);
 
+//                setListImage();
+                setAward();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private void setAward() {
+        mRootRef.child("item-award").child(itemShop.getKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<WrapFdbAward> dataAward = new ArrayList<WrapFdbAward>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbAward value = postSnapshot.getValue(FdbAward.class);
+                    dataAward.add(new WrapFdbAward(key, value));
+
+                    Log.d("Award", "+++++++++++++++++++++++++++++++++++++ ");
+
+                }
+                List<Object> temp = new ArrayList<Object>();
+                temp.add(itemShop);
+                temp.add(dataAward);
+                dataItem.set(2, temp);
                 setListImage();
             }
 
@@ -135,8 +168,8 @@ public class EditShopActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 itemImage = new ArrayList<WrapFdbImage>();
 
-                if (dataItem.size() == 4) {
-                    dataItem.remove(3);
+                if (dataItem.size() == 5) {
+                    dataItem.remove(4);
                 }
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();

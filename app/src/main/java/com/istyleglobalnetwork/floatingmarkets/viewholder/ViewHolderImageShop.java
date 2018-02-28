@@ -3,6 +3,7 @@ package com.istyleglobalnetwork.floatingmarkets.viewholder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
@@ -21,10 +22,16 @@ public class ViewHolderImageShop extends RecyclerView.ViewHolder {
     private RecyclerView rv;
     ArrayList<WrapFdbImage> image = new ArrayList<WrapFdbImage>();
 
+    private ImageView ivLove;
+    private TextView tvCount;
+
     public ViewHolderImageShop(View itemView) {
         super(itemView);
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
         rv = (RecyclerView) itemView.findViewById(R.id.rv);
+
+        ivLove = (ImageView) itemView.findViewById(R.id.iv_love);
+        tvCount = (TextView) itemView.findViewById(R.id.tv_count);
     }
 
     public TextView getTvName() {
@@ -43,5 +50,21 @@ public class ViewHolderImageShop extends RecyclerView.ViewHolder {
         rv.setLayoutManager(llm);
         RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(image);
         rv.setAdapter(adapterList);
+    }
+
+    public ImageView getIvLove() {
+        return ivLove;
+    }
+
+    public void setIvLove(ImageView ivLove) {
+        this.ivLove = ivLove;
+    }
+
+    public TextView getTvCount() {
+        return tvCount;
+    }
+
+    public void setTvCount(TextView tvCount) {
+        this.tvCount = tvCount;
     }
 }

@@ -93,7 +93,7 @@ public class CommentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 if (mAuth == null) {
-                    startActivity(new Intent(CommentActivity.this, LoginActivity2.class));
+                    startActivity(new Intent(CommentActivity.this, LoginActivity.class));
                 } else {
                     DialogComment popup = new DialogComment(CommentActivity.this);
                     popup.Popup_ChangeComment(itemID);
@@ -105,7 +105,7 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void setListComment() {
-        mRootRef.child("item-comment").child(itemShop.getKey()).orderByChild("date").addValueEventListener(new ValueEventListener() {
+        mRootRef.child("item-comment").child(itemID).orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataComment = new ArrayList<Object>();
