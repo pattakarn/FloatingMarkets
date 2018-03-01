@@ -41,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
@@ -48,18 +49,22 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         initInstances();
+        tvTitle.setText("");
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        tvTitle.setText(currentUser.getEmail());
+        if (currentUser != null) {
+            tvTitle.setText(currentUser.getEmail());
+            setUser();
+        }
 
         btnLogout.setOnClickListener(this);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llm);
-        setUser();
+
 
     }
 

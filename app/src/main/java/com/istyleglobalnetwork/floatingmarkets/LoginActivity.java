@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -56,9 +57,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.istyleglobalnetwork.floatingmarkets.DialogPopup.DialogLoginAndProfile;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbUser;
 
 import java.util.ArrayList;
@@ -154,10 +159,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         setUserProfile(firebaseAuth.getCurrentUser());
                         Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
                         Log.d("EmailVerified", "checkEmail เข้าสู่ระบบสำเร็จ");
+
+                        FBAnalytics fbAnalytics = new FBAnalytics(LoginActivity.this);
+
+                        if (mAuth.getCurrentUser() != null) {
+                            Crashlytics.setUserEmail(mAuth.getCurrentUser().getEmail());
+                            fbAnalytics.addUser(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getEmail());
+                        }
+                        fbAnalytics.EventLogin();
                         startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+
                         finish();
                     } else {
                         if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                            setUserProfile(firebaseAuth.getCurrentUser());
                             Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
                             Log.d("EmailVerified", "is Verified");
                             startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
@@ -280,26 +295,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void setUserProfile(FirebaseUser user) {
+    private void setUserProfile(final FirebaseUser user) {
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mUserRef = mRootRef.child("user");
+        final DatabaseReference mUserRef = mRootRef.child("user");
 
-        FdbUser dataUser = new FdbUser();
-        String nameContact = "";
-        if (user != null) {
-            for (UserInfo profile : user.getProviderData()) {
-                nameContact = profile.getDisplayName();
-                
+        mUserRef.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String key = dataSnapshot.getKey();
+                FdbUser value = dataSnapshot.getValue(FdbUser.class);
+
+                FdbUser dataUser = new FdbUser();
+                if (value == null) {
+
+                    String nameContact = "-";
+                    if (user != null) {
+                        for (UserInfo profile : user.getProviderData()) {
+                            nameContact = profile.getDisplayName();
+                            dataUser.setNameContact(nameContact);
+                        }
+                    }
+
+
+                }
+
+                String email = user.getEmail();
+                dataUser.setEmail(email);
+                Log.d("set Profile", "======================================== " + user.getUid() + " " + dataUser);
+
+                mUserRef.child(user.getUid()).setValue(dataUser);
             }
-            ;
-        }
 
-        String email = user.getEmail();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        dataUser.setNameContact(nameContact);
-        dataUser.setEmail(email);
+            }
+        });
 
-        mUserRef.child(user.getUid()).setValue(dataUser);
 
     }
 
@@ -619,8 +651,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-
-
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -677,11 +707,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
-                            Log.d("signin", "================ Success");
-                        else {
+                        if (task.isSuccessful()) {
+                            Log.d("signin", "Success ================ uid : " + task.getResult().getUser().getUid());
+                            FBAnalytics fbAnalytics = new FBAnalytics(LoginActivity.this);
+                            fbAnalytics.addUser(task.getResult().getUser().getUid(), mEmail);
+                            fbAnalytics.EventLogin();
+                        } else {
                             Toast.makeText(LoginActivity.this, "เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง", Toast.LENGTH_SHORT).show();
                             Log.d("signin", "================ failed");
+                            FBAnalytics fbAnalytics = new FBAnalytics(LoginActivity.this);
+                            fbAnalytics.addUser("Failed", mEmail);
+                            fbAnalytics.EventLogin();
                         }
                     }
                 });

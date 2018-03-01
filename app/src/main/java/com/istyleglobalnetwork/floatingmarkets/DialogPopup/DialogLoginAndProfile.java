@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.istyleglobalnetwork.floatingmarkets.DateTimeMillis;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbUser;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.viewgroup.EditTextNotNull;
@@ -122,7 +123,7 @@ public class DialogLoginAndProfile {
                 etPassword.checkNull();
                 etRepassword.checkNull();
 
-                if (etPassword.getText().equals(etRepassword.getText())) {
+                if (etPassword.getText().equals(etRepassword.getText()) || etPassword.getText().length() < 8) {
                     if (etEmail.checkNull() && etPassword.checkNull() && etRepassword.checkNull()) {
 
                         mAuth = FirebaseAuth.getInstance();
@@ -132,6 +133,9 @@ public class DialogLoginAndProfile {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             if (isToast) {
+                                                FBAnalytics fbAnalytics = new FBAnalytics(context);
+                                                fbAnalytics.addUser(mAuth.getCurrentUser().getUid(), etEmail.getText());
+                                                fbAnalytics.EventSignup();
                                                 Toast.makeText(context.getApplicationContext(), "สร้างบัญชีสำเร็จ กรุณายืนยันอีเมล", Toast.LENGTH_SHORT).show();
                                             }
 //                                        Toast.makeText(context.getApplicationContext(), "สร้างบัญชีสำเร็จ", Toast.LENGTH_SHORT).show();
@@ -276,8 +280,12 @@ public class DialogLoginAndProfile {
 
         firstname.setHint("Firstname");
         lastname.setHint("Lastname");
-        firstname.setText(dataUser.getData().getNameContact().split(" ")[0]);
-        lastname.setText(dataUser.getData().getNameContact().split(" ")[1]);
+        if (dataUser.getData().getNameContact() != null) {
+            String[] name = dataUser.getData().getNameContact().split(" ");
+            firstname.setText(dataUser.getData().getNameContact().split(" ")[0]);
+            if (name.length > 1)
+                lastname.setText(dataUser.getData().getNameContact().split(" ")[1]);
+        }
         popupDialog.setView(layout_popup);
         popupDialog.setTitle("Contact Name");
         popupDialog.setNegativeButton("ยกเลิก", null);
@@ -299,7 +307,7 @@ public class DialogLoginAndProfile {
     public void Popup_ChangeGender(final WrapFdbUser dataUser) {
         final String[] sex = new String[]{"MALE", "FEMALE"};
         int checkItem = 0;
-        if (dataUser.getData().getGender().equals(sex[1])){
+        if (dataUser.getData().getGender().equals(sex[1])) {
             checkItem = 1;
         }
 

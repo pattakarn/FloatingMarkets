@@ -25,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.istyleglobalnetwork.floatingmarkets.DialogPopup.DialogLoginAndProfile;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
@@ -196,6 +197,11 @@ public class BuyActivity extends AppCompatActivity {
         String keyOrder = mOrderRef.push().getKey();
         mOrderRef.child(keyOrder).setValue(dataOrder);
         mUserOrderRef.child(currentUser.getUid()).child(keyOrder).setValue(dataOrder);
+
+        FBAnalytics fbAnalytics = new FBAnalytics(BuyActivity.this);
+        fbAnalytics.addItem(productID, itemProduct.getData().getNameProduct(), price, quantity);
+        fbAnalytics.addUser(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getEmail());
+        fbAnalytics.EventAddToCart();
 
         Intent intent = new Intent(BuyActivity.this, CartListActivity.class);
         startActivity(intent);

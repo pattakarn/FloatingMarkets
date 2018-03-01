@@ -8,13 +8,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.activity.hotel.HotelListActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.network.NetworkListActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.service.ServiceListActivity;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
 
         initInstances();
+        mAuth = FirebaseAuth.getInstance();
 
 //        setSupportActionBar(toolbar);
 
@@ -66,10 +68,27 @@ public class MainActivity extends AppCompatActivity {
         RV_Adapter_Main adapterList = new RV_Adapter_Main(data);
         rv.setAdapter(adapterList);
 
-        Log.d("DateTimeNow", "===============================" + DateTimeMillis.getDateNow());
-        Log.d("DateTimeNow", "===============================" + DateTimeMillis.getTimeNow());
-        Log.d("DateTimeNow", "===============================" + DateTimeMillis.TimeToMillis(DateTimeMillis.getTimeNow()));
-        Log.d("DateTimeNow", "===============================" + DateTimeMillis.MillisToTime(DateTimeMillis.TimeToMillis(DateTimeMillis.getTimeNow())));
+        FBAnalytics fbAnalytics = new FBAnalytics(MainActivity.this);
+
+        if (mAuth.getCurrentUser() != null) {
+            Crashlytics.setUserEmail(mAuth.getCurrentUser().getEmail());
+            fbAnalytics.addUser(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getEmail());
+        } else {
+            Crashlytics.setUserEmail("-");
+            fbAnalytics.addUser("-", "-");
+        }
+        fbAnalytics.EventAppOpen();
+
+//        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("USER_ID", mAuth.getCurrentUser().getUid());
+//        bundle.putString("EMAIL", mAuth.getCurrentUser().getEmail());
+//        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
+
+//        Log.d("DateTimeNow", "===============================" + DateTimeMillis.getDateNow());
+//        Log.d("DateTimeNow", "===============================" + DateTimeMillis.getTimeNow());
+//        Log.d("DateTimeNow", "===============================" + DateTimeMillis.TimeToMillis(DateTimeMillis.getTimeNow()));
+//        Log.d("DateTimeNow", "===============================" + DateTimeMillis.MillisToTime(DateTimeMillis.TimeToMillis(DateTimeMillis.getTimeNow())));
 
     }
 
@@ -83,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_person:
-                mAuth = FirebaseAuth.getInstance();
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 if (currentUser!=null) {
                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);

@@ -13,16 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.istyleglobalnetwork.floatingmarkets.BuyActivity;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
@@ -48,8 +47,7 @@ public class ProductItemActivity extends AppCompatActivity {
     List<Object> itemImage = new ArrayList<Object>();
 
     DatabaseReference mRootRef;
-    private UploadTask mUploadTask;
-    private StorageReference folderRef, imageRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +64,6 @@ public class ProductItemActivity extends AppCompatActivity {
 
         initInstances();
         mRootRef = FirebaseDatabase.getInstance().getReference();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        folderRef = storageRef.child("photos");
 
         Bundle bundle = getIntent().getExtras();
 
@@ -81,7 +77,17 @@ public class ProductItemActivity extends AppCompatActivity {
         imageItem = bundle.getInt("ImageItem");
         tvTitle.setText(itemProduct.getData().getNameProduct());
 //        DataProductItem productItem = new DataProductItem(itemShop, itemProduct, imageItem);
-setListImage();
+        setListImage();
+
+        mAuth = FirebaseAuth.getInstance();
+        FBAnalytics fbAnalytics = new FBAnalytics(ProductItemActivity.this);
+        fbAnalytics.addItem(itemProduct.getKey(), itemProduct.getData().getNameProduct(), itemProduct.getData().getPrice(), 0);
+        if (mAuth.getCurrentUser() == null){
+            fbAnalytics.addUser("-", "-");
+        } else {
+            fbAnalytics.addUser(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getEmail());
+        }
+        fbAnalytics.EventViewItem();
 
 
         btnBuy.setOnClickListener(new View.OnClickListener() {

@@ -23,7 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbOrder;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStock;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStockList;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
@@ -158,7 +160,7 @@ public class CartListActivity extends AppCompatActivity {
             DatabaseReference mUserOrderRef = mRootRef.child("user-order");
             DatabaseReference mStockListRef = mRootRef.child("stock-list");
 
-            FdbOrder order = dataOrder.get(i).getData();
+            final FdbOrder order = dataOrder.get(i).getData();
             order.setStatus("order");
             order.setUserID(mAuth.getCurrentUser().getUid());
             order.setDate(DateTimeMillis.getDateMillisNow());
@@ -174,6 +176,25 @@ public class CartListActivity extends AppCompatActivity {
             dataStockList.setDate(DateTimeMillis.getDateMillisNow());
             dataStockList.setTime(DateTimeMillis.getTimeMillisNow());
             mStockListRef.child(order.getProductID()).child(keyStockList).setValue(dataStockList);
+
+            mRootRef.child("product").child(order.getProductID()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final String key = dataSnapshot.getKey();
+                    FdbProduct value = dataSnapshot.getValue(FdbProduct.class);
+
+                    FBAnalytics fbAnalytics = new FBAnalytics(CartListActivity.this);
+                    fbAnalytics.addItem(key, value.getNameProduct(), order.getPrice(), order.getQuantity());
+                    fbAnalytics.addUser(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getEmail());
+                    fbAnalytics.EventCheckout();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
 
             updateStock(order.getProductID(), order.getQuantity());
         }

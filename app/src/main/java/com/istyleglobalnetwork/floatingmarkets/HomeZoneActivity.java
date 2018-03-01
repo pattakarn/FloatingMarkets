@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -58,7 +59,9 @@ public class HomeZoneActivity extends AppCompatActivity {
         dataIv.add(R.drawable.zone_7);
         dataIv.add(R.drawable.zone_8);
 
+
         String market = "-L2JZyVxALaIcBRFeyHH";
+        Log.d("test", "+++++++++++++++++++++++++++++++++++");
         mRootRef.child("market-zone").child(market).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,6 +70,7 @@ public class HomeZoneActivity extends AppCompatActivity {
                     String key = postSnapshot.getKey();
                     FdbZone value = postSnapshot.getValue(FdbZone.class);
                     data.add(new WrapFdbZone(key, value));
+                    Log.d("test", "+++++++++++++++++++++++++++++++++++ " + value.getNameZone());
                 }
 
 
