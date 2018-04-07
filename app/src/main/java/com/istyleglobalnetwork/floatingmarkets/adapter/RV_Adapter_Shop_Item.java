@@ -26,6 +26,7 @@ import com.istyleglobalnetwork.floatingmarkets.DateTimeMillis;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbComment;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbFeeling;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStock;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbAward;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbFeeling;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
@@ -181,15 +182,15 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
                     dataRating.addUserAll();
 
                     int ratingPoint = (int) value.getRating();
-                    if (ratingPoint == 1){
+                    if (ratingPoint == 1) {
                         dataRating.addStar1();
-                    } else if (ratingPoint == 2){
+                    } else if (ratingPoint == 2) {
                         dataRating.addStar2();
-                    } else if (ratingPoint == 3){
+                    } else if (ratingPoint == 3) {
                         dataRating.addStar3();
-                    } else if (ratingPoint == 4){
+                    } else if (ratingPoint == 4) {
                         dataRating.addStar4();
-                    } else if (ratingPoint == 5){
+                    } else if (ratingPoint == 5) {
                         dataRating.addStar5();
                     }
 
@@ -227,7 +228,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
         for (int i = 0; i < dataAward.size(); i++) {
             txtAward += dataAward.get(i).getData().getNameAward();
 
-            if (i < dataAward.size()-1){
+            if (i < dataAward.size() - 1) {
                 txtAward += "\n";
             }
         }
@@ -355,7 +356,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
         });
     }
 
-    private void configureViewHolderProduct(ViewHolderProduct vh2, int position) {
+    private void configureViewHolderProduct(final ViewHolderProduct vh2, int position) {
 
         final DataProductItem data = (DataProductItem) items.get(position);
         setPhoto(vh2.getIvProduct(), data.getItemProduct().getKey());
@@ -375,6 +376,23 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
             }
         });
 //        vh2.getImage().setImageResource(R.drawable.talad3);
+        mRootRef.child("stock").child(data.getItemProduct().getKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String keyPhoto = dataSnapshot.getKey();
+                FdbStock value = dataSnapshot.getValue(FdbStock.class);
+
+                vh2.getTvDetail().setText("stock : " + value.getQuantity());
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void setPhoto(final ImageView iv, String key) {

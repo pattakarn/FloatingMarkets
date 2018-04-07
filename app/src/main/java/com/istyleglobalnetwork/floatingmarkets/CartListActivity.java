@@ -24,10 +24,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbMessage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStock;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStockList;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbUser;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbOrder;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Product_Cart;
@@ -105,6 +107,28 @@ public class CartListActivity extends AppCompatActivity {
                             Toast.makeText(CartListActivity.this,
                                     "ขอบคุณครับ", Toast.LENGTH_SHORT).show();
                             setConfirm();
+
+                            DatabaseReference mUserRef = mRootRef.child("user");
+                            mUserRef.child("V3QJxGYOpKd1ck6vHirhh0Ijbna2").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String key = dataSnapshot.getKey();
+                                    FdbUser value = dataSnapshot.getValue(FdbUser.class);
+
+                                    FdbMessage message = new FdbMessage("user1", value.getEmail(), value.getToken(), "คำสั่งซื้อหมายเลข 1111", "สินค้า");
+                                    mRootRef = FirebaseDatabase.getInstance().getReference();
+                                    DatabaseReference mMessageRef = mRootRef.child("messages");
+
+                                    String Messagekey = mMessageRef.push().getKey();
+                                    mMessageRef.child(Messagekey).setValue(message);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                             finish();
                         }
                     });

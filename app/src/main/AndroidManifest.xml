@@ -24,6 +24,17 @@
         android:icon="@mipmap/ic_floating_market"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.NoActionBar">
+        <service android:name=".Noti.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Noti.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity android:name=".MainActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".HomeZoneActivity" />
@@ -115,11 +126,21 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity
-            android:name=".LoginActivity3"
-            android:label="@string/title_activity_login2" />
         <activity android:name=".DashboardItemActivity" />
-        <activity android:name=".UpdatePhotoActivity"></activity>
+        <activity android:name=".UpdatePhotoActivity" />
+        <activity android:name=".ManageHotelActivity" />
+        <activity
+            android:name=".EditHotelActivity"
+            android:label="@string/title_activity_edit_hotel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ManageRoomActivity" />
+        <activity android:name=".EditRoomActivity" />
+        <activity android:name=".ManageTravelActivity" />
+        <activity android:name=".ManageNetworkActivity" />
+        <activity android:name=".ManageServiceActivity" />
+        <activity android:name=".EditTravelActivity" />
+        <activity android:name=".EditNetworkActivity" />
+        <activity android:name=".EditServiceActivity"></activity>
     </application>
 
 </manifest>

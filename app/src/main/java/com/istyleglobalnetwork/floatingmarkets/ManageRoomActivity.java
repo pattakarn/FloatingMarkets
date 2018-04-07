@@ -21,39 +21,40 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbHotel;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbMarket;
-import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbShop;
-import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbZone;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbRoom;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbHotel;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
-import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
-import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
-import com.istyleglobalnetwork.floatingmarkets.adapter_manage.RV_Adapter_Manage_Shop;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbRoom;
+import com.istyleglobalnetwork.floatingmarkets.adapter_manage.RV_Adapter_Manage_Room;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManageShopActivity extends AppCompatActivity {
+public class ManageRoomActivity extends AppCompatActivity {
 
     TextView tvTitle;
     RecyclerView rv;
     Spinner spinMarket;
-    Spinner spinZone;
+    Spinner spinHotel;
     Button btnAdd;
     int imageItem;
 
     List<WrapFdbMarket> dataMarket = new ArrayList<WrapFdbMarket>();
-    List<WrapFdbZone> dataZone = new ArrayList<WrapFdbZone>();
+    List<WrapFdbHotel> dataHotel = new ArrayList<WrapFdbHotel>();
+
     List<String> listMarket = new ArrayList<String>();
-    List<String> listZone = new ArrayList<String>();
+    List<String> listHotel = new ArrayList<String>();
 
     DatabaseReference mRootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_shop);
+        setContentView(R.layout.activity_manage_room);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,16 +83,16 @@ public class ManageShopActivity extends AppCompatActivity {
 //
         setListMarket();
 
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (spinZone.getSelectedItemPosition() == -1) {
-                    Toast.makeText(getApplicationContext(), "Pleace select zone.", Toast.LENGTH_SHORT).show();
+                if (spinHotel.getSelectedItemPosition() == -1) {
+                    Toast.makeText(getApplicationContext(), "Pleace select hotel.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(ManageShopActivity.this, EditHotelActivity.class);
+                    Intent intent = new Intent(ManageRoomActivity.this, EditRoomActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("itemMarket", Parcels.wrap(dataMarket.get(spinMarket.getSelectedItemPosition())));
+                    bundle.putParcelable("itemTravel", Parcels.wrap(dataHotel.get(spinHotel.getSelectedItemPosition())));
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -118,7 +119,7 @@ public class ManageShopActivity extends AppCompatActivity {
                 spinMarket.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        setListZone();
+                        setListHotel();
                     }
 
                     @Override
@@ -126,7 +127,19 @@ public class ManageShopActivity extends AppCompatActivity {
 
                     }
                 });
-                setListZone();
+//                spinMarket.setItems(listMarket);
+//                spinMarket.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+//
+//                    @Override
+//                    public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+////                        Log.d("spinMarket", "============= " + listMarketKey.get(position));
+////                        Snackbar.make(view, "Clicked ", Snackbar.LENGTH_LONG).show();
+//                        setListZone();
+//
+//                    }
+//                });
+//                spinMarket.setSelectedIndex(0);
+                setListHotel();
             }
 
             @Override
@@ -136,22 +149,44 @@ public class ManageShopActivity extends AppCompatActivity {
         });
     }
 
-    private void setListZone() {
-//        String market = dataMarket.get(spinner.getSelectedIndex()).getKey();
-//        mRootRef.child("market-zone").child(market).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                    String key = postSnapshot.getKey();
-//                    FdbZone value = postSnapshot.getValue(FdbZone.class);
-//                    listZone.add(value.getNameZone());
-//                    dataZone.add(new WrapFdbZone(key, value));
-//                }
-//
-////                RV_Adapter_Manage_Market adapterList = new RV_Adapter_Manage_Market(data);
-////                rv.setAdapter(adapterList);
-//                spinner2.setItems(listZone);
-//                spinner2.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+    private void setListHotel() {
+        dataHotel = new ArrayList<WrapFdbHotel>();
+        listHotel = new ArrayList<String>();
+        spinHotel.setAdapter(null);
+
+        if (spinMarket != null) {
+            int selectItem = spinMarket.getSelectedItemPosition();
+            if (selectItem != -1) {
+                String market = dataMarket.get(selectItem).getKey();
+                mRootRef.child("market-hotel").child(market).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            String key = postSnapshot.getKey();
+                            FdbHotel value = postSnapshot.getValue(FdbHotel.class);
+                            listHotel.add(value.getNameHotel());
+                            dataHotel.add(new WrapFdbHotel(key, value));
+                        }
+
+//                RV_Adapter_Manage_Market adapterList = new RV_Adapter_Manage_Market(data);
+//                rv.setAdapter(adapterList);
+                        ArrayAdapter<String> adapterList = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listHotel);
+                        spinHotel.setAdapter(adapterList);
+                        spinHotel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                setListItem();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+
+
+                        //                spinShop.setItems(listShop);
+//                spinShop.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 //
 //                    @Override
 //                    public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -161,116 +196,43 @@ public class ManageShopActivity extends AppCompatActivity {
 //
 //                    }
 //                });
-//                spinner2.setSelectedIndex(0);
-//                setListItem();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-        dataZone = new ArrayList<WrapFdbZone>();
-        listZone = new ArrayList<String>();
-        spinZone.setAdapter(null);
-
-        int selectItem = spinMarket.getSelectedItemPosition();
-        if (selectItem != -1) {
-            String market = dataMarket.get(selectItem).getKey();
-            mRootRef.child("market-zone").child(market).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        String key = postSnapshot.getKey();
-                        FdbZone value = postSnapshot.getValue(FdbZone.class);
-                        listZone.add(value.getNameZone());
-                        dataZone.add(new WrapFdbZone(key, value));
+//                spinShop.setSelectedIndex(0);
+                        setListItem();
                     }
 
-//                RV_Adapter_Manage_Market adapterList = new RV_Adapter_Manage_Market(data);
-//                rv.setAdapter(adapterList);
-                    ArrayAdapter<String> adapterList = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listZone);
-                    spinZone.setAdapter(adapterList);
-                    spinZone.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            setListItem();
-                        }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
 
-                        }
-                    });
-//                spinZone.setItems(listZone);
-//                spinZone.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-//
-//                    @Override
-//                    public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-////                        Log.d("spinMarket", "============= " + listMarketKey.get(position));
-////                        Snackbar.make(view, "Clicked ", Snackbar.LENGTH_LONG).show();
-//                        setListShop();
-//
-//                    }
-//                });
-//                spinZone.setSelectedIndex(0);
-                    setListItem();
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        } else {
-            setListItem();
+            } else {
+                setListItem();
+            }
         }
     }
 
     private void setListItem() {
-//        String zone = dataZone.get(spinner2.getSelectedIndex()).getKey();
-//        mRootRef.child("zone-shop").child(zone).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                List<Object> data = new ArrayList<Object>();
-//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                    String key = postSnapshot.getKey();
-//                    FdbShop value = postSnapshot.getValue(FdbShop.class);
-//                    data.add(new WrapFdbShop(key, value));
-//                }
-//
-//                tvTitle.setText("ร้านค้า (" + data.size() + ")");
-//                WrapFdbMarket tempMarket = dataMarket.get(spinner.getSelectedIndex());
-//                WrapFdbZone tempZone = dataZone.get(spinner.getSelectedIndex());
-//                RV_Adapter_Manage_Shop adapterList = new RV_Adapter_Manage_Shop(data, tempMarket, tempZone);
-//                rv.setAdapter(adapterList);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-        if (spinZone != null) {
-            int selectItem = spinZone.getSelectedItemPosition();
+
+        if (spinHotel != null) {
+            int selectItem = spinHotel.getSelectedItemPosition();
             if (selectItem != -1) {
-                String zone = dataZone.get(spinZone.getSelectedItemPosition()).getKey();
-                mRootRef.child("zone-shop").child(zone).addValueEventListener(new ValueEventListener() {
+                String hotel = dataHotel.get(spinHotel.getSelectedItemPosition()).getKey();
+                mRootRef.child("hotel-room").child(hotel).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         List<Object> data = new ArrayList<Object>();
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String key = postSnapshot.getKey();
-                            FdbShop value = postSnapshot.getValue(FdbShop.class);
-                            data.add(new WrapFdbShop(key, value));
-
+                            FdbRoom value = postSnapshot.getValue(FdbRoom.class);
+                            data.add(new WrapFdbRoom(key, value));
                         }
 
-                        tvTitle.setText("ร้านค้า (" + data.size() + ")");
+                        tvTitle.setText("ห้องพัก (" + data.size() + ")");
                         WrapFdbMarket tempMarket = dataMarket.get(spinMarket.getSelectedItemPosition());
-                        WrapFdbZone tempZone = dataZone.get(spinZone.getSelectedItemPosition());
-                        RV_Adapter_Manage_Shop adapterList = new RV_Adapter_Manage_Shop(data, tempMarket, tempZone);
+                        WrapFdbHotel tempHotel = dataHotel.get(spinHotel.getSelectedItemPosition());
+                        RV_Adapter_Manage_Room adapterList = new RV_Adapter_Manage_Room(data, tempMarket, tempHotel);
                         rv.setAdapter(adapterList);
                     }
 
@@ -290,7 +252,7 @@ public class ManageShopActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         rv = (RecyclerView) findViewById(R.id.rv);
         spinMarket = (Spinner) findViewById(R.id.spin_market);
-        spinZone = (Spinner) findViewById(R.id.spin_zone);
+        spinHotel = (Spinner) findViewById(R.id.spin_hotel);
         btnAdd = (Button) findViewById(R.id.btn_add);
 
     }

@@ -62,6 +62,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.istyleglobalnetwork.floatingmarkets.DialogPopup.DialogLoginAndProfile;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbUser;
@@ -321,6 +322,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 String email = user.getEmail();
                 dataUser.setEmail(email);
+                dataUser.setToken(FirebaseInstanceId.getInstance().getToken());
                 Log.d("set Profile", "======================================== " + user.getUid() + " " + dataUser);
 
                 mUserRef.child(user.getUid()).setValue(dataUser);
@@ -333,6 +335,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
 
+    }
+
+    private void setToken(final FirebaseUser user){
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference mUserRef = mRootRef.child("user");
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d("set token", "======================================== " + token);
+
+        mUserRef.child(user.getUid()).child("token").setValue(token);
     }
 
     private void initInstances() {

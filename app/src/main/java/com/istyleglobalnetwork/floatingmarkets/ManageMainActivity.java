@@ -3,14 +3,13 @@ package com.istyleglobalnetwork.floatingmarkets;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Main;
+import com.istyleglobalnetwork.floatingmarkets.adapter_manage.RV_Adapter_Manage_Main;
 import com.istyleglobalnetwork.floatingmarkets.data.DataMainMenu;
 
 import java.util.ArrayList;
@@ -41,11 +40,16 @@ public class ManageMainActivity extends AppCompatActivity {
         data.add(new DataMainMenu(ManageShopActivity.class, "ร้านค้า"));
         data.add(new DataMainMenu(ManageProductActivity.class, "สินค้า"));
         data.add(new DataMainMenu(ManageStockActivity.class, "สต๊อค"));
+        data.add(new DataMainMenu(ManageHotelActivity.class, "ที่พัก"));
+        data.add(new DataMainMenu(ManageRoomActivity.class, "ห้องพัก"));
+        data.add(new DataMainMenu(ManageTravelActivity.class, "ท่องเที่ยว"));
+        data.add(new DataMainMenu(ManageNetworkActivity.class, "เครือข่าย"));
+        data.add(new DataMainMenu(ManageServiceActivity.class, "บริการ"));
 
-        GridLayoutManager glm = new GridLayoutManager(this, 2);
-        glm.setOrientation(LinearLayoutManager.VERTICAL);
-        rv.setLayoutManager(glm);
-        RV_Adapter_Main adapterList = new RV_Adapter_Main(data);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rv.setLayoutManager(llm);
+        RV_Adapter_Manage_Main adapterList = new RV_Adapter_Manage_Main(data);
         rv.setAdapter(adapterList);
     }
 

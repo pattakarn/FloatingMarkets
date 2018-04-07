@@ -14,6 +14,7 @@ public class FdbUser {
     String gender;
     String birth;
     String phone;
+    String token;
 
     public String getNameContact() {
         return nameContact;
@@ -53,5 +54,13 @@ public class FdbUser {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
