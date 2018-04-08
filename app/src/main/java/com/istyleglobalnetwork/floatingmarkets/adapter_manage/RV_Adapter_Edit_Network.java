@@ -17,7 +17,6 @@ import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditNetworkData;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditPhoto;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopAward;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopOpentime;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditZoneHead;
 
 import java.util.ArrayList;
@@ -57,10 +56,6 @@ public class RV_Adapter_Edit_Network extends RecyclerView.Adapter<RecyclerView.V
                 viewHolder = new ViewHolderEditShopAward(v3);
                 break;
             case 3:
-                View v4 = inflater.inflate(R.layout.card_edit_shop_opentime, parent, false);
-                viewHolder = new ViewHolderEditShopOpentime(v4);
-                break;
-            case 4:
                 View v5 = inflater.inflate(R.layout.card_edit_photo, parent, false);
                 viewHolder = new ViewHolderEditPhoto(v5);
                 break;
@@ -90,10 +85,6 @@ public class RV_Adapter_Edit_Network extends RecyclerView.Adapter<RecyclerView.V
                 configureViewHolderEditNetworkAward(vh3, position);
                 break;
             case 3:
-                ViewHolderEditShopOpentime vh4 = (ViewHolderEditShopOpentime) holder;
-                configureViewHolderEditNetworkOpentime(vh4, position);
-                break;
-            case 4:
                 ViewHolderEditPhoto vh5 = (ViewHolderEditPhoto) holder;
                 configureViewHolderEditPhoto(vh5, position);
                 break;
@@ -236,83 +227,6 @@ public class RV_Adapter_Edit_Network extends RecyclerView.Adapter<RecyclerView.V
             } else if (i == 2) {
                 vh3.getColAward3().getTvValue().setText(dataAward.get(i).getData().getNameAward());
             }
-        }
-
-
-    }
-
-    private void configureViewHolderEditNetworkOpentime(ViewHolderEditShopOpentime vh1, int position) {
-
-        ArrayList<Object> tempObject = (ArrayList<Object>) items.get(position);
-        final WrapFdbNetwork dataNetwork = (WrapFdbNetwork) tempObject.get(0);
-        final WrapFdbMarket dataMarket = (WrapFdbMarket) tempObject.get(1);
-
-        vh1.getColMonday().getLl().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogManageNetwork popup = new DialogManageNetwork(inflater.getContext());
-                popup.Popup_ChangeOpentime(dataNetwork, dataMarket, "monday");
-            }
-        });
-        vh1.getColTuesday().getLl().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogManageNetwork popup = new DialogManageNetwork(inflater.getContext());
-                popup.Popup_ChangeOpentime(dataNetwork, dataMarket, "tuesday");
-            }
-        });
-        vh1.getColWednesday().getLl().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogManageNetwork popup = new DialogManageNetwork(inflater.getContext());
-                popup.Popup_ChangeOpentime(dataNetwork, dataMarket, "wednesday");
-            }
-        });
-        vh1.getColThursday().getLl().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogManageNetwork popup = new DialogManageNetwork(inflater.getContext());
-                popup.Popup_ChangeOpentime(dataNetwork, dataMarket, "thursday");
-            }
-        });
-        vh1.getColFriday().getLl().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogManageNetwork popup = new DialogManageNetwork(inflater.getContext());
-                popup.Popup_ChangeOpentime(dataNetwork, dataMarket, "friday");
-            }
-        });
-        vh1.getColSaturday().getLl().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogManageNetwork popup = new DialogManageNetwork(inflater.getContext());
-                popup.Popup_ChangeOpentime(dataNetwork, dataMarket, "saturday");
-            }
-        });
-        vh1.getColSunday().getLl().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogManageNetwork popup = new DialogManageNetwork(inflater.getContext());
-                popup.Popup_ChangeOpentime(dataNetwork, dataMarket, "sunday");
-            }
-        });
-
-        vh1.getColMonday().getTvTitle().setText("Monday");
-        vh1.getColTuesday().getTvTitle().setText("Tuesday");
-        vh1.getColWednesday().getTvTitle().setText("Wednesday");
-        vh1.getColThursday().getTvTitle().setText("Thursday");
-        vh1.getColFriday().getTvTitle().setText("Friday");
-        vh1.getColSaturday().getTvTitle().setText("Saturday");
-        vh1.getColSunday().getTvTitle().setText("Sunday");
-
-        if (dataNetwork.getData() != null) {
-            vh1.getColMonday().getTvValue().setText(dataNetwork.getData().getMonday());
-            vh1.getColTuesday().getTvValue().setText(dataNetwork.getData().getTuesday());
-            vh1.getColWednesday().getTvValue().setText(dataNetwork.getData().getWednesday());
-            vh1.getColThursday().getTvValue().setText(dataNetwork.getData().getThursday());
-            vh1.getColFriday().getTvValue().setText(dataNetwork.getData().getFriday());
-            vh1.getColSaturday().getTvValue().setText(dataNetwork.getData().getSaturday());
-            vh1.getColSunday().getTvValue().setText(dataNetwork.getData().getSunday());
         }
 
 
