@@ -12,13 +12,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.istyleglobalnetwork.floatingmarkets.EditStockActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.EditStockActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbStock;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbStock;
-import com.istyleglobalnetwork.floatingmarkets.ManageStockOrderActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.ManageStockOrderActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.ManageStockListActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.ManageStockListActivity;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderManageStock;
 
 import org.parceler.Parcels;

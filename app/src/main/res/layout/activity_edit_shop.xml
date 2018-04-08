@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.istyleglobalnetwork.floatingmarkets.EditShopActivity">
+    tools:context="com.istyleglobalnetwork.floatingmarkets.activity.manage.EditShopActivity">
 
     <include layout="@layout/appbar_header" />
 

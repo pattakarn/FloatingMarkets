@@ -62,6 +62,6 @@ public class FdbRoom {
     }
 
     public void setHotelID(String hotelID) {
-        hotelID = hotelID;
+        this.hotelID = hotelID;
     }
 }

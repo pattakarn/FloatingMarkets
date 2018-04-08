@@ -369,7 +369,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
                 Intent intent = new Intent(inflater.getContext(), ProductItemActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("itemShop", Parcels.wrap(data.getItemShop()));
-                bundle.putParcelable("itemProduct", Parcels.wrap(data.getItemProduct()));
+                bundle.putParcelable("itemRoom", Parcels.wrap(data.getItemProduct()));
                 intent.putExtra("ImageItem", data.getImage());
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);

@@ -106,20 +106,20 @@
         <activity android:name=".activity.service.ServiceItemActivity" />
         <activity android:name=".activity.network.NetworkItemActivity" />
         <activity android:name=".CartListActivity" />
-        <activity android:name=".ManageMainActivity" />
-        <activity android:name=".ManageMarketActivity" />
-        <activity android:name=".EditMarketActivity" />
-        <activity android:name=".ManageZoneActivity" />
-        <activity android:name=".EditZoneActivity" />
-        <activity android:name=".ManageShopActivity" />
-        <activity android:name=".EditShopActivity" />
-        <activity android:name=".ManageProductActivity" />
-        <activity android:name=".EditProductActivity" />
-        <activity android:name=".ManageStockActivity" />
-        <activity android:name=".EditStockActivity" />
+        <activity android:name=".activity.manage.ManageMainActivity" />
+        <activity android:name=".activity.manage.ManageMarketActivity" />
+        <activity android:name=".activity.manage.EditMarketActivity" />
+        <activity android:name=".activity.manage.ManageZoneActivity" />
+        <activity android:name=".activity.manage.EditZoneActivity" />
+        <activity android:name=".activity.manage.ManageShopActivity" />
+        <activity android:name=".activity.manage.EditShopActivity" />
+        <activity android:name=".activity.manage.ManageProductActivity" />
+        <activity android:name=".activity.manage.EditProductActivity" />
+        <activity android:name=".activity.manage.ManageStockActivity" />
+        <activity android:name=".activity.manage.EditStockActivity" />
         <activity android:name=".BuyActivity" />
-        <activity android:name=".ManageStockListActivity" />
-        <activity android:name=".ManageStockOrderActivity" />
+        <activity android:name=".activity.manage.ManageStockListActivity" />
+        <activity android:name=".activity.manage.ManageStockOrderActivity" />
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
@@ -128,19 +128,20 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".DashboardItemActivity" />
         <activity android:name=".UpdatePhotoActivity" />
-        <activity android:name=".ManageHotelActivity" />
+        <activity android:name=".activity.manage.ManageHotelActivity" />
         <activity
-            android:name=".EditHotelActivity"
+            android:name=".activity.manage.EditHotelActivity"
             android:label="@string/title_activity_edit_hotel"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ManageRoomActivity" />
-        <activity android:name=".EditRoomActivity" />
-        <activity android:name=".ManageTravelActivity" />
-        <activity android:name=".ManageNetworkActivity" />
-        <activity android:name=".ManageServiceActivity" />
-        <activity android:name=".EditTravelActivity" />
-        <activity android:name=".EditNetworkActivity" />
-        <activity android:name=".EditServiceActivity"></activity>
+        <activity android:name=".activity.manage.ManageRoomActivity" />
+        <activity android:name=".activity.manage.EditRoomActivity" />
+        <activity android:name=".activity.manage.ManageTravelActivity" />
+        <activity android:name=".activity.manage.ManageNetworkActivity" />
+        <activity android:name=".activity.manage.ManageServiceActivity" />
+        <activity android:name=".activity.manage.EditTravelActivity" />
+        <activity android:name=".activity.manage.EditNetworkActivity" />
+        <activity android:name=".activity.manage.EditServiceActivity" />
+        <activity android:name=".activity.hotel.RoomItemActivity"></activity>
     </application>
 
 </manifest>

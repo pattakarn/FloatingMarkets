@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.DashboardItemActivity;
-import com.istyleglobalnetwork.floatingmarkets.EditMarketActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.EditMarketActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderManageMarket;

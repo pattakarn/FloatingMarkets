@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.DashboardItemActivity;
-import com.istyleglobalnetwork.floatingmarkets.EditTravelActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.EditTravelActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbTravel;
 import com.istyleglobalnetwork.floatingmarkets.R;

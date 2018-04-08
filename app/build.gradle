@@ -7,10 +7,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.istyleglobalnetwork.floatingmarkets"
-        minSdkVersion 26
+        minSdkVersion 19
         targetSdkVersion 27
-        versionCode 16
-        versionName "1.15"
+        versionCode 18
+        versionName "1.17"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -45,7 +45,6 @@ dependencies {
 
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    implementation 'org.pixsee.java-fcm:Java-fcm:1.0.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'org.parceler:parceler-api:1.1.9'
     implementation 'com.github.myinnos:AwesomeImagePicker:1.0.2'

@@ -248,7 +248,7 @@ public class RV_Adapter_Product_Item extends RecyclerView.Adapter<RecyclerView.V
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), CommentActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("itemProduct", Parcels.wrap(itemProduct));
+                bundle.putParcelable("itemRoom", Parcels.wrap(itemProduct));
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }

@@ -7,15 +7,23 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbRoom;
  * Created by Sung on 13/12/2017 AD.
  */
 
-public class DataHotelItem {
+public class DataRoomItem {
 
     private WrapFdbHotel itemHotel;
     private WrapFdbRoom itemRoom;
     private int image;
 
-    public DataHotelItem(WrapFdbHotel itemHotel, WrapFdbRoom itemRoom, int image) {
+    public DataRoomItem(WrapFdbHotel itemHotel, WrapFdbRoom itemRoom, int image) {
         this.itemHotel = itemHotel;
         this.itemRoom = itemRoom;
+        this.image = image;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
         this.image = image;
     }
 
@@ -33,13 +41,5 @@ public class DataHotelItem {
 
     public void setItemRoom(WrapFdbRoom itemRoom) {
         this.itemRoom = itemRoom;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
     }
 }

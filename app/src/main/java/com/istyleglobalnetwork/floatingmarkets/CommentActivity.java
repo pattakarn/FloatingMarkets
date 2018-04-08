@@ -22,8 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.istyleglobalnetwork.floatingmarkets.DialogPopup.DialogComment;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbComment;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbComment;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbHotel;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbNetwork;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbRoom;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbService;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbTravel;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Comment_Item;
 import com.istyleglobalnetwork.floatingmarkets.data.DataRating;
 
@@ -39,6 +44,12 @@ public class CommentActivity extends AppCompatActivity {
 
     WrapFdbShop itemShop = null;
     WrapFdbProduct itemProduct = null;
+    WrapFdbHotel itemHotel = null;
+    WrapFdbRoom itemRoom = null;
+    WrapFdbTravel itemTravel = null;
+    WrapFdbNetwork itemNetwork = null;
+    WrapFdbService itemService = null;
+
 
     String itemID;
     String itemName;
@@ -79,6 +90,41 @@ public class CommentActivity extends AppCompatActivity {
                 tvTitle.setText(itemProduct.getData().getNameProduct());
                 itemID = itemProduct.getKey();
                 itemName = itemProduct.getData().getNameProduct();
+            }
+
+            itemHotel = Parcels.unwrap(bundle.getParcelable("itemHotel"));
+            if (itemHotel != null) {
+                tvTitle.setText(itemHotel.getData().getNameHotel());
+                itemID = itemHotel.getKey();
+                itemName = itemHotel.getData().getNameHotel();
+            }
+
+            itemRoom = Parcels.unwrap(bundle.getParcelable("itemRoom"));
+            if (itemRoom != null) {
+                tvTitle.setText(itemRoom.getData().getNameRoom());
+                itemID = itemRoom.getKey();
+                itemName = itemRoom.getData().getNameRoom();
+            }
+
+            itemTravel = Parcels.unwrap(bundle.getParcelable("itemTravel"));
+            if (itemTravel != null) {
+                tvTitle.setText(itemTravel.getData().getNameTravel());
+                itemID = itemTravel.getKey();
+                itemName = itemTravel.getData().getNameTravel();
+            }
+
+            itemNetwork = Parcels.unwrap(bundle.getParcelable("itemNetwork"));
+            if (itemNetwork != null) {
+                tvTitle.setText(itemNetwork.getData().getNameNetwork());
+                itemID = itemNetwork.getKey();
+                itemName = itemNetwork.getData().getNameNetwork();
+            }
+
+            itemService = Parcels.unwrap(bundle.getParcelable("itemService"));
+            if (itemService != null) {
+                tvTitle.setText(itemService.getData().getNameService());
+                itemID = itemService.getKey();
+                itemName = itemService.getData().getNameService();
             }
 
         }

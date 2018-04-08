@@ -1,15 +1,18 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.istyleglobalnetwork.floatingmarkets.activity.hotel.HotelItemActivity;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbHotel;
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.data.DataHotelItem;
+import com.istyleglobalnetwork.floatingmarkets.activity.hotel.HotelItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderHotel;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -48,15 +51,19 @@ public class RV_Adapter_Hotel extends RecyclerView.Adapter<RecyclerView.ViewHold
     private void configureViewHolderHotel(ViewHolderHotel vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        final DataHotelItem data = (DataHotelItem) items.get(position);
-        vh1.getIvHotel().setImageResource(data.getImageHotel());
-        vh1.getTvName().setText(data.getNameHotel());
+//        final DataHotelItem data = (DataHotelItem) items.get(position);
+        final WrapFdbHotel data = (WrapFdbHotel) items.get(position);
+//        vh1.getIvHotel().setImageResource(data.getData().get);
+        vh1.getTvName().setText(data.getData().getNameHotel());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), HotelItemActivity.class);
-                intent.putExtra("NameHotel", data.getNameHotel());
-                intent.putExtra("ImageHotel", data.getImageHotel());
+//                intent.putExtra("NameShop", data.getNameItem());
+//                intent.putExtra("ImageTravel", data.getImageItem());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemHotel", Parcels.wrap(data));
+                intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
 //        }
             }

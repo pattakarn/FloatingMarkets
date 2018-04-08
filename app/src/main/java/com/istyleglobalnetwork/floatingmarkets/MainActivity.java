@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.activity.hotel.HotelListActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.ManageMainActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.network.NetworkListActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.service.ServiceListActivity;
 import com.istyleglobalnetwork.floatingmarkets.activity.travel.TravelListActivity;

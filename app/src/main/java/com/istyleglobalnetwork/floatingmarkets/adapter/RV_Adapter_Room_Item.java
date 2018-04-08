@@ -21,17 +21,13 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbComment;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbFeeling;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbFeeling;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
-import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbTravel;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbRoom;
 import com.istyleglobalnetwork.floatingmarkets.LoginActivity;
-import com.istyleglobalnetwork.floatingmarkets.MapsActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.data.DataRating;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageTravel2;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderLocation;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderText1;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderTime;
 
 import org.parceler.Parcels;
 
@@ -42,27 +38,25 @@ import java.util.List;
  * Created by Sung on 12/12/2017 AD.
  */
 
-public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RV_Adapter_Room_Item extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Object> items;
-    WrapFdbTravel itemTravel;
     LayoutInflater inflater;
+    WrapFdbRoom itemRoom;
+    DatabaseReference mRootRef;
 
     WrapFdbFeeling dataFeeling;
-    DatabaseReference mRootRef;
     FirebaseAuth mAuth;
 
     private final int TITLE = 0, IMAGE = 1;
 
-    public RV_Adapter_Travel_Item(WrapFdbTravel itemTravel, List<Object> items, LayoutInflater inflater) {
-        this.itemTravel = itemTravel;
+    public RV_Adapter_Room_Item(WrapFdbRoom itemRoom, List<Object> items) {
+        this.itemRoom = itemRoom;
         this.items = items;
-        this.inflater = inflater;
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
     }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -71,30 +65,21 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
 
         switch (viewType) {
             case 0:
-                View v1 = inflater.inflate(R.layout.card_image_travel_rv, parent, false);
-                viewHolder = new ViewHolderImageTravel2(v1);
+                View v2 = inflater.inflate(R.layout.card_image_product_rv, parent, false);
+                viewHolder = new ViewHolderImageProduct(v2);
                 break;
             case 1:
-                View v2 = inflater.inflate(R.layout.card_location, parent, false);
-                viewHolder = new ViewHolderLocation(v2);
+                View v1 = inflater.inflate(R.layout.card_text1, parent, false);
+                viewHolder = new ViewHolderText1(v1);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_time, parent, false);
-                viewHolder = new ViewHolderTime(v3);
+                View v3 = inflater.inflate(R.layout.card_text2, parent, false);
+                viewHolder = new ViewHolderText1(v3);
                 break;
             case 3:
-                View v4 = inflater.inflate(R.layout.card_contact, parent, false);
-                viewHolder = new ViewHolderContact(v4);
+                View v4 = inflater.inflate(R.layout.card_rating, parent, false);
+                viewHolder = new ViewHolderRating(v4);
                 break;
-            case 4:
-                View v5 = inflater.inflate(R.layout.card_rating, parent, false);
-                viewHolder = new ViewHolderRating(v5);
-                break;
-            case 5:
-                View v6 = inflater.inflate(R.layout.card_text2, parent, false);
-                viewHolder = new ViewHolderText1(v6);
-                break;
-
             default:
 //                View v = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
 //                viewHolder = new RecyclerViewSimpleTextViewHolder(v);
@@ -108,29 +93,22 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case 0:
-                ViewHolderImageTravel2 vh1 = (ViewHolderImageTravel2) holder;
-                configureViewHolderImageTravel(vh1, position);
+                ViewHolderImageProduct vh2 = (ViewHolderImageProduct) holder;
+                configureViewHolderImageProduct(vh2, position);
                 break;
             case 1:
-                ViewHolderLocation vh2 = (ViewHolderLocation) holder;
-                configureViewHolderLocation(vh2);
+                ViewHolderText1 vh1 = (ViewHolderText1) holder;
+                configureViewHolderText1(vh1, position);
                 break;
             case 2:
-                ViewHolderTime vh3 = (ViewHolderTime) holder;
-                configureViewHolderTime(vh3, position);
+                ViewHolderText1 vh3 = (ViewHolderText1) holder;
+                configureViewHolderText2(vh3, position);
                 break;
             case 3:
-                ViewHolderContact vh4 = (ViewHolderContact) holder;
-                configureViewHolderContact(vh4, position);
+                ViewHolderRating vh4 = (ViewHolderRating) holder;
+                configureViewHolderRating(vh4, position);
                 break;
-            case 4:
-                ViewHolderRating vh5 = (ViewHolderRating) holder;
-                configureViewHolderRating(vh5, position);
-                break;
-            case 5:
-                ViewHolderText1 vh6 = (ViewHolderText1) holder;
-                configureViewHolderText2(vh6, position);
-                break;
+
             default:
 //                RecyclerViewSimpleTextViewHolder vh = (RecyclerViewSimpleTextViewHolder) viewHolder;
 //                configureDefaultViewHolder(vh, position);
@@ -138,14 +116,30 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
-    private void configureViewHolderImageTravel(final ViewHolderImageTravel2 vh2, int position) {
+    private void configureViewHolderText1(ViewHolderText1 vh1, int position) {
+//        User user = (User) items.get(position);
+//        if (user != null) {
+        vh1.getTitle().setText("จำหน่ายโดย");
+        if (items.get(position) != null)
+            vh1.getDetail().setText(items.get(position).toString());
+//        }
+    }
 
-        ArrayList<WrapFdbImage> data = (ArrayList<WrapFdbImage>) items.get(position);
+    private void configureViewHolderText2(ViewHolderText1 vh1, int position) {
+//        User user = (User) items.get(position);
+//        if (user != null) {
+        vh1.getTitle().setText("รายละเอียดสินค้า");
+        if (items.get(position) != null)
+            vh1.getDetail().setText(items.get(position).toString());
+//        }
+    }
+
+    private void configureViewHolderImageProduct(final ViewHolderImageProduct vh2, int position) {
+        final ArrayList<WrapFdbImage> data = (ArrayList<WrapFdbImage>) items.get(position);
         vh2.setImage(data);
-        vh2.getTvName().setText(itemTravel.getData().getNameTravel());
-//        vh2.getImage().setImageResource(R.drawable.talad3);
+        vh2.getTvName().setText(itemRoom.getData().getNameRoom());
         if (mAuth.getCurrentUser() != null) {
-            mRootRef.child("item-feeling").child(itemTravel.getKey()).addValueEventListener(new ValueEventListener() {
+            mRootRef.child("item-feeling").child(itemRoom.getKey()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -209,12 +203,12 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
                         dataFeeling = new WrapFdbFeeling(newKey, data);
                     }
                     dataFeeling.getData().setFeeling(feeling);
-                    dataFeeling.getData().setItemID(itemTravel.getKey());
+                    dataFeeling.getData().setItemID(itemRoom.getKey());
                     dataFeeling.getData().setUserID(userID);
                     dataFeeling.getData().setDate(DateTimeMillis.getDateMillisNow());
                     dataFeeling.getData().setTime(DateTimeMillis.getTimeMillisNow());
 
-                    mItemRef.child(itemTravel.getKey()).child(dataFeeling.getKey()).setValue(dataFeeling.getData());
+                    mItemRef.child(itemRoom.getKey()).child(dataFeeling.getKey()).setValue(dataFeeling.getData());
                     mFeelingRef.child(dataFeeling.getKey()).setValue(dataFeeling.getData());
                 } else {
                     inflater.getContext().startActivity(new Intent(inflater.getContext(), LoginActivity.class));
@@ -222,7 +216,7 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
             }
         });
 
-        mRootRef.child("item-feeling").child(itemTravel.getKey()).orderByChild("feeling").equalTo("love").addValueEventListener(new ValueEventListener() {
+        mRootRef.child("item-feeling").child(itemRoom.getKey()).orderByChild("feeling").equalTo("love").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int count = 0;
@@ -244,60 +238,23 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
 
             }
         });
+
     }
 
-    private void configureViewHolderLocation(ViewHolderLocation vh2) {
+    private void configureViewHolderRating(final ViewHolderRating vh2, final int position) {
 //        vh2.getImage().setImageResource(R.drawable.talad3);
-//        vh2.getImage().setImageResource(R.drawable.talad3);
-        vh2.getTvLocation().setText("58/1 ถนนเพชรเกษม ซอยเพชรเกษม 41 แขวงบางแค เขตบางแค กรุงเทพมหานคร 10160");
-        vh2.getIbMap().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(inflater.getContext(), MapsActivity.class);
-                inflater.getContext().startActivity(intent);
-            }
-        });
-
-    }
-
-    private void configureViewHolderTime(ViewHolderTime vh2, int position) {
-        String textTime = itemTravel.getData().getMonday() + "\n" + itemTravel.getData().getTuesday() +
-                "\n" + itemTravel.getData().getWednesday() + "\n" + itemTravel.getData().getThursday() +
-                "\n" + itemTravel.getData().getFriday() + "\n" + itemTravel.getData().getSaturday() +
-                "\n" + itemTravel.getData().getSunday();
-        vh2.getTvDate().setText("วันจันทร์\nวันอังคาร\nวันพุธ\nวันพฤหัสบดี\nวันศุกร์\nวันเสาร์\nวันอาทิตย์");
-        textTime = textTime.replace("null", "ปิด");
-//        vh2.getTvTime().setText("ปิด\nปิด\n9:00 - 18:00\n9:00 - 18:00\n9:00 - 22:00\n9:00 - 22:00\n9:00 - 22:00");
-        vh2.getTvTime().setText(textTime);
-//        vh2.getImage().setImageResource(R.drawable.talad3);
-    }
-
-    private void configureViewHolderContact(ViewHolderContact vh1, int position) {
-        WrapFdbTravel data = (WrapFdbTravel) items.get(position);
-//        User user = (User) items.get(position);
-//        if (user != null) {
-        vh1.getTvLink().setText(data.getData().getFacebook());
-        vh1.getTvPhone().setText(data.getData().getPhone());
-        vh1.getTvLine().setText(data.getData().getLine());
-        vh1.getTvFb().setText(data.getData().getFacebook());
-        vh1.getTvEmail().setText(data.getData().getEmail());
-//        vh1.getDetail().setText(items.get(position).toString());
-//        }
-    }
-
-    private void configureViewHolderRating(final ViewHolderRating vh1, final int position) {
-        vh1.getBtnRating().setOnClickListener(new View.OnClickListener() {
+        vh2.getBtnRating().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), CommentActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("itemTravel", Parcels.wrap(itemTravel));
+                bundle.putParcelable("itemRoom", Parcels.wrap(itemRoom));
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }
         });
 
-        mRootRef.child("item-comment").child(itemTravel.getKey()).orderByChild("date").addValueEventListener(new ValueEventListener() {
+        mRootRef.child("item-comment").child(itemRoom.getKey()).orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 DataRating dataRating = new DataRating();
@@ -326,14 +283,14 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
 
                 }
 
-                vh1.getRatingBar().setRating(dataRating.getStarAvg());
-                vh1.getTvRatingMean().setText(dataRating.getStarAvg() + " out of 5");
-                vh1.getTvRatingAll().setText(dataRating.getUserAll() + " rating & review");
-                vh1.getTv5star().setText("5 stars : " + dataRating.getStar5());
-                vh1.getTv4star().setText("4 stars : " + dataRating.getStar4());
-                vh1.getTv3star().setText("3 stars : " + dataRating.getStar3());
-                vh1.getTv2star().setText("2 stars : " + dataRating.getStar2());
-                vh1.getTv1star().setText("1 stars : " + dataRating.getStar1());
+                vh2.getRatingBar().setRating(dataRating.getStarAvg());
+                vh2.getTvRatingMean().setText(dataRating.getStarAvg() + " out of 5");
+                vh2.getTvRatingAll().setText(dataRating.getUserAll() + " rating & review");
+                vh2.getTv5star().setText("5 stars : " + dataRating.getStar5());
+                vh2.getTv4star().setText("4 stars : " + dataRating.getStar4());
+                vh2.getTv3star().setText("3 stars : " + dataRating.getStar3());
+                vh2.getTv2star().setText("2 stars : " + dataRating.getStar2());
+                vh2.getTv1star().setText("1 stars : " + dataRating.getStar1());
 
             }
 
@@ -342,20 +299,7 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
 
             }
         });
-//        User user = (User) items.get(position);
-//        if (user != null) {
-//        vh1.getDetail().setText(items.get(position).toString());
-//        }
     }
-
-    private void configureViewHolderText2(ViewHolderText1 vh1, int position) {
-//        User user = (User) items.get(position);
-//        if (user != null) {
-        vh1.getTitle().setText("Detail");
-        vh1.getDetail().setText(items.get(position).toString());
-//        }
-    }
-
 
     @Override
     public int getItemCount() {
