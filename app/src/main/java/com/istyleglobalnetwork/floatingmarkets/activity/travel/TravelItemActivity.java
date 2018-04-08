@@ -129,7 +129,7 @@ public class TravelItemActivity extends AppCompatActivity {
                 data.add(itemTravel); // time
                 data.add(itemTravel); // contact
                 data.add(itemTravel); // rating
-                data.add(itemTravel.getData().getNameTravel());
+                data.add(itemTravel); // detail
 
                 RV_Adapter_Travel_Item adapterList = new RV_Adapter_Travel_Item(itemTravel, data, getLayoutInflater());
                 rv.setAdapter(adapterList);

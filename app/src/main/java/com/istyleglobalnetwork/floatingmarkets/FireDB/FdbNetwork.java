@@ -16,6 +16,7 @@ public class FdbNetwork {
     String line;
     String facebook;
     String email;
+    String detail;
 
     String marketID;
 
@@ -73,6 +74,14 @@ public class FdbNetwork {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public String getMarketID() {

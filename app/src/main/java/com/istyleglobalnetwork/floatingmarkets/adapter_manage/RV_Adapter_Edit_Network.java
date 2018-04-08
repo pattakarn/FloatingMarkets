@@ -157,6 +157,13 @@ public class RV_Adapter_Edit_Network extends RecyclerView.Adapter<RecyclerView.V
                 popup.Popup_ChangeText(dataNetwork, dataMarket, "email");
             }
         });
+vh1.getColDetail().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageNetwork popup = new DialogManageNetwork(inflater.getContext());
+                popup.Popup_ChangeText(dataNetwork, dataMarket, "detail");
+            }
+        });
 
         vh1.getColName().getTvTitle().setText("Name");
         vh1.getColOwner().getTvTitle().setText("Owner Name");
@@ -164,6 +171,7 @@ public class RV_Adapter_Edit_Network extends RecyclerView.Adapter<RecyclerView.V
         vh1.getColLine().getTvTitle().setText("Line ID");
         vh1.getColFacebook().getTvTitle().setText("Facebook");
         vh1.getColEmail().getTvTitle().setText("Email");
+        vh1.getColDetail().getTvTitle().setText("Detail");
 
         if (dataNetwork.getData() != null) {
             vh1.getColName().getTvValue().setText(dataNetwork.getData().getNameNetwork());
@@ -172,6 +180,7 @@ public class RV_Adapter_Edit_Network extends RecyclerView.Adapter<RecyclerView.V
             vh1.getColLine().getTvValue().setText(dataNetwork.getData().getLine());
             vh1.getColFacebook().getTvValue().setText(dataNetwork.getData().getFacebook());
             vh1.getColEmail().getTvValue().setText(dataNetwork.getData().getEmail());
+            vh1.getColDetail().getTvValue().setText(dataNetwork.getData().getDetail());
         }
 
 

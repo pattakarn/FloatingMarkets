@@ -37,6 +37,7 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbProduct;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbTravel;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
 import com.istyleglobalnetwork.floatingmarkets.Util.Helper;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image;
@@ -68,6 +69,7 @@ public class UpdatePhotoActivity extends AppCompatActivity {
     WrapFdbMarket itemMarket = null;
     WrapFdbShop itemShop = null;
     WrapFdbProduct itemProduct = null;
+    WrapFdbTravel itemTravel = null;
     List<WrapFdbImage> itemImage = new ArrayList<WrapFdbImage>();
     List<String> listPathImage = new ArrayList<String>();
 
@@ -119,6 +121,12 @@ public class UpdatePhotoActivity extends AppCompatActivity {
                 itemKey = itemShop.getKey();
             }
 
+            itemTravel = Parcels.unwrap(bundle.getParcelable("itemTravel"));
+            if (itemTravel != null) {
+//                tvShop.setText(itemShop.getData().getNameShop());
+                itemKey = itemTravel.getKey();
+            }
+
             itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
             if (itemProduct != null) {
 //                etName.setText(itemProduct.getData().getNameProduct());
@@ -147,7 +155,7 @@ public class UpdatePhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                showProgress(true);
+
                 Task = new LoadingTask();
                 Task.execute((Void) null);
 
@@ -175,13 +183,16 @@ public class UpdatePhotoActivity extends AppCompatActivity {
 //                        nameImage = keyImage + ".png";
 //                    }
 
-                        dataImage.setNameImage(nameImage);
-                        mImageRef.child(keyImage).setValue(dataImage);
-                        mItemImageRef.child(itemKey).child(keyImage).setValue(dataImage);
-                        try {
-                            uploadFromStream(listPathImage.get(i), nameImage);
-                        } catch (IndexOutOfBoundsException ex) {
+                        if (!itemKey.equals("")) {
+                            showProgress(true);
+                            dataImage.setNameImage(nameImage);
+                            mImageRef.child(keyImage).setValue(dataImage);
+                            mItemImageRef.child(itemKey).child(keyImage).setValue(dataImage);
+                            try {
+                                uploadFromStream(listPathImage.get(i), nameImage);
+                            } catch (IndexOutOfBoundsException ex) {
 //                        uploadFromStream("", nameImage);
+                            }
                         }
 
                     }
@@ -208,12 +219,14 @@ public class UpdatePhotoActivity extends AppCompatActivity {
                     itemImage.add(new WrapFdbImage(key, value));
                 }
 
-                ivg.getTvImage().setText("Photo (" + itemImage.size() + ")");
-                GridLayoutManager glm = new GridLayoutManager(getApplicationContext(), 2);
-                glm.setOrientation(LinearLayoutManager.VERTICAL);
-                ivg.getRv().setLayoutManager(glm);
-                RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(itemImage);
-                ivg.getRv().setAdapter(adapterList);
+                if (itemImage.size() != 0) {
+                    ivg.getTvImage().setText("Photo (" + itemImage.size() + ")");
+                    GridLayoutManager glm = new GridLayoutManager(getApplicationContext(), 2);
+                    glm.setOrientation(LinearLayoutManager.VERTICAL);
+                    ivg.getRv().setLayoutManager(glm);
+                    RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(itemImage);
+                    ivg.getRv().setAdapter(adapterList);
+                }
             }
 
             @Override
@@ -224,7 +237,7 @@ public class UpdatePhotoActivity extends AppCompatActivity {
     }
 
 
-    public void callAlbum(){
+    public void callAlbum() {
         Intent intent = new Intent(getApplicationContext(), AlbumSelectActivity.class);
         intent.putExtra(ConstantsCustomGallery.INTENT_EXTRA_LIMIT, 5); // set limit for image selection
         startActivityForResult(intent, ConstantsCustomGallery.REQUEST_CODE);
@@ -256,7 +269,9 @@ public class UpdatePhotoActivity extends AppCompatActivity {
                 dataUri.add(uri);
 //                ivSelect.setImageURI(uri);
                 // start play with image uri
+
                 listPathImage.add(images.get(i).path);
+
 //                uploadFromStream(images.get(i).path);
             }
 
@@ -279,6 +294,7 @@ public class UpdatePhotoActivity extends AppCompatActivity {
 //        Helper.showDialog(getApplicationContext());
         InputStream stream = null;
         try {
+
             stream = new FileInputStream(new File(path));
         } catch (FileNotFoundException e) {
             e.printStackTrace();

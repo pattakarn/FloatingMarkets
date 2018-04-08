@@ -108,6 +108,7 @@ public class EditTravelActivity extends AppCompatActivity {
                 dataItem.add(temp);
                 dataItem.add(temp);
                 dataItem.add(temp);
+                dataItem.add(temp);
 
 //                setListImage();
                 setAward();
@@ -138,7 +139,7 @@ public class EditTravelActivity extends AppCompatActivity {
                 List<Object> temp = new ArrayList<Object>();
                 temp.add(itemTravel);
                 temp.add(dataAward);
-                dataItem.set(2, temp);
+                dataItem.set(3, temp);
                 setListImage();
             }
 
@@ -157,8 +158,8 @@ public class EditTravelActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 itemImage = new ArrayList<WrapFdbImage>();
 
-                if (dataItem.size() == 5) {
-                    dataItem.remove(4);
+                if (dataItem.size() == 6) {
+                    dataItem.remove(5);
                 }
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();

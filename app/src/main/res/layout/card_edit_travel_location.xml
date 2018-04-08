@@ -18,39 +18,20 @@
         android:orientation="vertical">
 
         <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
-            android:id="@+id/col_name"
+            android:id="@+id/col_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
 
         <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
-            android:id="@+id/col_owner"
+            android:id="@+id/col_latitude"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
 
         <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
-            android:id="@+id/col_phone"
+            android:id="@+id/col_longitude"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
 
-        <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
-            android:id="@+id/col_line"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
-
-        <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
-            android:id="@+id/col_facebook"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
-
-        <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
-            android:id="@+id/col_email"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
-
-        <com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup
-            android:id="@+id/col_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.istyleglobalnetwork.floatingmarkets.viewgroup.ColAccountViewGroup>
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

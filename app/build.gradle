@@ -45,6 +45,7 @@ dependencies {
 
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    implementation 'com.github.hkk595:Resizer:v1.5'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'org.parceler:parceler-api:1.1.9'
     implementation 'com.github.myinnos:AwesomeImagePicker:1.0.2'

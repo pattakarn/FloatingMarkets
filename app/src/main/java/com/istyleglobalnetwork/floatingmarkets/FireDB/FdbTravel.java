@@ -16,6 +16,7 @@ public class FdbTravel {
     String line;
     String facebook;
     String email;
+    String detail;
 
     String marketID;
 
@@ -26,6 +27,10 @@ public class FdbTravel {
     String friday;
     String saturday;
     String sunday;
+
+    String address;
+    String latitude;
+    String longitude;
 
     public String getNameTravel() {
         return nameTravel;
@@ -81,6 +86,14 @@ public class FdbTravel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public String getMarketID() {
@@ -145,5 +158,29 @@ public class FdbTravel {
 
     public void setSunday(String sunday) {
         this.sunday = sunday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

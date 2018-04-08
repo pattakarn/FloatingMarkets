@@ -128,7 +128,7 @@ public class NetworkItemActivity extends AppCompatActivity {
                 data.add(itemNetwork); // contact
                 data.add(itemNetwork); // rating
 //                data.add(dataAward);
-                data.add(itemNetwork.getData().getNameNetwork());
+                data.add(itemNetwork); // detail
 
                 RV_Adapter_Network_Item adapterList = new RV_Adapter_Network_Item(itemNetwork, data, getLayoutInflater());
                 rv.setAdapter(adapterList);

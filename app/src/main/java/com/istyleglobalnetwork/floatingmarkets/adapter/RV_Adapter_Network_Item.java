@@ -329,8 +329,9 @@ public class RV_Adapter_Network_Item extends RecyclerView.Adapter<RecyclerView.V
     private void configureViewHolderText2(ViewHolderText1 vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
+        WrapFdbNetwork data = (WrapFdbNetwork) items.get(position);
         vh1.getTitle().setText("Detail");
-        vh1.getDetail().setText(items.get(position).toString());
+        vh1.getDetail().setText(data.getData().getDetail());
 //        }
     }
 

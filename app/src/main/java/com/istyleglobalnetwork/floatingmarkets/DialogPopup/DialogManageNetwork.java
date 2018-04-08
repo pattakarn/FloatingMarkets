@@ -80,6 +80,12 @@ public class DialogManageNetwork {
                 title = "Email";
                 childName = "email";
                 break;
+            case "detail":
+                if (dataNetwork.getData() != null)
+                    editText.setText(dataNetwork.getData().getDetail());
+                title = "Detail";
+                childName = "detail";
+                break;
 
         }
 

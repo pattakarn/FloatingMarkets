@@ -1,5 +1,7 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter_manage;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +15,16 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbTravel;
 import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.UpdatePhotoActivity;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditPhoto;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopAward;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopOpentime;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditTravelData;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditTravelLocation;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditZoneHead;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,16 +59,20 @@ public class RV_Adapter_Edit_Travel extends RecyclerView.Adapter<RecyclerView.Vi
                 viewHolder = new ViewHolderEditTravelData(v2);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_edit_shop_award, parent, false);
-                viewHolder = new ViewHolderEditShopAward(v3);
+                View v3 = inflater.inflate(R.layout.card_edit_travel_location, parent, false);
+                viewHolder = new ViewHolderEditTravelLocation(v3);
                 break;
             case 3:
-                View v4 = inflater.inflate(R.layout.card_edit_shop_opentime, parent, false);
-                viewHolder = new ViewHolderEditShopOpentime(v4);
+                View v4 = inflater.inflate(R.layout.card_edit_shop_award, parent, false);
+                viewHolder = new ViewHolderEditShopAward(v4);
                 break;
             case 4:
-                View v5 = inflater.inflate(R.layout.card_edit_photo, parent, false);
-                viewHolder = new ViewHolderEditPhoto(v5);
+                View v5 = inflater.inflate(R.layout.card_edit_shop_opentime, parent, false);
+                viewHolder = new ViewHolderEditShopOpentime(v5);
+                break;
+            case 5:
+                View v6 = inflater.inflate(R.layout.card_edit_photo, parent, false);
+                viewHolder = new ViewHolderEditPhoto(v6);
                 break;
 
             default:
@@ -86,16 +96,20 @@ public class RV_Adapter_Edit_Travel extends RecyclerView.Adapter<RecyclerView.Vi
                 configureViewHolderEditTravelData(vh2, position);
                 break;
             case 2:
-                ViewHolderEditShopAward vh3 = (ViewHolderEditShopAward) holder;
-                configureViewHolderEditTravelAward(vh3, position);
+                ViewHolderEditTravelLocation vh3 = (ViewHolderEditTravelLocation) holder;
+                configureViewHolderEditTravelLocation(vh3, position);
                 break;
             case 3:
-                ViewHolderEditShopOpentime vh4 = (ViewHolderEditShopOpentime) holder;
-                configureViewHolderEditTravelOpentime(vh4, position);
+                ViewHolderEditShopAward vh4 = (ViewHolderEditShopAward) holder;
+                configureViewHolderEditTravelAward(vh4, position);
                 break;
             case 4:
-                ViewHolderEditPhoto vh5 = (ViewHolderEditPhoto) holder;
-                configureViewHolderEditPhoto(vh5, position);
+                ViewHolderEditShopOpentime vh5 = (ViewHolderEditShopOpentime) holder;
+                configureViewHolderEditTravelOpentime(vh5, position);
+                break;
+            case 5:
+                ViewHolderEditPhoto vh6 = (ViewHolderEditPhoto) holder;
+                configureViewHolderEditPhoto(vh6, position);
                 break;
 
             default:
@@ -166,6 +180,13 @@ public class RV_Adapter_Edit_Travel extends RecyclerView.Adapter<RecyclerView.Vi
                 popup.Popup_ChangeText(dataTravel, dataMarket, "email");
             }
         });
+        vh1.getColDetail().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageTravel popup = new DialogManageTravel(inflater.getContext());
+                popup.Popup_ChangeText(dataTravel, dataMarket, "detail");
+            }
+        });
 
         vh1.getColName().getTvTitle().setText("Name");
         vh1.getColOwner().getTvTitle().setText("Owner Name");
@@ -173,6 +194,7 @@ public class RV_Adapter_Edit_Travel extends RecyclerView.Adapter<RecyclerView.Vi
         vh1.getColLine().getTvTitle().setText("Line ID");
         vh1.getColFacebook().getTvTitle().setText("Facebook");
         vh1.getColEmail().getTvTitle().setText("Email");
+        vh1.getColDetail().getTvTitle().setText("Detail");
 
         if (dataTravel.getData() != null) {
             vh1.getColName().getTvValue().setText(dataTravel.getData().getNameTravel());
@@ -181,6 +203,46 @@ public class RV_Adapter_Edit_Travel extends RecyclerView.Adapter<RecyclerView.Vi
             vh1.getColLine().getTvValue().setText(dataTravel.getData().getLine());
             vh1.getColFacebook().getTvValue().setText(dataTravel.getData().getFacebook());
             vh1.getColEmail().getTvValue().setText(dataTravel.getData().getEmail());
+            vh1.getColDetail().getTvValue().setText(dataTravel.getData().getDetail());
+        }
+    }
+
+    private void configureViewHolderEditTravelLocation(ViewHolderEditTravelLocation vh1, int position) {
+
+        ArrayList<Object> tempObject = (ArrayList<Object>) items.get(position);
+        final WrapFdbTravel dataTravel = (WrapFdbTravel) tempObject.get(0);
+        final WrapFdbMarket dataMarket = (WrapFdbMarket) tempObject.get(1);
+
+        vh1.getColAddress().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageTravel popup = new DialogManageTravel(inflater.getContext());
+                popup.Popup_ChangeText(dataTravel, dataMarket, "address");
+            }
+        });
+        vh1.getColLatitude().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageTravel popup = new DialogManageTravel(inflater.getContext());
+                popup.Popup_ChangeText(dataTravel, dataMarket, "latitude");
+            }
+        });
+        vh1.getColLongitude().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageTravel popup = new DialogManageTravel(inflater.getContext());
+                popup.Popup_ChangeText(dataTravel, dataMarket, "longitude");
+            }
+        });
+
+        vh1.getColAddress().getTvTitle().setText("Address");
+        vh1.getColLatitude().getTvTitle().setText("Latitude");
+        vh1.getColLongitude().getTvTitle().setText("Longitude");
+
+        if (dataTravel.getData() != null) {
+            vh1.getColAddress().getTvValue().setText(dataTravel.getData().getAddress());
+            vh1.getColLatitude().getTvValue().setText(dataTravel.getData().getLatitude());
+            vh1.getColLongitude().getTvValue().setText(dataTravel.getData().getLongitude());
         }
 
 
@@ -330,17 +392,17 @@ public class RV_Adapter_Edit_Travel extends RecyclerView.Adapter<RecyclerView.Vi
         RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(itemImage);
         vh3.getIvg().getRv().setAdapter(adapterList);
 
-//        vh3.getIvg().getCv().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(inflater.getContext(), UpdatePhotoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("itemShop", Parcels.wrap(dataShop));
-//                bundle.putParcelable("itemImage", Parcels.wrap(itemImage));
-//                intent.putExtras(bundle);
-//                inflater.getContext().startActivity(intent);
-//            }
-//        });
+        vh3.getIvg().getCv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(inflater.getContext(), UpdatePhotoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemTravel", Parcels.wrap(dataTravel));
+                bundle.putParcelable("itemImage", Parcels.wrap(itemImage));
+                intent.putExtras(bundle);
+                inflater.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

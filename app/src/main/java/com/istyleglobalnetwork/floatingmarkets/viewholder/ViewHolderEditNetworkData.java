@@ -18,6 +18,7 @@ public class ViewHolderEditNetworkData extends RecyclerView.ViewHolder {
     private ColAccountViewGroup colLine;
     private ColAccountViewGroup colFacebook;
     private ColAccountViewGroup colEmail;
+    private ColAccountViewGroup colDetail;
 
     public ViewHolderEditNetworkData(View itemView) {
         super(itemView);
@@ -27,6 +28,7 @@ public class ViewHolderEditNetworkData extends RecyclerView.ViewHolder {
         this.colLine = (ColAccountViewGroup) itemView.findViewById(R.id.col_line);
         this.colFacebook = (ColAccountViewGroup) itemView.findViewById(R.id.col_facebook);
         this.colEmail = (ColAccountViewGroup) itemView.findViewById(R.id.col_email);
+        this.colDetail = (ColAccountViewGroup) itemView.findViewById(R.id.col_detail);
     }
 
     public ColAccountViewGroup getColName() {
@@ -75,5 +77,13 @@ public class ViewHolderEditNetworkData extends RecyclerView.ViewHolder {
 
     public void setColEmail(ColAccountViewGroup colEmail) {
         this.colEmail = colEmail;
+    }
+
+    public ColAccountViewGroup getColDetail() {
+        return colDetail;
+    }
+
+    public void setColDetail(ColAccountViewGroup colDetail) {
+        this.colDetail = colDetail;
     }
 }

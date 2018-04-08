@@ -83,6 +83,30 @@ public class DialogManageTravel {
                 title = "Email";
                 childName = "email";
                 break;
+            case "detail":
+                if (dataTravel.getData() != null)
+                    editText.setText(dataTravel.getData().getDetail());
+                title = "Detail";
+                childName = "detail";
+                break;
+            case "address":
+                if (dataTravel.getData() != null)
+                    editText.setText(dataTravel.getData().getAddress());
+                title = "Address";
+                childName = "address";
+                break;
+            case "latitude":
+                if (dataTravel.getData() != null)
+                    editText.setText(dataTravel.getData().getLatitude());
+                title = "Latitude";
+                childName = "latitude";
+                break;
+            case "longitude":
+                if (dataTravel.getData() != null)
+                    editText.setText(dataTravel.getData().getLongitude());
+                title = "Longitude";
+                childName = "longitude";
+                break;
 
         }
 

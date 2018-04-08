@@ -157,8 +157,8 @@ public class EditNetworkActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 itemImage = new ArrayList<WrapFdbImage>();
 
-                if (dataItem.size() == 5) {
-                    dataItem.remove(4);
+                if (dataItem.size() == 4) {
+                    dataItem.remove(3);
                 }
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();

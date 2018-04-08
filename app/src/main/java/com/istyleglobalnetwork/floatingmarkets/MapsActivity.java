@@ -21,6 +21,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
 
+    String namePlace = "ตลาดน้ำคลองลัดมะยม";
+    double latitude = 13.761868;
+    double longitude = 100.415591;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.getString("namePlace") != null ) {
+                namePlace = bundle.getString("namePlace");
+                latitude = Double.parseDouble(bundle.getString("latitude"));
+                longitude = Double.parseDouble(bundle.getString("longitude"));
+            }
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -66,7 +79,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 12));
 
 
-        LatLng market = new LatLng(13.761868, 100.415591);
+        LatLng market = new LatLng(latitude, longitude);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //            // TODO: Consider calling
 //            //    ActivityCompat#requestPermissions
@@ -83,7 +96,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(market, 13));
 
         mMap.addMarker(new MarkerOptions()
-                .title("ตลาดน้ำคลองลัดมะยม")
+                .title(namePlace)
 //                .snippet("The most populous city in Australia.")
                 .position(market));
 

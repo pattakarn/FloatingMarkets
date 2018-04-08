@@ -113,7 +113,7 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
                 break;
             case 1:
                 ViewHolderLocation vh2 = (ViewHolderLocation) holder;
-                configureViewHolderLocation(vh2);
+                configureViewHolderLocation(vh2, position);
                 break;
             case 2:
                 ViewHolderTime vh3 = (ViewHolderTime) holder;
@@ -246,14 +246,19 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
         });
     }
 
-    private void configureViewHolderLocation(ViewHolderLocation vh2) {
+    private void configureViewHolderLocation(ViewHolderLocation vh2, int position) {
 //        vh2.getImage().setImageResource(R.drawable.talad3);
 //        vh2.getImage().setImageResource(R.drawable.talad3);
-        vh2.getTvLocation().setText("58/1 ถนนเพชรเกษม ซอยเพชรเกษม 41 แขวงบางแค เขตบางแค กรุงเทพมหานคร 10160");
+        final WrapFdbTravel data = (WrapFdbTravel) items.get(position);
+//        vh2.getTvLocation().setText("58/1 ถนนเพชรเกษม ซอยเพชรเกษม 41 แขวงบางแค เขตบางแค กรุงเทพมหานคร 10160");
+        vh2.getTvLocation().setText(data.getData().getAddress());
         vh2.getIbMap().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(inflater.getContext(), MapsActivity.class);
+                intent.putExtra("namePlace", data.getData().getNameTravel());
+                intent.putExtra("latitude", data.getData().getLatitude());
+                intent.putExtra("longitude", data.getData().getLongitude());
                 inflater.getContext().startActivity(intent);
             }
         });
@@ -351,8 +356,9 @@ public class RV_Adapter_Travel_Item extends RecyclerView.Adapter<RecyclerView.Vi
     private void configureViewHolderText2(ViewHolderText1 vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
+        WrapFdbTravel data = (WrapFdbTravel) items.get(position);
         vh1.getTitle().setText("Detail");
-        vh1.getDetail().setText(items.get(position).toString());
+        vh1.getDetail().setText(data.getData().getDetail());
 //        }
     }
 
