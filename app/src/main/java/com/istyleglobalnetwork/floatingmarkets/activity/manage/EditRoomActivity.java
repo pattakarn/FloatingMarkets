@@ -67,7 +67,7 @@ public class EditRoomActivity extends AppCompatActivity {
 //                tvMarket.setText(itemMarket.getData().getNameMarket());
             }
 
-            itemHotel = Parcels.unwrap(bundle.getParcelable("itemTravel"));
+            itemHotel = Parcels.unwrap(bundle.getParcelable("itemHotel"));
             if (itemHotel != null) {
 //                tvZone.setText(itemZone.getData().getNameZone());
             }

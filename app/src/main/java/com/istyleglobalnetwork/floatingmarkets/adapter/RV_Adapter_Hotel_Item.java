@@ -360,7 +360,7 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
     private void configureViewHolderRoom(final ViewHolderProduct vh2, int position) {
 
         final DataRoomItem data = (DataRoomItem) items.get(position);
-//        setPhoto(vh2.getIvProduct(), data.getItemRoom().getKey());
+        setPhoto(data.getItemRoom().getKey(), vh2.getIvProduct());
 //        vh2.getIvProduct().setImageResource(data.getImage());
         vh2.getTvName().setText(data.getItemRoom().getData().getNameRoom());
         vh2.getTvPrice().setText(data.getItemRoom().getData().getPrice() + " B");
@@ -397,30 +397,36 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
 
     }
 
-    private void setPhoto(final ImageView iv, String key) {
-        mRootRef.child("item-photo").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void setPhoto(String itemKey, final ImageView iv) {
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        mRootRef.child("item-photo").child(itemKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String keyPhoto = postSnapshot.getKey();
+                    String key = postSnapshot.getKey();
                     FdbImage value = postSnapshot.getValue(FdbImage.class);
-//                            vh1.getIvProduct().setImageDrawable(value.getNameImage());
-                    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                    StorageReference folderRef = storageRef.child("photos");
-                    StorageReference imageRef = folderRef.child(value.getNameImage());
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Glide.with(inflater.getContext())
-                                    .load(uri.toString())
-                                    .placeholder(R.mipmap.ic_floating_market)
-                                    .into(iv);
-                        }
-                    });
-                    break;
+
+                    if (value.getIndex().equals("1")) {
+
+                        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                        StorageReference folderRef = storageRef.child("photos");
+                        StorageReference imageRef = folderRef.child(value.getNameImage());
+
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Glide.with(inflater.getContext())
+                                        .load(uri.toString())
+                                        .placeholder(R.mipmap.ic_floating_market)
+                                        .into(iv);
+                            }
+                        });
+                    }
                 }
+
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

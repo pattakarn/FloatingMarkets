@@ -1,5 +1,7 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter_manage;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +15,14 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbNetwork;
 import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.ManagePhotoActivity;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditNetworkData;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditPhoto;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopAward;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditZoneHead;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -253,17 +258,18 @@ vh1.getColDetail().getLl().setOnClickListener(new View.OnClickListener() {
         RV_Adapter_Grid_Image_Fdb adapterList = new RV_Adapter_Grid_Image_Fdb(itemImage);
         vh3.getIvg().getRv().setAdapter(adapterList);
 
-//        vh3.getIvg().getCv().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        vh3.getIvg().getCv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 //                Intent intent = new Intent(inflater.getContext(), UpdatePhotoActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("itemShop", Parcels.wrap(dataShop));
+                Intent intent = new Intent(inflater.getContext(), ManagePhotoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemNetwork", Parcels.wrap(dataNetwork));
 //                bundle.putParcelable("itemImage", Parcels.wrap(itemImage));
-//                intent.putExtras(bundle);
-//                inflater.getContext().startActivity(intent);
-//            }
-//        });
+                intent.putExtras(bundle);
+                inflater.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

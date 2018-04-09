@@ -1,12 +1,24 @@
 package com.istyleglobalnetwork.floatingmarkets.adapter;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbTravel;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.activity.travel.TravelItemActivity;
@@ -53,6 +65,7 @@ public class RV_Adapter_Travel extends RecyclerView.Adapter<RecyclerView.ViewHol
 //        if (user != null) {
         final WrapFdbTravel data = (WrapFdbTravel) items.get(position);
 //        vh1.getIv().setImageResource(data.getImageItem());
+        setPhoto(data.getKey(), vh1.getIv());
         vh1.getTv().setText(data.getData().getNameTravel());
         vh1.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +81,44 @@ public class RV_Adapter_Travel extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         });
 
+    }
+
+    private void setPhoto(String itemKey, final ImageView iv) {
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        mRootRef.child("item-photo").child(itemKey).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    FdbImage value = postSnapshot.getValue(FdbImage.class);
+
+                    if (value.getIndex().equals("1")) {
+
+                        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                        StorageReference folderRef = storageRef.child("photos");
+                        StorageReference imageRef = folderRef.child(value.getNameImage());
+
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Glide.with(inflater.getContext())
+                                        .load(uri.toString())
+                                        .placeholder(R.mipmap.ic_floating_market)
+                                        .into(iv);
+                            }
+                        });
+                    }
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

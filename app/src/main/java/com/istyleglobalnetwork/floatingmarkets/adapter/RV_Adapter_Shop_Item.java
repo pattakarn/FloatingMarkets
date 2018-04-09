@@ -359,7 +359,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
     private void configureViewHolderProduct(final ViewHolderProduct vh2, int position) {
 
         final DataProductItem data = (DataProductItem) items.get(position);
-        setPhoto(vh2.getIvProduct(), data.getItemProduct().getKey());
+        setPhoto(data.getItemProduct().getKey(), vh2.getIvProduct());
 //        vh2.getIvProduct().setImageResource(data.getImage());
         vh2.getTvName().setText(data.getItemProduct().getData().getNameProduct());
         vh2.getTvPrice().setText(data.getItemProduct().getData().getPrice() + " B");
@@ -369,7 +369,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
                 Intent intent = new Intent(inflater.getContext(), ProductItemActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("itemShop", Parcels.wrap(data.getItemShop()));
-                bundle.putParcelable("itemRoom", Parcels.wrap(data.getItemProduct()));
+                bundle.putParcelable("itemProduct", Parcels.wrap(data.getItemProduct()));
                 intent.putExtra("ImageItem", data.getImage());
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
@@ -395,30 +395,36 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
 
     }
 
-    private void setPhoto(final ImageView iv, String key) {
-        mRootRef.child("item-photo").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void setPhoto(String itemKey, final ImageView iv) {
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        mRootRef.child("item-photo").child(itemKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String keyPhoto = postSnapshot.getKey();
+                    String key = postSnapshot.getKey();
                     FdbImage value = postSnapshot.getValue(FdbImage.class);
-//                            vh1.getIvProduct().setImageDrawable(value.getNameImage());
-                    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                    StorageReference folderRef = storageRef.child("photos");
-                    StorageReference imageRef = folderRef.child(value.getNameImage());
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Glide.with(inflater.getContext())
-                                    .load(uri.toString())
-                                    .placeholder(R.mipmap.ic_floating_market)
-                                    .into(iv);
-                        }
-                    });
-                    break;
+
+                    if (value.getIndex().equals("1")) {
+
+                        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                        StorageReference folderRef = storageRef.child("photos");
+                        StorageReference imageRef = folderRef.child(value.getNameImage());
+
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Glide.with(inflater.getContext())
+                                        .load(uri.toString())
+                                        .placeholder(R.mipmap.ic_floating_market)
+                                        .into(iv);
+                            }
+                        });
+                    }
                 }
+
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

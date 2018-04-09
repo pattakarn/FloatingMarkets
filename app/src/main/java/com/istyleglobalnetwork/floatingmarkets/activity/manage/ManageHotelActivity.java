@@ -138,8 +138,10 @@ public class ManageHotelActivity extends AppCompatActivity {
                     String key = postSnapshot.getKey();
                     FdbHotel value = postSnapshot.getValue(FdbHotel.class);
                     data.add(new WrapFdbHotel(key, value));
+//                    Log.d("Hotel 1", "======================================= " + key);
 
                 }
+
 
                 tvTitle.setText("ที่พัก (" + data.size() + ")");
                 RV_Adapter_Manage_Hotel adapterList = new RV_Adapter_Manage_Hotel(data, dataMarket.get(spinMarket.getSelectedItemPosition()));

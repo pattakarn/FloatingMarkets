@@ -15,7 +15,7 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbShop;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbZone;
 import com.istyleglobalnetwork.floatingmarkets.R;
-import com.istyleglobalnetwork.floatingmarkets.UpdatePhotoActivity;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.ManagePhotoActivity;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditPhoto;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopAward;
@@ -340,10 +340,11 @@ public class RV_Adapter_Edit_Shop extends RecyclerView.Adapter<RecyclerView.View
         vh3.getIvg().getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(inflater.getContext(), UpdatePhotoActivity.class);
+//                Intent intent = new Intent(inflater.getContext(), UpdatePhotoActivity.class);
+                Intent intent = new Intent(inflater.getContext(), ManagePhotoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("itemShop", Parcels.wrap(dataShop));
-                bundle.putParcelable("itemImage", Parcels.wrap(itemImage));
+//                bundle.putParcelable("itemImage", Parcels.wrap(itemImage));
                 intent.putExtras(bundle);
                 inflater.getContext().startActivity(intent);
             }

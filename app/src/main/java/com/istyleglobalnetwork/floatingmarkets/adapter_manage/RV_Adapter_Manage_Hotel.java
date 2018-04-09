@@ -3,15 +3,16 @@ package com.istyleglobalnetwork.floatingmarkets.adapter_manage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.istyleglobalnetwork.floatingmarkets.DashboardItemActivity;
-import com.istyleglobalnetwork.floatingmarkets.activity.manage.EditHotelActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbHotel;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbMarket;
 import com.istyleglobalnetwork.floatingmarkets.R;
+import com.istyleglobalnetwork.floatingmarkets.activity.manage.EditHotelActivity;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderManageHotel;
 
 import org.parceler.Parcels;
@@ -68,6 +69,7 @@ public class RV_Adapter_Manage_Hotel extends RecyclerView.Adapter<RecyclerView.V
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), EditHotelActivity.class);
                 Bundle bundle = new Bundle();
+//                Log.d("Hotel 1", "======================================= " + dataHotel.getKey());
                 bundle.putParcelable("itemMarket", Parcels.wrap(itemMarket));
                 bundle.putParcelable("itemHotel", Parcels.wrap(dataHotel));
                 intent.putExtras(bundle);

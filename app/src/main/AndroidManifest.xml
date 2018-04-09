@@ -141,7 +141,8 @@
         <activity android:name=".activity.manage.EditTravelActivity" />
         <activity android:name=".activity.manage.EditNetworkActivity" />
         <activity android:name=".activity.manage.EditServiceActivity" />
-        <activity android:name=".activity.hotel.RoomItemActivity"></activity>
+        <activity android:name=".activity.hotel.RoomItemActivity" />
+        <activity android:name=".activity.manage.ManagePhotoActivity"></activity>
     </application>
 
 </manifest>

@@ -67,7 +67,7 @@ public class EditHotelActivity extends AppCompatActivity {
 //                tvMarket.setText(itemMarket.getData().getNameMarket());
             }
 
-            itemHotel = Parcels.unwrap(bundle.getParcelable("itemService"));
+            itemHotel = Parcels.unwrap(bundle.getParcelable("itemHotel"));
             if (itemHotel != null) {
 
             } else {
