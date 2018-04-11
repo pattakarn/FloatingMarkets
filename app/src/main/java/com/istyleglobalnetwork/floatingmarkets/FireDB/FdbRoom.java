@@ -14,6 +14,14 @@ public class FdbRoom {
     String description;
     int price;
 
+    String size;
+    String guest;
+    String bed;
+    String breakfast;
+    String wifi;
+    String air;
+    String smoke;
+
     String marketID;
     String hotelID;
 
@@ -47,6 +55,62 @@ public class FdbRoom {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getGuest() {
+        return guest;
+    }
+
+    public void setGuest(String guest) {
+        this.guest = guest;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getSmoke() {
+        return smoke;
+    }
+
+    public void setSmoke(String smoke) {
+        this.smoke = smoke;
+    }
+
+    public String getWifi() {
+        return wifi;
+    }
+
+    public void setWifi(String wifi) {
+        this.wifi = wifi;
+    }
+
+    public String getAir() {
+        return air;
+    }
+
+    public void setAir(String air) {
+        this.air = air;
+    }
+
+    public String getBed() {
+        return bed;
+    }
+
+    public void setBed(String bed) {
+        this.bed = bed;
+    }
+
+    public String getBreakfast() {
+        return breakfast;
+    }
+
+    public void setBreakfast(String breakfast) {
+        this.breakfast = breakfast;
     }
 
     public String getMarketID() {

@@ -145,7 +145,6 @@ public class HotelItemActivity extends AppCompatActivity {
                 }
 
                 data.add(dataAward);
-                data.add(itemHotel); // time
                 data.add(itemHotel); // contact
                 data.add(itemHotel); // rating
                 setListProduct();

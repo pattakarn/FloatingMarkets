@@ -41,7 +41,6 @@ import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageHotel2;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
-import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderTime;
 
 import org.parceler.Parcels;
 
@@ -89,14 +88,10 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
                 viewHolder = new ViewHolderAward(v2);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_time, parent, false);
-                viewHolder = new ViewHolderTime(v3);
-                break;
-            case 3:
                 View v4 = inflater.inflate(R.layout.card_contact, parent, false);
                 viewHolder = new ViewHolderContact(v4);
                 break;
-            case 4:
+            case 3:
                 View v5 = inflater.inflate(R.layout.card_rating, parent, false);
                 viewHolder = new ViewHolderRating(v5);
                 break;
@@ -122,14 +117,10 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
                 configureViewHolderAward(vh2, position);
                 break;
             case 2:
-                ViewHolderTime vh3 = (ViewHolderTime) holder;
-                configureViewHolderTime(vh3, position);
-                break;
-            case 3:
                 ViewHolderContact vh4 = (ViewHolderContact) holder;
                 configureViewHolderContact(vh4, position);
                 break;
-            case 4:
+            case 3:
                 ViewHolderRating vh5 = (ViewHolderRating) holder;
                 configureViewHolderRating(vh5, position);
                 break;
@@ -266,18 +257,6 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
         }
 
         vh2.getTvAward().setText(txtAward);
-    }
-
-    private void configureViewHolderTime(ViewHolderTime vh2, int position) {
-        String textTime = itemHotel.getData().getMonday() + "\n" + itemHotel.getData().getTuesday() +
-                "\n" + itemHotel.getData().getWednesday() + "\n" + itemHotel.getData().getThursday() +
-                "\n" + itemHotel.getData().getFriday() + "\n" + itemHotel.getData().getSaturday() +
-                "\n" + itemHotel.getData().getSunday();
-        vh2.getTvDate().setText("วันจันทร์\nวันอังคาร\nวันพุธ\nวันพฤหัสบดี\nวันศุกร์\nวันเสาร์\nวันอาทิตย์");
-        textTime = textTime.replace("null", "ปิด");
-//        vh2.getTvTime().setText("ปิด\nปิด\n9:00 - 18:00\n9:00 - 18:00\n9:00 - 22:00\n9:00 - 22:00\n9:00 - 22:00");
-        vh2.getTvTime().setText(textTime);
-//        vh2.getImage().setImageResource(R.drawable.talad3);
     }
 
     private void configureViewHolderContact(ViewHolderContact vh1, int position) {

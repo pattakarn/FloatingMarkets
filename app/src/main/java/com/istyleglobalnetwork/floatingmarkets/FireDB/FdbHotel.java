@@ -27,6 +27,11 @@ public class FdbHotel {
     String saturday;
     String sunday;
 
+    String swimming;
+    String wifi;
+    String restaurant;
+
+
     public String getNameHotel() {
         return nameHotel;
     }

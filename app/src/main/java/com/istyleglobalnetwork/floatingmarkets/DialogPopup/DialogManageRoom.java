@@ -158,4 +158,149 @@ public class DialogManageRoom {
         popupDialog.show();
     }
 
+    public void Popup_ChangeSize(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel) {
+        layout_popup = inflater.inflate(R.layout.dialog_phone, null);
+        final EditTextNotNull sizeRoom = (EditTextNotNull) layout_popup.findViewById(R.id.phone);
+        sizeRoom.setNumberType(true);
+        sizeRoom.setHint("Square Meter");
+
+        if (dataRoom.getData() != null) {
+            sizeRoom.setText(dataRoom.getData().getPrice() + "");
+        }
+        sizeRoom.setNumberType(true);
+
+        popupDialog.setView(layout_popup);
+        popupDialog.setTitle("Size");
+        popupDialog.setNegativeButton("ยกเลิก", null);
+        popupDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mHotelRef = mRootRef.child("hotel-room");
+                DatabaseReference mRoomRef = mRootRef.child("room");
+
+                mHotelRef.child(dataHotel.getKey()).child(dataRoom.getKey()).child("size").setValue(sizeRoom.getText());
+                mRoomRef.child(dataRoom.getKey()).child("size").setValue(sizeRoom.getText());
+
+
+            }
+        });
+        popupDialog.create();
+        popupDialog.show();
+    }
+
+    public void Popup_ChangeGuest(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel) {
+        layout_popup = inflater.inflate(R.layout.dialog_phone, null);
+        final EditTextNotNull guest = (EditTextNotNull) layout_popup.findViewById(R.id.phone);
+        guest.setNumberType(true);
+        guest.setHint("Max guests");
+
+        if (dataRoom.getData() != null) {
+            guest.setText(dataRoom.getData().getPrice() + "");
+        }
+        guest.setNumberType(true);
+
+        popupDialog.setView(layout_popup);
+        popupDialog.setTitle("Guest");
+        popupDialog.setNegativeButton("ยกเลิก", null);
+        popupDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mHotelRef = mRootRef.child("hotel-room");
+                DatabaseReference mRoomRef = mRootRef.child("room");
+
+                mHotelRef.child(dataHotel.getKey()).child(dataRoom.getKey()).child("guest").setValue(guest.getText());
+                mRoomRef.child(dataRoom.getKey()).child("guest").setValue(guest.getText());
+
+
+            }
+        });
+        popupDialog.create();
+        popupDialog.show();
+    }
+
+    public void Popup_ChangeBed(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel) {
+        final String[] result = new String[]{"1 double bed", "2 single bed"};
+        int checkItem = 0;
+        if (dataRoom.getData() != null) {
+            for (int i = 0; i < result.length; i++) {
+                if (dataRoom.getData().getType() != null) {
+                    if (dataRoom.getData().getType().equals(result[i])) {
+                        checkItem = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        popupDialog.setView(layout_popup);
+        popupDialog.setTitle("Category");
+        popupDialog.setSingleChoiceItems(result, checkItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mHotelRef = mRootRef.child("hotel-room");
+                DatabaseReference mRoomRef = mRootRef.child("room");
+
+                mHotelRef.child(dataHotel.getKey()).child(dataRoom.getKey()).child("bed").setValue(result[i]);
+                mRoomRef.child(dataRoom.getKey()).child("bed").setValue(result[i]);
+                dialogInterface.dismiss();
+            }
+        });
+        popupDialog.setNegativeButton("ยกเลิก", null);
+        popupDialog.create();
+        popupDialog.show();
+    }
+
+    public void Popup_ChangeBrackfast(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel){
+        Popup_ChangeYesNo(dataRoom, dataHotel, "breakfast");
+    }
+
+    public void Popup_ChangeWifi(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel){
+        Popup_ChangeYesNo(dataRoom, dataHotel, "wifi");
+    }
+
+    public void Popup_ChangeAir(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel){
+        Popup_ChangeYesNo(dataRoom, dataHotel, "air");
+    }
+
+    public void Popup_ChangeSmoke(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel){
+        Popup_ChangeYesNo(dataRoom, dataHotel, "smoke");
+    }
+
+
+    public void Popup_ChangeYesNo(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel, final String type) {
+        final String[] result = new String[]{"YES", "NO"};
+        int checkItem = 0;
+        if (dataRoom.getData() != null) {
+            for (int i = 0; i < result.length; i++) {
+                if (dataRoom.getData().getType() != null) {
+                    if (dataRoom.getData().getType().equals(result[i])) {
+                        checkItem = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        popupDialog.setView(layout_popup);
+        popupDialog.setTitle("Category");
+        popupDialog.setSingleChoiceItems(result, checkItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mHotelRef = mRootRef.child("hotel-room");
+                DatabaseReference mRoomRef = mRootRef.child("room");
+
+                mHotelRef.child(dataHotel.getKey()).child(dataRoom.getKey()).child(type).setValue(result[i]);
+                mRoomRef.child(dataRoom.getKey()).child(type).setValue(result[i]);
+                dialogInterface.dismiss();
+            }
+        });
+        popupDialog.setNegativeButton("ยกเลิก", null);
+        popupDialog.create();
+        popupDialog.show();
+    }
+
 }

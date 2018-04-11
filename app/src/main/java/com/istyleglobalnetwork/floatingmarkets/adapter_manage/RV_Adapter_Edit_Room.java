@@ -18,6 +18,7 @@ import com.istyleglobalnetwork.floatingmarkets.activity.manage.ManagePhotoActivi
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditPhoto;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditRoomData;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditRoomOption;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderEditShopHead;
 
 import org.parceler.Parcels;
@@ -55,8 +56,12 @@ public class RV_Adapter_Edit_Room extends RecyclerView.Adapter<RecyclerView.View
                 viewHolder = new ViewHolderEditRoomData(v2);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_edit_photo, parent, false);
-                viewHolder = new ViewHolderEditPhoto(v3);
+                View v3 = inflater.inflate(R.layout.card_edit_room_option, parent, false);
+                viewHolder = new ViewHolderEditRoomOption(v3);
+                break;
+            case 3:
+                View v4 = inflater.inflate(R.layout.card_edit_photo, parent, false);
+                viewHolder = new ViewHolderEditPhoto(v4);
                 break;
             default:
 //                View v = inflater.inflate(R.layout.card_edit_photo, parent, false);
@@ -79,8 +84,12 @@ public class RV_Adapter_Edit_Room extends RecyclerView.Adapter<RecyclerView.View
                 configureViewHolderEditRoomData(vh2, position);
                 break;
             case 2:
-                ViewHolderEditPhoto vh3 = (ViewHolderEditPhoto) holder;
-                configureViewHolderEditRoomPhoto(vh3, position);
+                ViewHolderEditRoomOption vh3 = (ViewHolderEditRoomOption) holder;
+                configureViewHolderEditRoomOption(vh3, position);
+                break;
+            case 3:
+                ViewHolderEditPhoto vh4 = (ViewHolderEditPhoto) holder;
+                configureViewHolderEditRoomPhoto(vh4, position);
                 break;
             default:
 //                ViewHolderEditProductPhoto vh = (ViewHolderEditProductPhoto) holder;
@@ -209,6 +218,90 @@ public class RV_Adapter_Edit_Room extends RecyclerView.Adapter<RecyclerView.View
             vh1.getColType().getTvValue().setText(dataRoom.getData().getType());
             vh1.getColDetail().getTvValue().setText(dataRoom.getData().getDescription());
             vh1.getColPrice().getTvValue().setText(dataRoom.getData().getPrice() + " บาท");
+        }
+
+
+    }
+
+    private void configureViewHolderEditRoomOption(ViewHolderEditRoomOption vh1, int position) {
+
+        ArrayList<Object> tempObject = (ArrayList<Object>) items.get(position);
+        final WrapFdbRoom dataRoom = (WrapFdbRoom) tempObject.get(0);
+        final WrapFdbHotel dataHotel = (WrapFdbHotel) tempObject.get(1);
+
+        vh1.getColSize().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeSize(dataRoom, dataHotel);
+            }
+        });
+        vh1.getColGuest().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeGuest(dataRoom, dataHotel);
+            }
+        });
+        vh1.getColBed().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeBed(dataRoom, dataHotel);
+            }
+        });
+        vh1.getColBreakfast().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeBrackfast(dataRoom, dataHotel);
+            }
+        });
+        vh1.getColWifi().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeWifi(dataRoom, dataHotel);
+            }
+        });
+        vh1.getColAir().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeAir(dataRoom, dataHotel);
+            }
+        });
+        vh1.getColSmoke().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeSmoke(dataRoom, dataHotel);
+            }
+        });
+
+
+//        vh1.getColName().getLl().setOnClickListener(this);
+//        vh1.getColSex().getLl().setOnClickListener(this);
+//        vh1.getColBirth().getLl().setOnClickListener(this);
+//        vh1.getColPhone().getLl().setOnClickListener(this);
+
+
+        vh1.getColSize().getTvTitle().setText("Size");
+        vh1.getColGuest().getTvTitle().setText("Guest");
+        vh1.getColBed().getTvTitle().setText("Bed");
+        vh1.getColBreakfast().getTvTitle().setText("Breakfast");
+        vh1.getColWifi().getTvTitle().setText("Wifi");
+        vh1.getColAir().getTvTitle().setText("Air");
+        vh1.getColSmoke().getTvTitle().setText("Non-Smoking");
+
+        if (dataRoom.getData() != null) {
+            vh1.getColSize().getTvValue().setText(dataRoom.getData().getSize() + " square meter");
+            vh1.getColGuest().getTvValue().setText("Max " + dataRoom.getData().getGuest() + " guests");
+            vh1.getColBed().getTvValue().setText(dataRoom.getData().getBed());
+            vh1.getColBreakfast().getTvValue().setText(dataRoom.getData().getBreakfast());
+            vh1.getColWifi().getTvValue().setText(dataRoom.getData().getWifi());
+            vh1.getColAir().getTvValue().setText(dataRoom.getData().getAir());
+            vh1.getColSmoke().getTvValue().setText(dataRoom.getData().getSmoke());
         }
 
 

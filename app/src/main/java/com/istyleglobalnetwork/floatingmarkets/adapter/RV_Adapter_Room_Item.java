@@ -20,6 +20,7 @@ import com.istyleglobalnetwork.floatingmarkets.DateTimeMillis;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbComment;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbFeeling;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbFeeling;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbHotel;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbRoom;
 import com.istyleglobalnetwork.floatingmarkets.LoginActivity;
@@ -27,6 +28,7 @@ import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.data.DataRating;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRoomOption;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderText1;
 
 import org.parceler.Parcels;
@@ -73,12 +75,16 @@ public class RV_Adapter_Room_Item extends RecyclerView.Adapter<RecyclerView.View
                 viewHolder = new ViewHolderText1(v1);
                 break;
             case 2:
-                View v3 = inflater.inflate(R.layout.card_text2, parent, false);
-                viewHolder = new ViewHolderText1(v3);
+                View v3 = inflater.inflate(R.layout.card_room_option, parent, false);
+                viewHolder = new ViewHolderRoomOption(v3);
                 break;
             case 3:
-                View v4 = inflater.inflate(R.layout.card_rating, parent, false);
-                viewHolder = new ViewHolderRating(v4);
+                View v4 = inflater.inflate(R.layout.card_text2, parent, false);
+                viewHolder = new ViewHolderText1(v4);
+                break;
+            case 4:
+                View v5 = inflater.inflate(R.layout.card_rating, parent, false);
+                viewHolder = new ViewHolderRating(v5);
                 break;
             default:
 //                View v = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
@@ -101,12 +107,16 @@ public class RV_Adapter_Room_Item extends RecyclerView.Adapter<RecyclerView.View
                 configureViewHolderText1(vh1, position);
                 break;
             case 2:
-                ViewHolderText1 vh3 = (ViewHolderText1) holder;
-                configureViewHolderText2(vh3, position);
+                ViewHolderRoomOption vh3 = (ViewHolderRoomOption) holder;
+                configureViewHolderRoomOption(vh3, position);
                 break;
             case 3:
-                ViewHolderRating vh4 = (ViewHolderRating) holder;
-                configureViewHolderRating(vh4, position);
+                ViewHolderText1 vh4 = (ViewHolderText1) holder;
+                configureViewHolderText2(vh4, position);
+                break;
+            case 4:
+                ViewHolderRating vh5 = (ViewHolderRating) holder;
+                configureViewHolderRating(vh5, position);
                 break;
 
             default:
@@ -116,23 +126,7 @@ public class RV_Adapter_Room_Item extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    private void configureViewHolderText1(ViewHolderText1 vh1, int position) {
-//        User user = (User) items.get(position);
-//        if (user != null) {
-        vh1.getTitle().setText("จำหน่ายโดย");
-        if (items.get(position) != null)
-            vh1.getDetail().setText(items.get(position).toString());
-//        }
-    }
 
-    private void configureViewHolderText2(ViewHolderText1 vh1, int position) {
-//        User user = (User) items.get(position);
-//        if (user != null) {
-        vh1.getTitle().setText("รายละเอียดสินค้า");
-        if (items.get(position) != null)
-            vh1.getDetail().setText(items.get(position).toString());
-//        }
-    }
 
     private void configureViewHolderImageProduct(final ViewHolderImageProduct vh2, int position) {
         final ArrayList<WrapFdbImage> data = (ArrayList<WrapFdbImage>) items.get(position);
@@ -239,6 +233,41 @@ public class RV_Adapter_Room_Item extends RecyclerView.Adapter<RecyclerView.View
             }
         });
 
+    }
+
+    private void configureViewHolderText1(ViewHolderText1 vh1, int position) {
+        WrapFdbHotel data = (WrapFdbHotel) items.get(position);
+//        User user = (User) items.get(position);
+//        if (user != null) {
+        vh1.getTitle().setText("จำหน่ายโดย");
+        if (items.get(position) != null)
+            vh1.getDetail().setText(data.getData().getNameHotel());
+//        }
+    }
+
+    private void configureViewHolderRoomOption(ViewHolderRoomOption vh1, int position) {
+        WrapFdbRoom data = (WrapFdbRoom) items.get(position);
+//        User user = (User) items.get(position);
+//        if (user != null) {
+        vh1.getTvSize().setText(data.getData().getSize() + " square meter");
+        vh1.getTvGuest().setText("Max " + data.getData().getGuest() + " guests");
+        vh1.getTvBed().setText(data.getData().getBed());
+        vh1.getTvBreakfast().setText(data.getData().getBreakfast());
+        vh1.getTvWifi().setText(data.getData().getWifi());
+        vh1.getTvAir().setText(data.getData().getAir());
+        vh1.getTvSmoke().setText(data.getData().getSmoke());
+//        vh1.getDetail().setText(items.get(position).toString());
+//        }
+    }
+
+    private void configureViewHolderText2(ViewHolderText1 vh1, int position) {
+//        User user = (User) items.get(position);
+//        if (user != null) {
+        WrapFdbRoom data = (WrapFdbRoom) items.get(position);
+        vh1.getTitle().setText("รายละเอียดสินค้า");
+        if (items.get(position) != null)
+            vh1.getDetail().setText(data.getData().getDescription());
+//        }
     }
 
     private void configureViewHolderRating(final ViewHolderRating vh2, final int position) {

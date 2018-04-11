@@ -119,8 +119,9 @@ public class RoomItemActivity extends AppCompatActivity {
 
                 data = new ArrayList<Object>();
                 data.add(itemImage);
-                data.add(itemHotel.getData().getNameHotel());
-                data.add(itemRoom.getData().getDescription());
+                data.add(itemHotel);
+                data.add(itemRoom);
+                data.add(itemRoom);
                 data.add(itemRoom.getData().getNameRoom());
                 LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
                 llm.setOrientation(LinearLayoutManager.VERTICAL);

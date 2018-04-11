@@ -114,6 +114,7 @@ public class EditRoomActivity extends AppCompatActivity {
                 temp.add(itemRoom);
                 temp.add(itemHotel);
                 dataItem.add(temp);
+                dataItem.add(temp);
 
                 setListImage();
             }
@@ -133,8 +134,8 @@ public class EditRoomActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 itemImage = new ArrayList<WrapFdbImage>();
 
-                if (dataItem.size() == 3) {
-                    dataItem.remove(2);
+                if (dataItem.size() == 4) {
+                    dataItem.remove(3);
                 }
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();

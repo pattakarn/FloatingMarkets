@@ -337,7 +337,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
-    private void setToken(final FirebaseUser user){
+    private void setToken(final FirebaseUser user) {
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference mUserRef = mRootRef.child("user");
 
