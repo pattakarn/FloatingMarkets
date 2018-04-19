@@ -1,5 +1,6 @@
 package com.istyleglobalnetwork.floatingmarkets;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -113,6 +114,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.btn_logout:
                 FirebaseAuth.getInstance().signOut();
+                setResult(Activity.RESULT_OK);
                 finish();
                 break;
         }

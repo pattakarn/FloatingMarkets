@@ -158,6 +158,35 @@ public class DialogManageRoom {
         popupDialog.show();
     }
 
+    public void Popup_ChangeQuantity(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel) {
+        layout_popup = inflater.inflate(R.layout.dialog_phone, null);
+        final EditTextNotNull quantity = (EditTextNotNull) layout_popup.findViewById(R.id.phone);
+
+        if (dataRoom.getData() != null) {
+            quantity.setText(dataRoom.getData().getQuantity() + "");
+        }
+        quantity.setNumberType(true);
+
+        popupDialog.setView(layout_popup);
+        popupDialog.setTitle("Quantity");
+        popupDialog.setNegativeButton("ยกเลิก", null);
+        popupDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mHotelRef = mRootRef.child("hotel-room");
+                DatabaseReference mRoomRef = mRootRef.child("room");
+
+                mHotelRef.child(dataHotel.getKey()).child(dataRoom.getKey()).child("quantity").setValue(Integer.parseInt(quantity.getText()));
+                mRoomRef.child(dataRoom.getKey()).child("quantity").setValue(Integer.parseInt(quantity.getText()));
+
+
+            }
+        });
+        popupDialog.create();
+        popupDialog.show();
+    }
+
     public void Popup_ChangeSize(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel) {
         layout_popup = inflater.inflate(R.layout.dialog_phone, null);
         final EditTextNotNull sizeRoom = (EditTextNotNull) layout_popup.findViewById(R.id.phone);

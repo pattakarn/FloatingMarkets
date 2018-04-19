@@ -36,13 +36,18 @@ public class ManageMainActivity extends AppCompatActivity {
         initInstances();
 
         ArrayList<Object> data = new ArrayList<Object>();
+        data.add( "ตลาด & ร้านค้า");
         data.add(new DataMainMenu(ManageMarketActivity.class, "ตลาด"));
         data.add(new DataMainMenu(ManageZoneActivity.class, "โซน"));
         data.add(new DataMainMenu(ManageShopActivity.class, "ร้านค้า"));
         data.add(new DataMainMenu(ManageProductActivity.class, "สินค้า"));
         data.add(new DataMainMenu(ManageStockActivity.class, "สต๊อค"));
+
+        data.add( "ที่พัก");
         data.add(new DataMainMenu(ManageHotelActivity.class, "ที่พัก"));
         data.add(new DataMainMenu(ManageRoomActivity.class, "ห้องพัก"));
+
+        data.add( "ท่องเที่ยว & เครือข่าย & บริการ");
         data.add(new DataMainMenu(ManageTravelActivity.class, "ท่องเที่ยว"));
         data.add(new DataMainMenu(ManageNetworkActivity.class, "เครือข่าย"));
         data.add(new DataMainMenu(ManageServiceActivity.class, "บริการ"));

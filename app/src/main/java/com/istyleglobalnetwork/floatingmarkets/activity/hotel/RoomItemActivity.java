@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.istyleglobalnetwork.floatingmarkets.BookingActivity;
 import com.istyleglobalnetwork.floatingmarkets.CartListActivity;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FBAnalytics;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbImage;
@@ -88,19 +89,19 @@ public class RoomItemActivity extends AppCompatActivity {
         }
         fbAnalytics.EventViewItem();
 
-        btnBuy.setVisibility(View.INVISIBLE);
+//        btnBuy.setVisibility(View.INVISIBLE);
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Intent intent = new Intent(ProductItemActivity.this, CartListActivity.class);
 //                startActivity(intent);
 
-//                Intent intent = new Intent(RoomItemActivity.this, BuyActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("itemHotel", Parcels.wrap(itemHotel));
-//                bundle.putParcelable("itemRoom", Parcels.wrap(itemRoom));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
+                Intent intent = new Intent(RoomItemActivity.this, BookingActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("itemHotz", Parcels.wrap(itemHotel));
+                bundle.putParcelable("itemRoom", Parcels.wrap(itemRoom));
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

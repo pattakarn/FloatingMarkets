@@ -11,24 +11,24 @@ import com.istyleglobalnetwork.floatingmarkets.R;
  * Created by Sung on 12/12/2017 AD.
  */
 
-public class ViewHolderManageMain extends RecyclerView.ViewHolder {
+public class ViewHolderManageMainHeader extends RecyclerView.ViewHolder {
 
-    private LinearLayout cv;
+    private LinearLayout ll;
     private TextView tv;
 
 
-    public ViewHolderManageMain(View itemView) {
+    public ViewHolderManageMainHeader(View itemView) {
         super(itemView);
-        cv = (LinearLayout) itemView.findViewById(R.id.cv);
-        tv = (TextView) itemView.findViewById(R.id.tv);
+        ll = (LinearLayout) itemView.findViewById(R.id.ll);
+        tv = (TextView) itemView.findViewById(R.id.tv_header);
     }
 
-    public LinearLayout getCv() {
-        return cv;
+    public LinearLayout getLl() {
+        return ll;
     }
 
-    public void setCv(LinearLayout cv) {
-        this.cv = cv;
+    public void setLl(LinearLayout ll) {
+        this.ll = ll;
     }
 
     public TextView getTv() {

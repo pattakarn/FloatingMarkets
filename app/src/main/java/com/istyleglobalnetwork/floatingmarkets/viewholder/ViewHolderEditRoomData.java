@@ -16,6 +16,7 @@ public class ViewHolderEditRoomData extends RecyclerView.ViewHolder {
     private ColAccountViewGroup colType;
     private ColAccountViewGroup colDetail;
     private ColAccountViewGroup colPrice;
+    private ColAccountViewGroup colQuantity;
 
     public ViewHolderEditRoomData(View itemView) {
         super(itemView);
@@ -23,6 +24,7 @@ public class ViewHolderEditRoomData extends RecyclerView.ViewHolder {
         this.colType = (ColAccountViewGroup) itemView.findViewById(R.id.col_type);
         this.colDetail = (ColAccountViewGroup) itemView.findViewById(R.id.col_detail);
         this.colPrice = (ColAccountViewGroup) itemView.findViewById(R.id.col_price);
+        this.colQuantity = (ColAccountViewGroup) itemView.findViewById(R.id.col_quantity);
     }
 
     public ColAccountViewGroup getColName() {
@@ -55,5 +57,13 @@ public class ViewHolderEditRoomData extends RecyclerView.ViewHolder {
 
     public void setColPrice(ColAccountViewGroup colPrice) {
         this.colPrice = colPrice;
+    }
+
+    public ColAccountViewGroup getColQuantity() {
+        return colQuantity;
+    }
+
+    public void setColQuantity(ColAccountViewGroup colQuantity) {
+        this.colQuantity = colQuantity;
     }
 }

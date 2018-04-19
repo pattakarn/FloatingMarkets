@@ -201,6 +201,13 @@ public class RV_Adapter_Edit_Room extends RecyclerView.Adapter<RecyclerView.View
                 popup.Popup_ChangePrice(dataRoom, dataHotel);
             }
         });
+        vh1.getColQuantity().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeQuantity(dataRoom, dataHotel);
+            }
+        });
 
 //        vh1.getColName().getLl().setOnClickListener(this);
 //        vh1.getColSex().getLl().setOnClickListener(this);
@@ -212,12 +219,14 @@ public class RV_Adapter_Edit_Room extends RecyclerView.Adapter<RecyclerView.View
         vh1.getColType().getTvTitle().setText("Type");
         vh1.getColDetail().getTvTitle().setText("Detail");
         vh1.getColPrice().getTvTitle().setText("Price");
+        vh1.getColQuantity().getTvTitle().setText("Quantity");
 
         if (dataRoom.getData() != null) {
             vh1.getColName().getTvValue().setText(dataRoom.getData().getNameRoom());
             vh1.getColType().getTvValue().setText(dataRoom.getData().getType());
             vh1.getColDetail().getTvValue().setText(dataRoom.getData().getDescription());
             vh1.getColPrice().getTvValue().setText(dataRoom.getData().getPrice() + " บาท");
+            vh1.getColQuantity().getTvValue().setText(dataRoom.getData().getQuantity() + "");
         }
 
 

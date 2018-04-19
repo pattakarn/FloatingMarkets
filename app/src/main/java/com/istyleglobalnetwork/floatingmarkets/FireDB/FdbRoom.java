@@ -13,6 +13,7 @@ public class FdbRoom {
     String type;
     String description;
     int price;
+    int quantity;
 
     String size;
     String guest;
@@ -55,6 +56,14 @@ public class FdbRoom {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getGuest() {

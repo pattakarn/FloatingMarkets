@@ -168,7 +168,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             fbAnalytics.addUser(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getEmail());
                         }
                         fbAnalytics.EventLogin();
-                        startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+//                        startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
                         finish();
                     } else {
@@ -176,7 +177,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             setUserProfile(firebaseAuth.getCurrentUser());
                             Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
                             Log.d("EmailVerified", "is Verified");
-                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+//                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
                             finish();
                         } else {
                             firebaseAuth.getCurrentUser().sendEmailVerification();
@@ -308,7 +311,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 FdbUser dataUser = new FdbUser();
                 if (value == null) {
-
                     String nameContact = "-";
                     if (user != null) {
                         for (UserInfo profile : user.getProviderData()) {
@@ -316,16 +318,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             dataUser.setNameContact(nameContact);
                         }
                     }
-
-
+                    String email = user.getEmail();
+                    dataUser.setEmail(email);
+                    dataUser.setToken(FirebaseInstanceId.getInstance().getToken());
+                    Log.d("set Profile", "======================================== " + user.getUid() + " " + dataUser);
+                    mUserRef.child(user.getUid()).setValue(dataUser);
+                } else {
+                    mUserRef.child(key).child("token").setValue(FirebaseInstanceId.getInstance().getToken());
                 }
 
-                String email = user.getEmail();
-                dataUser.setEmail(email);
-                dataUser.setToken(FirebaseInstanceId.getInstance().getToken());
-                Log.d("set Profile", "======================================== " + user.getUid() + " " + dataUser);
 
-                mUserRef.child(user.getUid()).setValue(dataUser);
             }
 
             @Override
