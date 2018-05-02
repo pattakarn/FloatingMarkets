@@ -39,6 +39,13 @@ public class DateTimeMillis {
         return "";
     }
 
+    static public String DateToString(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DATE) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.YEAR);
+
+    }
+
     static public String TimeToMillis(String time) {
         if (time != null & !time.equals("")) {
             String[] dayTemp = time.split(":");

@@ -24,7 +24,7 @@
             android:gravity="center"
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
-            android:text="สินค้า"
+            android:text="จองห้องพัก"
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -129,7 +129,7 @@
                         android:id="@+id/tv_start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Start"
+                        android:text="Check in"
                         android:layout_marginTop="8dp"
                         android:layout_marginLeft="8dp"/>
 
@@ -139,7 +139,50 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_marginLeft="8dp"
-                        android:text="End" />
+                        android:text="Check out" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_car"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="4dp"
+                    android:padding="8dp"
+                    android:background="@color/common_google_signin_btn_text_dark_default">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Car Service"
+                        android:textColor="@color/colorPrimary" />
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/myRadioGroup"
+                        android:orientation="horizontal"
+                        android:checkedButton="@+id/sound" >
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/radio_yes"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:text="YES" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/radio_no"
+                            android:layout_marginLeft="8dp"
+                            android:text="NO" />
+
+                    </RadioGroup>
 
                 </LinearLayout>
 
@@ -148,14 +191,47 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_add_cart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/shape_button_buy"
-        android:text="Add to cart"
-        android:textColor="@android:color/white"
-        android:layout_gravity="bottom"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_confirm"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="Total :" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:text="0 บาท"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="4dp"
+            android:background="@drawable/shape_button_buy"
+            android:text="Buy"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

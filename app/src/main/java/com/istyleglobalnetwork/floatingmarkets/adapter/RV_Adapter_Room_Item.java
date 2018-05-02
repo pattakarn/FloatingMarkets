@@ -239,7 +239,7 @@ public class RV_Adapter_Room_Item extends RecyclerView.Adapter<RecyclerView.View
         WrapFdbHotel data = (WrapFdbHotel) items.get(position);
 //        User user = (User) items.get(position);
 //        if (user != null) {
-        vh1.getTitle().setText("จำหน่ายโดย");
+        vh1.getTitle().setText("โรงแรม");
         if (items.get(position) != null)
             vh1.getDetail().setText(data.getData().getNameHotel());
 //        }
@@ -256,6 +256,7 @@ public class RV_Adapter_Room_Item extends RecyclerView.Adapter<RecyclerView.View
         vh1.getTvWifi().setText(data.getData().getWifi());
         vh1.getTvAir().setText(data.getData().getAir());
         vh1.getTvSmoke().setText(data.getData().getSmoke());
+        vh1.getTvCar().setText(data.getData().getCar());
 //        vh1.getDetail().setText(items.get(position).toString());
 //        }
     }
@@ -264,7 +265,7 @@ public class RV_Adapter_Room_Item extends RecyclerView.Adapter<RecyclerView.View
 //        User user = (User) items.get(position);
 //        if (user != null) {
         WrapFdbRoom data = (WrapFdbRoom) items.get(position);
-        vh1.getTitle().setText("รายละเอียดสินค้า");
+        vh1.getTitle().setText("รายละเอียดห้องพัก");
         if (items.get(position) != null)
             vh1.getDetail().setText(data.getData().getDescription());
 //        }

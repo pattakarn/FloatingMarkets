@@ -22,6 +22,7 @@ public class FdbRoom {
     String wifi;
     String air;
     String smoke;
+    String car;
 
     String marketID;
     String hotelID;
@@ -120,6 +121,14 @@ public class FdbRoom {
 
     public void setBreakfast(String breakfast) {
         this.breakfast = breakfast;
+    }
+
+    public String getCar() {
+        return car;
+    }
+
+    public void setCar(String car) {
+        this.car = car;
     }
 
     public String getMarketID() {

@@ -98,7 +98,7 @@ public class RoomItemActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(RoomItemActivity.this, BookingActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("itemHotz", Parcels.wrap(itemHotel));
+                bundle.putParcelable("itemHotel", Parcels.wrap(itemHotel));
                 bundle.putParcelable("itemRoom", Parcels.wrap(itemRoom));
                 intent.putExtras(bundle);
                 startActivity(intent);

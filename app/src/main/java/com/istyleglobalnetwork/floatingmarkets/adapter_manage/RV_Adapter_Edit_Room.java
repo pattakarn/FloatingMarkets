@@ -287,6 +287,13 @@ public class RV_Adapter_Edit_Room extends RecyclerView.Adapter<RecyclerView.View
                 popup.Popup_ChangeSmoke(dataRoom, dataHotel);
             }
         });
+        vh1.getColCar().getLl().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogManageRoom popup = new DialogManageRoom(inflater.getContext());
+                popup.Popup_ChangeCar(dataRoom, dataHotel);
+            }
+        });
 
 
 //        vh1.getColName().getLl().setOnClickListener(this);
@@ -302,6 +309,7 @@ public class RV_Adapter_Edit_Room extends RecyclerView.Adapter<RecyclerView.View
         vh1.getColWifi().getTvTitle().setText("Wifi");
         vh1.getColAir().getTvTitle().setText("Air");
         vh1.getColSmoke().getTvTitle().setText("Non-Smoking");
+        vh1.getColCar().getTvTitle().setText("Car Service");
 
         if (dataRoom.getData() != null) {
             vh1.getColSize().getTvValue().setText(dataRoom.getData().getSize() + " square meter");
@@ -311,6 +319,7 @@ public class RV_Adapter_Edit_Room extends RecyclerView.Adapter<RecyclerView.View
             vh1.getColWifi().getTvValue().setText(dataRoom.getData().getWifi());
             vh1.getColAir().getTvValue().setText(dataRoom.getData().getAir());
             vh1.getColSmoke().getTvValue().setText(dataRoom.getData().getSmoke());
+            vh1.getColCar().getTvValue().setText(dataRoom.getData().getCar());
         }
 
 

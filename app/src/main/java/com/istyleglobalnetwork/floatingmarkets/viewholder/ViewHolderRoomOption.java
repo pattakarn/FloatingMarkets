@@ -19,6 +19,7 @@ public class ViewHolderRoomOption extends RecyclerView.ViewHolder {
     private TextView tvWifi;
     private TextView tvAir;
     private TextView tvSmoke;
+    private TextView tvCar;
 
 
     public ViewHolderRoomOption(View itemView) {
@@ -30,6 +31,7 @@ public class ViewHolderRoomOption extends RecyclerView.ViewHolder {
         tvWifi = (TextView) itemView.findViewById(R.id.tv_wifi);
         tvAir = (TextView) itemView.findViewById(R.id.tv_air);
         tvSmoke = (TextView) itemView.findViewById(R.id.tv_smoke);
+        tvCar = (TextView) itemView.findViewById(R.id.tv_car);
     }
 
     public TextView getTvSize() {
@@ -86,5 +88,13 @@ public class ViewHolderRoomOption extends RecyclerView.ViewHolder {
 
     public void setTvSmoke(TextView tvSmoke) {
         this.tvSmoke = tvSmoke;
+    }
+
+    public TextView getTvCar() {
+        return tvCar;
+    }
+
+    public void setTvCar(TextView tvCar) {
+        this.tvCar = tvCar;
     }
 }

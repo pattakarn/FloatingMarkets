@@ -19,6 +19,7 @@ public class ViewHolderEditRoomOption extends RecyclerView.ViewHolder {
     private ColAccountViewGroup colWifi;
     private ColAccountViewGroup colAir;
     private ColAccountViewGroup colSmoke;
+    private ColAccountViewGroup colCar;
 
     public ViewHolderEditRoomOption(View itemView) {
         super(itemView);
@@ -29,6 +30,7 @@ public class ViewHolderEditRoomOption extends RecyclerView.ViewHolder {
         this.colWifi = (ColAccountViewGroup) itemView.findViewById(R.id.col_wifi);
         this.colAir = (ColAccountViewGroup) itemView.findViewById(R.id.col_air);
         this.colSmoke = (ColAccountViewGroup) itemView.findViewById(R.id.col_smoke);
+        this.colCar = (ColAccountViewGroup) itemView.findViewById(R.id.col_car);
     }
 
     public ColAccountViewGroup getColSize() {
@@ -85,5 +87,13 @@ public class ViewHolderEditRoomOption extends RecyclerView.ViewHolder {
 
     public void setColSmoke(ColAccountViewGroup colSmoke) {
         this.colSmoke = colSmoke;
+    }
+
+    public ColAccountViewGroup getColCar() {
+        return colCar;
+    }
+
+    public void setColCar(ColAccountViewGroup colCar) {
+        this.colCar = colCar;
     }
 }

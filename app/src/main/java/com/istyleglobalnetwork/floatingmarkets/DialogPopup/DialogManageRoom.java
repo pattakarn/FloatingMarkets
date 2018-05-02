@@ -298,6 +298,10 @@ public class DialogManageRoom {
         Popup_ChangeYesNo(dataRoom, dataHotel, "smoke");
     }
 
+    public void Popup_ChangeCar(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel){
+        Popup_ChangeYesNo(dataRoom, dataHotel, "car");
+    }
+
 
     public void Popup_ChangeYesNo(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel, final String type) {
         final String[] result = new String[]{"YES", "NO"};

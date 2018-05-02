@@ -28,7 +28,7 @@ public class StartActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int[] image = { R.drawable.intro1, R.drawable.intro2, R.drawable.intro3};
+        int[] image = { R.drawable.bg_blue, R.drawable.bg_green, R.drawable.bg_organge, R.drawable.bg_pink};
         PagerAdapterInformation adapter = new PagerAdapterInformation(getSupportFragmentManager(), image);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
