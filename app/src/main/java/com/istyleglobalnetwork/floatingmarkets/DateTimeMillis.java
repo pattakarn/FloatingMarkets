@@ -1,7 +1,12 @@
 package com.istyleglobalnetwork.floatingmarkets;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Sung on 24/2/2018 AD.
@@ -39,11 +44,83 @@ public class DateTimeMillis {
         return "";
     }
 
+    static public String MillisToDateCon(String number) {
+        if (number != null && !number.equals("")) {
+            long millis = Long.parseLong(number);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(millis);
+            return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
+        }
+        return "";
+    }
+
     static public String DateToString(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.DATE) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.YEAR);
 
+    }
+
+    static public List<Date> getRangeDates(String dateString1, String dateString2) {
+        ArrayList<Date> dates = new ArrayList<Date>();
+        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date1 = null;
+        Date date2 = null;
+
+        try {
+            date1 = df1.parse(dateString1);
+            date2 = df1.parse(dateString2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+
+        while (!cal1.after(cal2)) {
+            dates.add(cal1.getTime());
+            cal1.add(Calendar.DATE, 1);
+        }
+        return dates;
+    }
+
+    static public Boolean checkRangeDates(String dateString1, String dateString2, Date item) {
+        ArrayList<Date> dates = new ArrayList<Date>();
+        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date1 = null;
+        Date date2 = null;
+
+        try {
+            date1 = df1.parse(dateString1);
+            date2 = df1.parse(dateString2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+
+        while (!cal1.after(cal2)) {
+//            Log.d("checkRange 1", "===== " + (cal1.getTime()));
+//            Log.d("checkRange 2", "===== " + (item));
+            if (cal1.getTime().equals(item)){
+                return true;
+            }
+//            dates.add(cal1.getTime());
+            cal1.add(Calendar.DATE, 1);
+        }
+        return false;
     }
 
     static public String TimeToMillis(String time) {

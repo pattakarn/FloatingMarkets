@@ -9,8 +9,8 @@ android {
         applicationId "com.istyleglobalnetwork.floatingmarkets"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 24
-        versionName "1.23"
+        versionCode 25
+        versionName "1.24"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.leavjenn.smoothdaterangepicker:library:0.2.0'
     implementation 'com.inthecheesefactory.thecheeselibrary:stated-fragment-support-v4:0.9.3'
+    implementation 'com.github.sundeepk:compact-calendar-view:2.0.2.3'
     implementation 'com.asksira.android:loopingviewpager:1.1.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'org.parceler:parceler-api:1.1.9'

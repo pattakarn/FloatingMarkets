@@ -14,7 +14,8 @@ public class FdbBookingList {
     String date;
     String time;
     String userID;
-    String userName;
+    String checkin;
+    String checkout;
 
     public int getQuantity() {
         return quantity;
@@ -56,12 +57,19 @@ public class FdbBookingList {
         this.userID = userID;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getCheckin() {
+        return checkin;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setCheckin(String checkin) {
+        this.checkin = checkin;
     }
 
+    public String getCheckout() {
+        return checkout;
+    }
+
+    public void setCheckout(String checkout) {
+        this.checkout = checkout;
+    }
 }

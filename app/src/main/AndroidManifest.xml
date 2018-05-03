@@ -144,7 +144,9 @@
         <activity android:name=".activity.hotel.RoomItemActivity" />
         <activity android:name=".activity.manage.ManagePhotoActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name=".BookingActivity"></activity>
+        <activity android:name=".BookingActivity" />
+        <activity android:name=".activity.manage.ManageBookingActivity" />
+        <activity android:name=".activity.manage.ManageBookingCalendarActivity"></activity>
     </application>
 
 </manifest>

@@ -33,11 +33,7 @@ import com.leavjenn.smoothdaterangepicker.date.SmoothDateRangePickerFragment;
 
 import org.parceler.Parcels;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -123,7 +119,7 @@ public class BookingActivity extends AppCompatActivity {
                                 String showEnd = dayEnd + "-" + (monthEnd + 1) + "-" + yearEnd;
                                 String start = yearStart + "-" + monthStart + "-" + dayStart;
                                 String end = yearEnd + "-" + monthEnd + "-" + dayEnd;
-                                List<Date> dateRange = getDates(start, end);
+                                List<Date> dateRange = DateTimeMillis.getRangeDates(start, end);
                                 tvStart.setText("Check in : " + showStart);
                                 tvEnd.setText("Check out : " + showEnd);
                                 checkIn = showStart;
@@ -253,12 +249,12 @@ public class BookingActivity extends AppCompatActivity {
         dataBookingList.setQuantity(booking.getQuantity());
         dataBookingList.setMark("booking");
         dataBookingList.setUserID(mAuth.getCurrentUser().getUid());
-        dataBookingList.setUserName(mAuth.getCurrentUser().getDisplayName());
         dataBookingList.setDate(DateTimeMillis.getDateMillisNow());
         dataBookingList.setTime(DateTimeMillis.getTimeMillisNow());
-        for (String dateData : dayBooking) {
-            mBookingListRef.child(booking.getRoomID()).child(DateTimeMillis.DateToMillis(dateData)).child(keyBookingList).setValue(dataBookingList);
-        }
+        dataBookingList.setCheckin(DateTimeMillis.DateToMillis(checkIn));
+        dataBookingList.setCheckout(DateTimeMillis.DateToMillis(checkOut));
+        mBookingListRef.child(booking.getRoomID()).child(keyBookingList).setValue(dataBookingList);
+
 //
 //        mRootRef.child("product").child(order.getProductID()).addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -280,34 +276,6 @@ public class BookingActivity extends AppCompatActivity {
 
 
 //            updateStock(order.getProductID(), order.getQuantity());
-    }
-
-    private static List<Date> getDates(String dateString1, String dateString2) {
-        ArrayList<Date> dates = new ArrayList<Date>();
-        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date1 = null;
-        Date date2 = null;
-
-        try {
-            date1 = df1.parse(dateString1);
-            date2 = df1.parse(dateString2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(date1);
-
-
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(date2);
-
-        while (!cal1.after(cal2)) {
-            dates.add(cal1.getTime());
-            cal1.add(Calendar.DATE, 1);
-        }
-        return dates;
     }
 
     private void initInstances() {

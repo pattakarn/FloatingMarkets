@@ -46,6 +46,7 @@ public class ManageMainActivity extends AppCompatActivity {
         data.add( "ที่พัก");
         data.add(new DataMainMenu(ManageHotelActivity.class, "ที่พัก"));
         data.add(new DataMainMenu(ManageRoomActivity.class, "ห้องพัก"));
+        data.add(new DataMainMenu(ManageBookingActivity.class, "จอง"));
 
         data.add( "ท่องเที่ยว & เครือข่าย & บริการ");
         data.add(new DataMainMenu(ManageTravelActivity.class, "ท่องเที่ยว"));
