@@ -72,4 +72,16 @@ public class FdbOrder {
     public void setTime(String time) {
         this.time = time;
     }
+
+    public void plus(int price){
+        quantity += 1;
+        this.price += price;
+    }
+
+    public void minus(int price){
+        if (quantity > 1) {
+            quantity -= 1;
+            this.price -= price;
+        }
+    }
 }

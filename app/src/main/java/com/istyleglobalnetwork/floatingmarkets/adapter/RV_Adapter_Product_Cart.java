@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +36,8 @@ import java.util.List;
 public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<WrapFdbOrder> items;
+    TextView tvTotal;
+    int total;
     LayoutInflater inflater;
     DatabaseReference mRootRef;
     StorageReference storageRef;
@@ -42,8 +45,10 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
 
     private final int TITLE = 0, IMAGE = 1;
 
-    public RV_Adapter_Product_Cart(List<WrapFdbOrder> items) {
+    public RV_Adapter_Product_Cart(List<WrapFdbOrder> items, int total, TextView tvTotal) {
         this.items = items;
+        this.total = total;
+        this.tvTotal = tvTotal;
         mRootRef = FirebaseDatabase.getInstance().getReference();
         storageRef = FirebaseStorage.getInstance().getReference();
         folderRef = storageRef.child("photos");
@@ -66,12 +71,12 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
         configureViewHolderProductCart(vh, position);
     }
 
-    private void configureViewHolderProductCart(ViewHolderProductCart vh1, int position) {
+    private void configureViewHolderProductCart(final ViewHolderProductCart vh1, int position) {
 //        User user = (User) items.get(position);
 //        if (user != null) {
         final WrapFdbOrder dataOrder = items.get(position);
 
-        getProduct(vh1, dataOrder.getData().getProductID());
+        getProduct(vh1, dataOrder.getData().getProductID(), dataOrder);
         vh1.getQvgQuantity().setQuantity(dataOrder.getData().getQuantity());
         vh1.getIvDelete().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,13 +103,32 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
 
     }
 
-    private void getProduct(final ViewHolderProductCart vh1, String productID) {
+    private void getProduct(final ViewHolderProductCart vh1, String productID, final WrapFdbOrder tempOrder) {
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         mRootRef.child("product").child(productID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final String key = dataSnapshot.getKey();
-                FdbProduct value = dataSnapshot.getValue(FdbProduct.class);
+                final FdbProduct value = dataSnapshot.getValue(FdbProduct.class);
+
+                vh1.getQvgQuantity().getBtnAdd().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        vh1.getQvgQuantity().plus();
+                        tempOrder.getData().plus(value.getPrice());
+                        total += value.getPrice();
+                        tvTotal.setText(total + " บาท");
+                    }
+                });
+                vh1.getQvgQuantity().getBtnRemove().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        vh1.getQvgQuantity().minus();
+                        tempOrder.getData().minus(value.getPrice());
+                        total -= value.getPrice();
+                        tvTotal.setText(total + " บาท");
+                    }
+                });
 
                 mRootRef.child("item-photo").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -172,6 +196,10 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
 //            return IMAGE;
 //        }
         return position;
+    }
+
+    public List<WrapFdbOrder> getItems(){
+        return this.items;
     }
 
 

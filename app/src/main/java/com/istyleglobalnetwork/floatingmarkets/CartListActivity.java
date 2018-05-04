@@ -44,6 +44,7 @@ public class CartListActivity extends AppCompatActivity {
     TextView tvTotal;
     Button btnConfirm;
     SwipeRefreshLayout swipeRefreshLayout;
+    RV_Adapter_Product_Cart adapterList;
 
     List<WrapFdbOrder> dataOrder;
     List<WrapFdbImage> dataPhoto;
@@ -109,7 +110,7 @@ public class CartListActivity extends AppCompatActivity {
                             setConfirm();
 
                             DatabaseReference mUserRef = mRootRef.child("user");
-                            mUserRef.child("V3QJxGYOpKd1ck6vHirhh0Ijbna2").addListenerForSingleValueEvent(new ValueEventListener() {
+                            mUserRef.child("Q9mJy5nwaacw9DjAeeoUK4tH6ul1").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     String key = dataSnapshot.getKey();
@@ -162,7 +163,7 @@ public class CartListActivity extends AppCompatActivity {
                     total += value.getPrice();
                 }
 
-                RV_Adapter_Product_Cart adapterList = new RV_Adapter_Product_Cart(dataOrder);
+                adapterList = new RV_Adapter_Product_Cart(dataOrder, total, tvTotal);
                 rv.setAdapter(adapterList);
                 tvTotal.setText(total + " บาท");
 //                RV_Adapter_Manage_Market adapterList = new RV_Adapter_Manage_Market(data);
@@ -184,6 +185,7 @@ public class CartListActivity extends AppCompatActivity {
             DatabaseReference mUserOrderRef = mRootRef.child("user-order");
             DatabaseReference mStockListRef = mRootRef.child("stock-list");
 
+            dataOrder = adapterList.getItems();
             final FdbOrder order = dataOrder.get(i).getData();
             order.setStatus("order");
             order.setUserID(mAuth.getCurrentUser().getUid());

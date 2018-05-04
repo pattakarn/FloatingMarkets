@@ -19,13 +19,18 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbBooking;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbBookingList;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbMessage;
+import com.istyleglobalnetwork.floatingmarkets.FireDB.FdbUser;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbHotel;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbRoom;
 import com.istyleglobalnetwork.floatingmarkets.viewgroup.QuantityViewGroup;
@@ -143,6 +148,21 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
+        qvg.getBtnAdd().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qvg.plus();
+                tvTotal.setText((itemRoom.getData().getPrice() * qvg.getQuantity() * dayBooking.size()) + "");
+            }
+        });
+        qvg.getBtnRemove().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qvg.minus();
+                tvTotal.setText((itemRoom.getData().getPrice() * qvg.getQuantity() * dayBooking.size()) + "");
+            }
+        });
+
 //        btnAdd.setVisibility(View.INVISIBLE);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +177,49 @@ public class BookingActivity extends AppCompatActivity {
                                 Toast.makeText(BookingActivity.this,
                                         "ขอบคุณครับ", Toast.LENGTH_SHORT).show();
                                 setConfirm();
+
+                                final DatabaseReference mUserRef = mRootRef.child("user");
+                                mUserRef.child("Q9mJy5nwaacw9DjAeeoUK4tH6ul1").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String key = dataSnapshot.getKey();
+                                        final FdbUser valueRecive = dataSnapshot.getValue(FdbUser.class);
+
+                                        mUserRef.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                String key = dataSnapshot.getKey();
+                                                FdbUser valueSend = dataSnapshot.getValue(FdbUser.class);
+
+                                                FdbMessage message = new FdbMessage("user1", valueRecive.getEmail(), valueRecive.getToken(),
+                                                        "คุณ " + valueSend.getNameContact(),
+                                                        "จองห้อง " + itemRoom.getData().getNameRoom() + " พักวันที่ " + checkIn + " ถึง " + checkOut + " จำนวน " + qvg.getQuantity() +" ห้อง เข้าพักวันที่ " + DateTimeMillis.DateToMillis(checkIn) + " - " + DateTimeMillis.DateToMillis(checkOut));
+                                                mRootRef = FirebaseDatabase.getInstance().getReference();
+                                                DatabaseReference mMessageRef = mRootRef.child("messages");
+
+                                                String Messagekey = mMessageRef.push().getKey();
+                                                mMessageRef.child(Messagekey).setValue(message);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+//                                        FdbMessage message = new FdbMessage("user1", value.getEmail(), value.getToken(), "มีการจองห้องพักหมายเลข 2222", "ห้องพัก");
+//                                        mRootRef = FirebaseDatabase.getInstance().getReference();
+//                                        DatabaseReference mMessageRef = mRootRef.child("messages");
+//
+//                                        String Messagekey = mMessageRef.push().getKey();
+//                                        mMessageRef.child(Messagekey).setValue(message);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
 
 //                        DatabaseReference mUserRef = mRootRef.child("user");
 //                        mUserRef.child("V3QJxGYOpKd1ck6vHirhh0Ijbna2").addListenerForSingleValueEvent(new ValueEventListener() {

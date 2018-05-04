@@ -95,6 +95,18 @@ public class QuantityViewGroup extends LinearLayout {
         getTvQuantity().setText(quantity + "");
     }
 
+    public void plus(){
+        this.quantity += 1;
+        tvQuantity.setText(quantity + "");
+    }
+
+    public void minus(){
+        if (quantity > 1) {
+            this.quantity -= 1;
+            tvQuantity.setText(quantity + "");
+        }
+    }
+
     private void setBasic() {
 
         btnAdd.setOnClickListener(new OnClickListener() {
