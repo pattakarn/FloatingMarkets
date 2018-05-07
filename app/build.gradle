@@ -9,8 +9,8 @@ android {
         applicationId "com.istyleglobalnetwork.floatingmarkets"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 26
-        versionName "1.25"
+        versionCode 27
+        versionName "1.26"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -54,6 +54,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.sackcentury:shinebutton:0.2.0'
     annotationProcessor 'org.parceler:parceler:1.1.9'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
         transitive = true

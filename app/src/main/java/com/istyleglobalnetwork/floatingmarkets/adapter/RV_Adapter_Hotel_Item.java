@@ -154,9 +154,9 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
 
                                 dataFeeling = new WrapFdbFeeling(key, value);
                                 if (value.getFeeling().equals("love")) {
-                                    vh2.getIvLove().setColorFilter(Color.RED);
+                                    vh2.getIvLove().setBtnColor(Color.RED);
                                 } else {
-                                    vh2.getIvLove().setColorFilter(Color.GRAY);
+                                    vh2.getIvLove().setBtnColor(Color.GRAY);
                                 }
                                 break;
                             }

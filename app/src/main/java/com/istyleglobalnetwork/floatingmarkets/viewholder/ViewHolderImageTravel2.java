@@ -3,12 +3,12 @@ package com.istyleglobalnetwork.floatingmarkets.viewholder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.adapter.RV_Adapter_Grid_Image_Fdb;
+import com.sackcentury.shinebuttonlib.ShineButton;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class ViewHolderImageTravel2 extends RecyclerView.ViewHolder {
     private RecyclerView rv;
     ArrayList<WrapFdbImage> image = new ArrayList<WrapFdbImage>();
 
-    private ImageView ivLove;
+    private ShineButton ivLove;
     private TextView tvCount;
 
     public ViewHolderImageTravel2(View itemView) {
@@ -30,7 +30,7 @@ public class ViewHolderImageTravel2 extends RecyclerView.ViewHolder {
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
         rv = (RecyclerView) itemView.findViewById(R.id.rv);
 
-        ivLove = (ImageView) itemView.findViewById(R.id.iv_love);
+        ivLove = (ShineButton) itemView.findViewById(R.id.iv_love);
         tvCount = (TextView) itemView.findViewById(R.id.tv_count);
     }
 
@@ -52,11 +52,11 @@ public class ViewHolderImageTravel2 extends RecyclerView.ViewHolder {
         rv.setAdapter(adapterList);
     }
 
-    public ImageView getIvLove() {
+    public ShineButton getIvLove() {
         return ivLove;
     }
 
-    public void setIvLove(ImageView ivLove) {
+    public void setIvLove(ShineButton ivLove) {
         this.ivLove = ivLove;
     }
 
