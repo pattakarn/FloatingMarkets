@@ -145,7 +145,7 @@ public class RV_Adapter_Account extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         Glide.with(inflater.getContext())
                 .load(urlPhoto)
-                .placeholder(R.mipmap.ic_floating_market)
+//                .placeholder(R.mipmap.ic_floating_market)
                 .into(vh1.getIvPhoto());
         vh1.getIvPhoto().setImageURI(urlPhoto);
 

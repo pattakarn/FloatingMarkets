@@ -105,7 +105,7 @@ public class RV_Adapter_Network extends RecyclerView.Adapter<RecyclerView.ViewHo
                             public void onSuccess(Uri uri) {
                                 Glide.with(inflater.getContext())
                                         .load(uri.toString())
-                                        .placeholder(R.mipmap.ic_floating_market)
+//                                        .placeholder(R.mipmap.ic_floating_market)
                                         .into(iv);
                             }
                         });

@@ -162,7 +162,7 @@ public class BuyActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             Glide.with(BuyActivity.this)
                                     .load(uri.toString())
-                                    .placeholder(R.mipmap.ic_floating_market)
+//                                    .placeholder(R.mipmap.ic_floating_market)
                                     .into(ivProduct);
                         }
                     });

@@ -69,13 +69,14 @@ public class EditHotelActivity extends AppCompatActivity {
 
             itemHotel = Parcels.unwrap(bundle.getParcelable("itemHotel"));
             if (itemHotel != null) {
-
+                tvTitle.setText(itemHotel.getData().getNameHotel());
             } else {
                 DatabaseReference mHotelRef = mRootRef.child("hotel");
                 String newKeyHotel = mHotelRef.push().getKey();
 
                 FdbHotel newHotel = new FdbHotel();
                 itemHotel = new WrapFdbHotel(newKeyHotel, newHotel);
+
             }
 
 

@@ -77,7 +77,7 @@ public class EditShopActivity extends AppCompatActivity {
 
             itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
             if (itemShop != null) {
-
+                tvTitle.setText(itemShop.getData().getNameShop());
             } else {
                 DatabaseReference mShopRef = mRootRef.child("shop");
                 String newKeyShop = mShopRef.push().getKey();
@@ -85,6 +85,7 @@ public class EditShopActivity extends AppCompatActivity {
 
                 FdbShop newShop = new FdbShop();
                 itemShop = new WrapFdbShop(newKeyShop, newShop);
+
             }
 
 

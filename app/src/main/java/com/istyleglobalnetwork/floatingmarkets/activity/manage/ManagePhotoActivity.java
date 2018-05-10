@@ -119,18 +119,21 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
             if (itemMarket != null) {
 //                tvMarket.setText(itemMarket.getData().getNameMarket());
                 itemKey = itemMarket.getKey();
+                tvTitle.setText(itemMarket.getData().getNameMarket());
             }
 
             itemZone = Parcels.unwrap(bundle.getParcelable("itemZone"));
             if (itemZone != null) {
 //                tvZone.setText(itemZone.getData().getNameZone());
                 itemKey = itemZone.getKey();
+                tvTitle.setText(itemZone.getData().getNameZone());
             }
 
             itemShop = Parcels.unwrap(bundle.getParcelable("itemShop"));
             if (itemShop != null) {
 //                tvShop.setText(itemShop.getData().getNameShop());
                 itemKey = itemShop.getKey();
+                tvTitle.setText(itemShop.getData().getNameShop());
             }
 
             itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
@@ -138,36 +141,39 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
 //                etName.setText(itemProduct.getData().getNameProduct());
 //                setListImage();
                 itemKey = itemProduct.getKey();
+                tvTitle.setText(itemProduct.getData().getNameProduct());
             }
 
             itemHotel = Parcels.unwrap(bundle.getParcelable("itemHotel"));
             if (itemHotel != null) {
                 itemKey = itemHotel.getKey();
+                tvTitle.setText(itemHotel.getData().getNameHotel());
             }
 
             itemRoom = Parcels.unwrap(bundle.getParcelable("itemRoom"));
             if (itemRoom != null) {
                 itemKey = itemRoom.getKey();
+                tvTitle.setText(itemRoom.getData().getNameRoom());
             }
 
             itemTravel = Parcels.unwrap(bundle.getParcelable("itemTravel"));
             if (itemTravel != null) {
 //                tvShop.setText(itemShop.getData().getNameShop());
                 itemKey = itemTravel.getKey();
+                tvTitle.setText(itemTravel.getData().getNameTravel());
             }
 
             itemNetwork = Parcels.unwrap(bundle.getParcelable("itemNetwork"));
             if (itemNetwork != null) {
                 itemKey = itemNetwork.getKey();
+                tvTitle.setText(itemNetwork.getData().getNameNetwork());
             }
 
             itemService = Parcels.unwrap(bundle.getParcelable("itemService"));
             if (itemService != null) {
                 itemKey = itemService.getKey();
+                tvTitle.setText(itemService.getData().getNameService());
             }
-
-
-
 
         }
 
@@ -204,7 +210,7 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
                                 public void onSuccess(Uri uri) {
                                     Glide.with(ManagePhotoActivity.this)
                                             .load(uri.toString())
-                                            .placeholder(R.mipmap.ic_floating_market)
+//                                            .placeholder(R.mipmap.ic_floating_market)
                                             .into(iv1);
                                 }
                             });
@@ -215,7 +221,7 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
                                 public void onSuccess(Uri uri) {
                                     Glide.with(ManagePhotoActivity.this)
                                             .load(uri.toString())
-                                            .placeholder(R.mipmap.ic_floating_market)
+//                                            .placeholder(R.mipmap.ic_floating_market)
                                             .into(iv2);
                                 }
                             });
@@ -226,7 +232,7 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
                                 public void onSuccess(Uri uri) {
                                     Glide.with(ManagePhotoActivity.this)
                                             .load(uri.toString())
-                                            .placeholder(R.mipmap.ic_floating_market)
+//                                            .placeholder(R.mipmap.ic_floating_market)
                                             .into(iv3);
                                 }
                             });
@@ -237,7 +243,7 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
                                 public void onSuccess(Uri uri) {
                                     Glide.with(ManagePhotoActivity.this)
                                             .load(uri.toString())
-                                            .placeholder(R.mipmap.ic_floating_market)
+//                                            .placeholder(R.mipmap.ic_floating_market)
                                             .into(iv4);
                                 }
                             });
@@ -248,7 +254,7 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
                                 public void onSuccess(Uri uri) {
                                     Glide.with(ManagePhotoActivity.this)
                                             .load(uri.toString())
-                                            .placeholder(R.mipmap.ic_floating_market)
+//                                            .placeholder(R.mipmap.ic_floating_market)
                                             .into(iv5);
                                 }
                             });
@@ -277,6 +283,7 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
 
     private void initInstances() {
         // init instance with rootView.findViewById here
+        tvTitle = (TextView) findViewById(R.id.tv_title);
         ll = (LinearLayout) findViewById(R.id.ll);
         tv1 = (TextView) findViewById(R.id.tv1);
         iv1 = (ImageView) findViewById(R.id.iv1);

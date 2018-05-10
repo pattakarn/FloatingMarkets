@@ -49,7 +49,7 @@ public class ImageFragment extends Fragment {
 //        iv.setImageResource(image);
         Glide.with(inflater.getContext())
                 .load(image.toString())
-                .placeholder(R.mipmap.ic_floating_market)
+//                .placeholder(R.mipmap.ic_floating_market)
                 .into(iv);
 
         return rootView;

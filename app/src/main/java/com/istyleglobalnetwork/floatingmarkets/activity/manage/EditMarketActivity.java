@@ -60,6 +60,7 @@ public class EditMarketActivity extends AppCompatActivity {
             itemMarket = Parcels.unwrap(bundle.getParcelable("itemMarket"));
             if (itemMarket != null) {
 //                tvMarket.setText(itemMarket.getData().getNameMarket());
+                tvTitle.setText(itemMarket.getData().getNameMarket());
             } else {
                 DatabaseReference mMarketRef = mRootRef.child("market");
                 String newKeyMarket = mMarketRef.push().getKey();
@@ -67,6 +68,7 @@ public class EditMarketActivity extends AppCompatActivity {
 
                 FdbMarket newMarket = new FdbMarket();
                 itemMarket = new WrapFdbMarket(newKeyMarket, newMarket);
+
             }
 
 

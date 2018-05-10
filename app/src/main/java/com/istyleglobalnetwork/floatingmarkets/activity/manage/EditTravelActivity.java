@@ -69,13 +69,14 @@ public class EditTravelActivity extends AppCompatActivity {
 
             itemTravel = Parcels.unwrap(bundle.getParcelable("itemTravel"));
             if (itemTravel != null) {
-
+                tvTitle.setText(itemTravel.getData().getNameTravel());
             } else {
                 DatabaseReference mTravelRef = mRootRef.child("travel");
                 String newKeyTravel = mTravelRef.push().getKey();
 
                 FdbTravel newTravel = new FdbTravel();
                 itemTravel = new WrapFdbTravel(newKeyTravel, newTravel);
+
             }
 
 

@@ -146,7 +146,8 @@
         <activity android:name=".StartActivity" />
         <activity android:name=".BookingActivity" />
         <activity android:name=".activity.manage.ManageBookingActivity" />
-        <activity android:name=".activity.manage.ManageBookingCalendarActivity"></activity>
+        <activity android:name=".activity.manage.ManageBookingCalendarActivity" />
+        <activity android:name=".PieChartActivity"></activity>
     </application>
 
 </manifest>

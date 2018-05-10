@@ -70,13 +70,14 @@ public class EditNetworkActivity extends AppCompatActivity {
 
             itemNetwork = Parcels.unwrap(bundle.getParcelable("itemNetwork"));
             if (itemNetwork != null) {
-
+                tvTitle.setText(itemNetwork.getData().getNameNetwork());
             } else {
                 DatabaseReference mNetworkRef = mRootRef.child("network");
                 String newKeyNetwork = mNetworkRef.push().getKey();
 
                 FdbNetwork newNetwork = new FdbNetwork();
                 itemNetwork = new WrapFdbNetwork(newKeyNetwork, newNetwork);
+
             }
 
 

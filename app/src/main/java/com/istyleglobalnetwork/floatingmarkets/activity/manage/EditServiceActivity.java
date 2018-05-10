@@ -69,13 +69,14 @@ public class EditServiceActivity extends AppCompatActivity {
 
             itemService = Parcels.unwrap(bundle.getParcelable("itemService"));
             if (itemService != null) {
-
+                tvTitle.setText(itemService.getData().getNameService());
             } else {
                 DatabaseReference mServiceRef = mRootRef.child("service");
                 String newKeyService = mServiceRef.push().getKey();
 
                 FdbService newService = new FdbService();
                 itemService = new WrapFdbService(newKeyService, newService);
+
             }
 
 

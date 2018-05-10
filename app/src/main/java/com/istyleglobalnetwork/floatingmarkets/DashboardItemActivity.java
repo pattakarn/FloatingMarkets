@@ -134,9 +134,13 @@ public class DashboardItemActivity extends AppCompatActivity {
                     case "market":
                         setMarketProduct();
                         break;
+                    case "pieMarket":
+                        setMarketProduct();
+                        break;
                 }
-
             }
+
+
         });
 
     }
@@ -353,6 +357,7 @@ public class DashboardItemActivity extends AppCompatActivity {
                     countRound++;
                     if (countRound == productOrders.size()) {
                         Log.d("countRound", "================== " + countRound);
+                        dataList.add(productOrders);
                         dataList.add(productOrders);
                         dataList.add(productOrders);
                         RV_Adapter_Dashboard_Item_Market adapterList = new RV_Adapter_Dashboard_Item_Market(dataList);

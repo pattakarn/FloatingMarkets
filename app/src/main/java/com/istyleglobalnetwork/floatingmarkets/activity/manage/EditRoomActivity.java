@@ -75,6 +75,7 @@ public class EditRoomActivity extends AppCompatActivity {
             itemRoom = Parcels.unwrap(bundle.getParcelable("itemRoom"));
             if (itemRoom != null) {
 //                setData();
+                tvTitle.setText(itemRoom.getData().getNameRoom());
             } else {
                 DatabaseReference mRoomRef = mRootRef.child("room");
                 String newKeyRoom = mRoomRef.push().getKey();
@@ -82,6 +83,7 @@ public class EditRoomActivity extends AppCompatActivity {
 
                 FdbRoom newRoom = new FdbRoom();
                 itemRoom = new WrapFdbRoom(newKeyRoom, newRoom);
+
             }
 
         }

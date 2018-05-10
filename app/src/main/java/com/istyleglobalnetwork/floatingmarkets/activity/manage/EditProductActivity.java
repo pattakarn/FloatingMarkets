@@ -82,6 +82,7 @@ public class EditProductActivity extends AppCompatActivity {
             itemProduct = Parcels.unwrap(bundle.getParcelable("itemProduct"));
             if (itemProduct != null) {
 //                setData();
+                tvTitle.setText(itemProduct.getData().getNameProduct());
             } else {
                 DatabaseReference mProductRef = mRootRef.child("product");
                 String newKeyProduct = mProductRef.push().getKey();
@@ -89,6 +90,7 @@ public class EditProductActivity extends AppCompatActivity {
 
                 FdbProduct newProduct = new FdbProduct();
                 itemProduct = new WrapFdbProduct(newKeyProduct, newProduct);
+
             }
 
         }

@@ -146,7 +146,7 @@ public class RV_Adapter_Product_Cart extends RecyclerView.Adapter<RecyclerView.V
                                 public void onSuccess(Uri uri) {
                                     Glide.with(inflater.getContext())
                                             .load(uri.toString())
-                                            .placeholder(R.mipmap.ic_floating_market)
+//                                            .placeholder(R.mipmap.ic_floating_market)
                                             .into(vh1.getIvProduct());
                                 }
                             });

@@ -105,7 +105,7 @@ public class RV_Adapter_Hotel extends RecyclerView.Adapter<RecyclerView.ViewHold
                             public void onSuccess(Uri uri) {
                                 Glide.with(inflater.getContext())
                                         .load(uri.toString())
-                                        .placeholder(R.mipmap.ic_floating_market)
+//                                        .placeholder(R.mipmap.ic_floating_market)
                                         .into(iv);
                             }
                         });

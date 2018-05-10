@@ -110,6 +110,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static SignInButton googleSignIn;
     private LoginButton facebookSignIn;
 
+//    private GoogleButton googleBtn;
+//    private FacebookButton facebookBtn;
+
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
 
@@ -199,6 +202,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 signIn();
             }
         });
+//        googleBtn.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signIn();
+//            }
+//        });
 
 //        GoogleSignInButton btnGoogle = (GoogleSignInButton) findViewById(R.id.btn_google);
 //        btnGoogle.setOnClickListener(new View.OnClickListener() {
@@ -215,6 +224,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         facebookSignIn = (LoginButton) findViewById(R.id.login_button);
         facebookSignIn.setReadPermissions(Arrays.asList(EMAIL));
+
 //        facebookSignIn.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
 //            @Override
 //            public void onSuccess(LoginResult loginResult) {
@@ -234,7 +244,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                // ...
 //            }
 //        });
-
+//        facebookBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                LoginManager.getInstance().registerCallback(mCallbackManager,
+//                        new FacebookCallback<LoginResult>() {
+//                            @Override
+//                            public void onSuccess(LoginResult loginResult) {
+//                                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+//                                handleFacebookAccessToken(loginResult.getAccessToken());
+//                                checkEmail = true;
+//                            }
+//
+//                            @Override
+//                            public void onCancel() {
+//                                Log.d(TAG, "facebook:onCancel");
+//                            }
+//
+//                            @Override
+//                            public void onError(FacebookException exception) {
+//                                Log.d(TAG, "facebook:onError" + exception);
+//                            }
+//                        });
+//            }
+//        });
         facebookSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -360,6 +393,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+//        googleBtn = (GoogleButton) findViewById(R.id.google_btn);
+//        facebookBtn = (FacebookButton) findViewById(R.id.facebook_btn);
 
     }
 

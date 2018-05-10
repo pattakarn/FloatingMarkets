@@ -68,6 +68,7 @@ public class EditZoneActivity extends AppCompatActivity {
             itemZone = Parcels.unwrap(bundle.getParcelable("itemZone"));
             if (itemZone != null) {
 //                tvZone.setText(itemZone.getData().getNameZone());
+                tvTitle.setText(itemZone.getData().getNameZone());
             } else {
                 DatabaseReference mZoneRef = mRootRef.child("zone");
                 String newKeyZone = mZoneRef.push().getKey();
@@ -75,6 +76,7 @@ public class EditZoneActivity extends AppCompatActivity {
 
                 FdbZone newZone = new FdbZone();
                 itemZone = new WrapFdbZone(newKeyZone, newZone);
+
             }
 
         }

@@ -78,7 +78,7 @@ public class RV_Adapter_Grid_Image_Fdb extends RecyclerView.Adapter<RecyclerView
             public void onSuccess(Uri uri) {
                             Glide.with(inflater.getContext())
                                     .load(uri.toString())
-                                    .placeholder(R.mipmap.ic_floating_market)
+//                                    .placeholder(R.mipmap.ic_floating_market)
                                     .into(vh1.getIv());
             }
         });

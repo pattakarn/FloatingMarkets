@@ -382,7 +382,11 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
                 String keyPhoto = dataSnapshot.getKey();
                 FdbStock value = dataSnapshot.getValue(FdbStock.class);
 
-                vh2.getTvDetail().setText("stock : " + value.getQuantity());
+                if (value != null) {
+                    vh2.getTvDetail().setText("stock : " + value.getQuantity());
+                } else {
+                    vh2.getTvDetail().setText("stock : 0");
+                }
 
             }
 
@@ -416,7 +420,7 @@ public class RV_Adapter_Shop_Item extends RecyclerView.Adapter<RecyclerView.View
                             public void onSuccess(Uri uri) {
                                 Glide.with(inflater.getContext())
                                         .load(uri.toString())
-                                        .placeholder(R.mipmap.ic_floating_market)
+//                                        .placeholder(R.mipmap.ic_floating_market)
                                         .into(iv);
                             }
                         });

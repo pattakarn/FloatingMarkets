@@ -51,7 +51,7 @@ public class RV_Adapter_Grid_Image extends RecyclerView.Adapter<RecyclerView.Vie
 //        vh1.getIv().setImageURI(uri);
         Glide.with(inflater.getContext())
                 .load(uri.toString())
-                .placeholder(R.mipmap.ic_floating_market)
+//                .placeholder(R.mipmap.ic_floating_market)
                 .into(vh1.getIv());
 //        vh1.getCv().setOnClickListener(new View.OnClickListener() {
 //            @Override
