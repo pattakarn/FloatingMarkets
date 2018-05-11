@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -93,7 +94,7 @@ public class ManageRoomActivity extends AppCompatActivity {
                     Intent intent = new Intent(ManageRoomActivity.this, EditRoomActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("itemMarket", Parcels.wrap(dataMarket.get(spinMarket.getSelectedItemPosition())));
-                    bundle.putParcelable("itemTravel", Parcels.wrap(dataHotel.get(spinHotel.getSelectedItemPosition())));
+                    bundle.putParcelable("itemHotel", Parcels.wrap(dataHotel.get(spinHotel.getSelectedItemPosition())));
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -165,6 +166,7 @@ public class ManageRoomActivity extends AppCompatActivity {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             String key = postSnapshot.getKey();
                             FdbHotel value = postSnapshot.getValue(FdbHotel.class);
+                            Log.d("Market Hotel", "========================= " + value.getNameHotel());
                             listHotel.add(value.getNameHotel());
                             dataHotel.add(new WrapFdbHotel(key, value));
                         }
@@ -205,6 +207,7 @@ public class ManageRoomActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
+
                 });
 
 

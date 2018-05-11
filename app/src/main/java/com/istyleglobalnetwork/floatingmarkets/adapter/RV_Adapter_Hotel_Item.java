@@ -32,6 +32,7 @@ import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbFeeling;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbHotel;
 import com.istyleglobalnetwork.floatingmarkets.FireDB.WrapFdbImage;
 import com.istyleglobalnetwork.floatingmarkets.LoginActivity;
+import com.istyleglobalnetwork.floatingmarkets.MapsActivity;
 import com.istyleglobalnetwork.floatingmarkets.R;
 import com.istyleglobalnetwork.floatingmarkets.activity.hotel.RoomItemActivity;
 import com.istyleglobalnetwork.floatingmarkets.data.DataRating;
@@ -39,6 +40,7 @@ import com.istyleglobalnetwork.floatingmarkets.data.DataRoomItem;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderAward;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderContact;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderImageHotel2;
+import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderLocation;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderProduct;
 import com.istyleglobalnetwork.floatingmarkets.viewholder.ViewHolderRating;
 
@@ -84,14 +86,18 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
                 viewHolder = new ViewHolderImageHotel2(v1);
                 break;
             case 1:
-                View v2 = inflater.inflate(R.layout.card_award, parent, false);
-                viewHolder = new ViewHolderAward(v2);
+                View v2 = inflater.inflate(R.layout.card_location, parent, false);
+                viewHolder = new ViewHolderLocation(v2);
                 break;
             case 2:
+                View v3 = inflater.inflate(R.layout.card_award, parent, false);
+                viewHolder = new ViewHolderAward(v3);
+                break;
+            case 3:
                 View v4 = inflater.inflate(R.layout.card_contact, parent, false);
                 viewHolder = new ViewHolderContact(v4);
                 break;
-            case 3:
+            case 4:
                 View v5 = inflater.inflate(R.layout.card_rating, parent, false);
                 viewHolder = new ViewHolderRating(v5);
                 break;
@@ -113,14 +119,18 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
                 configureViewHolderImageHotel(vh1, position);
                 break;
             case 1:
-                ViewHolderAward vh2 = (ViewHolderAward) holder;
-                configureViewHolderAward(vh2, position);
+                ViewHolderLocation vh2 = (ViewHolderLocation) holder;
+                configureViewHolderLocation(vh2);
                 break;
             case 2:
+                ViewHolderAward vh3 = (ViewHolderAward) holder;
+                configureViewHolderAward(vh3, position);
+                break;
+            case 3:
                 ViewHolderContact vh4 = (ViewHolderContact) holder;
                 configureViewHolderContact(vh4, position);
                 break;
-            case 3:
+            case 4:
                 ViewHolderRating vh5 = (ViewHolderRating) holder;
                 configureViewHolderRating(vh5, position);
                 break;
@@ -239,6 +249,20 @@ public class RV_Adapter_Hotel_Item extends RecyclerView.Adapter<RecyclerView.Vie
 
             }
         });
+    }
+
+    private void configureViewHolderLocation(ViewHolderLocation vh2) {
+//        vh2.getImage().setImageResource(R.drawable.talad3);
+//        vh2.getImage().setImageResource(R.drawable.talad3);
+        vh2.getTvLocation().setText("58/1 ถนนเพชรเกษม ซอยเพชรเกษม 41 แขวงบางแค เขตบางแค กรุงเทพมหานคร 10160");
+        vh2.getIbMap().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(inflater.getContext(), MapsActivity.class);
+                inflater.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     private void configureViewHolderAward(ViewHolderAward vh2, int position) {

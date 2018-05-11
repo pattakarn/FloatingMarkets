@@ -3,8 +3,8 @@ package com.istyleglobalnetwork.floatingmarkets.activity.manage;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ReturnMode;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -54,9 +57,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import in.myinnos.awesomeimagepicker.activities.AlbumSelectActivity;
-import in.myinnos.awesomeimagepicker.helpers.ConstantsCustomGallery;
-import in.myinnos.awesomeimagepicker.models.Image;
 
 public class ManagePhotoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -397,24 +397,29 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void callAlbum() {
-        Intent intent = new Intent(getApplicationContext(), AlbumSelectActivity.class);
-        intent.putExtra(ConstantsCustomGallery.INTENT_EXTRA_LIMIT, 1); // set limit for image selection
-        startActivityForResult(intent, ConstantsCustomGallery.REQUEST_CODE);
+        ImagePicker.create(this)
+                .returnMode(ReturnMode.ALL) // set whether pick and / or camera action should return immediate result or not.
+                .folderMode(true) // folder mode (false by default)
+                .toolbarFolderTitle("Folder") // folder selection title
+                .toolbarImageTitle("Tap to select") // image selection title
+                .toolbarArrowColor(Color.BLACK) // Toolbar 'up' arrow color
+                .single() // single mode
+                .start(); // start image picker activity with request code
+//        Intent intent = new Intent(getApplicationContext(), AlbumSelectActivity.class);
+//        intent.putExtra(ConstantsCustomGallery.INTENT_EXTRA_LIMIT, 1); // set limit for image selection
+//        startActivityForResult(intent, ConstantsCustomGallery.REQUEST_CODE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ConstantsCustomGallery.REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             isImageUpdate = true;
-            //The array list has the image paths of the selected images
-            ArrayList<Image> images = data.getParcelableArrayListExtra(ConstantsCustomGallery.INTENT_EXTRA_IMAGES);
-//            ArrayList<Object> dataUri = new ArrayList<Object>();
-//            listPathImage = new ArrayList<String>();
 
-            Uri uri = Uri.fromFile(new File(images.get(0).path));
-            listPathImage[indexImage - 1] = images.get(0).path;
+            Image image = ImagePicker.getFirstImageOrNull(data);
+            Uri uri = Uri.fromFile(new File(image.getPath()));
+            listPathImage[indexImage - 1] = image.getPath();
 //            dataUri.add(uri);
             switch (indexImage) {
                 case 1:
@@ -434,22 +439,51 @@ public class ManagePhotoActivity extends AppCompatActivity implements View.OnCli
                     break;
 
             }
-//                ivSelect.setImageURI(uri);
-            // start play with image uri
-
-//            listPathImage.add(images.get(i).path);
-
-//                uploadFromStream(images.get(i).path);
-
-//            LinearLayoutManager llm = new LinearLayoutManager(this);
-//            llm.setOrientation(LinearLayoutManager.HORIZONTAL);
-//            ivg.getTvImage().setText("Photo (" + dataUri.size() + ")");
-//            GridLayoutManager glm = new GridLayoutManager(this, 3);
-//            glm.setOrientation(LinearLayoutManager.VERTICAL);
-//            ivg.getRv().setLayoutManager(glm);
-//            RV_Adapter_Grid_Image adapterList = new RV_Adapter_Grid_Image(dataUri);
-//            ivg.getRv().setAdapter(adapterList);
         }
+//        if (requestCode == ConstantsCustomGallery.REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+//            isImageUpdate = true;
+//            //The array list has the image paths of the selected images
+//            ArrayList<Image> images = data.getParcelableArrayListExtra(ConstantsCustomGallery.INTENT_EXTRA_IMAGES);
+////            ArrayList<Object> dataUri = new ArrayList<Object>();
+////            listPathImage = new ArrayList<String>();
+//
+//            Uri uri = Uri.fromFile(new File(images.get(0).path));
+//            listPathImage[indexImage - 1] = images.get(0).path;
+////            dataUri.add(uri);
+//            switch (indexImage) {
+//                case 1:
+//                    iv1.setImageURI(uri);
+//                    break;
+//                case 2:
+//                    iv2.setImageURI(uri);
+//                    break;
+//                case 3:
+//                    iv3.setImageURI(uri);
+//                    break;
+//                case 4:
+//                    iv4.setImageURI(uri);
+//                    break;
+//                case 5:
+//                    iv5.setImageURI(uri);
+//                    break;
+//
+//            }
+////                ivSelect.setImageURI(uri);
+//            // start play with image uri
+//
+////            listPathImage.add(images.get(i).path);
+//
+////                uploadFromStream(images.get(i).path);
+//
+////            LinearLayoutManager llm = new LinearLayoutManager(this);
+////            llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+////            ivg.getTvImage().setText("Photo (" + dataUri.size() + ")");
+////            GridLayoutManager glm = new GridLayoutManager(this, 3);
+////            glm.setOrientation(LinearLayoutManager.VERTICAL);
+////            ivg.getRv().setLayoutManager(glm);
+////            RV_Adapter_Grid_Image adapterList = new RV_Adapter_Grid_Image(dataUri);
+////            ivg.getRv().setAdapter(adapterList);
+//        }
     }
 
     private void uploadFromStream(String path, String name) {

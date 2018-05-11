@@ -68,8 +68,7 @@ public class DialogManageRoom {
     }
 
     public void Popup_ChangeType(final WrapFdbRoom dataRoom, final WrapFdbHotel dataHotel) {
-        final String[] type = new String[]{"SAUCE", "APPETISERS", "SOUP OR CURRY", "NORTHEST FOOD", "DISHED",
-                "MAIN COURSES", "NOODLES", "DESSERT", "JAPANESE FOOD", "ITLIAN FOOD", "SALAD", "PASTAS", "STEAK"};
+        final String[] type = new String[]{"Type A", "Type B"};
         int checkItem = 0;
         if (dataRoom.getData() != null) {
             for (int i = 0; i < type.length; i++) {
@@ -194,7 +193,7 @@ public class DialogManageRoom {
         sizeRoom.setHint("Square Meter");
 
         if (dataRoom.getData() != null) {
-            sizeRoom.setText(dataRoom.getData().getPrice() + "");
+            sizeRoom.setText(dataRoom.getData().getSize() + "");
         }
         sizeRoom.setNumberType(true);
 
@@ -225,7 +224,7 @@ public class DialogManageRoom {
         guest.setHint("Max guests");
 
         if (dataRoom.getData() != null) {
-            guest.setText(dataRoom.getData().getPrice() + "");
+            guest.setText(dataRoom.getData().getGuest() + "");
         }
         guest.setNumberType(true);
 
